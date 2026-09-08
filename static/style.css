@@ -17,7 +17,10 @@
 }
 @layer components {
   a {
-    @apply content-center flex gap-2 p-[1rem_2rem] hover:scale-105 active:scale-100 transition-all duration-300;
+    @apply content-center flex gap-2 p-[1rem_2rem] hover:scale-105 hover:bg-linear-to-r hover:from-white hover:to-surface active:scale-100 transition-all duration-300;
+  }
+  a.selected {
+    @apply bg-linear-to-r from-accent to-surface;
   }
 }
 
