@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Amarante:wght@400;700&family=Nunito:wght@400;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -5,4 +6,12 @@
     --color-accent: #3cc47c;
     --color-surface: #caf4dd;
     --color-muted: #51907b;
+    --font-heading: "Amarante", serif;
+    --font-sans: "Nunito", serif;
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold;
+  }
 }
