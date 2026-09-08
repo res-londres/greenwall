@@ -17,4 +17,27 @@
   a {
     @apply content-center flex gap-2 p-[1rem_2rem] hover:scale-105 active:scale-100 transition-all duration-300;
   }
+  .scrollbar-custom {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+    border-radius: 20px;
+    opacity: 0.3;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted);
+    opacity: 0.5;
+  }
 }
