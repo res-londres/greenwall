@@ -31,6 +31,13 @@ function handlePostCreatorEvents() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     });
+
+    // POST CREATOR MODAL : keydown events //
+    document.getElementById('textarea-subject').addEventListener('keydown', function(event) {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        document.getElementById('textarea-content').focus();
+    });
 });
 }
 
