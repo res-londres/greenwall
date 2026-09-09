@@ -1,53 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/output.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='dist/output.css') }}"
+    />
     <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
     <title>Greenwall</title>
-</head>
-<body>
-    <main class="bg-surface grid grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] h-dvh overflow-hidden">
-        <section class="bg-accent border-b-2 border-b-primary border-solid col-span-full h-12 sticky top-0">
-            <h1 class="font-heading ml-6 text-white">greenwall</h1>
-        </section>
-        <section class="h-[calc(100dvh - 3rem)] overflow-x-hidden overflow-y-auto sticky top-12">
-            <nav class="flex flex-col mt-8 select-none">
-                <a href="#" data-pagename="user-profile" data-action="navigate">
-                    <i class="text-3xl hgi hgi-stroke hgi-rounded hgi-user-circle"></i>
-                    <span>Profile</span>
-                </a> 
-                <a class="selected" href="#" data-pagename="home-wall" data-action="navigate">
-                    <i class="text-3xl hgi hgi-stroke hgi-rounded hgi-home-01"></i>
-                    <span>Home Wall</span>
-                </a>
-                <a href="#" data-pagename="search" data-action="navigate">
-                    <i class="text-3xl hgi hgi-stroke hgi-rounded hgi-search-02"></i>
-                    <span>Search</span>
-                </a>
-            </nav>
-        </section>
-        <section class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto">
-            <div class="page hidden" data-pagename="user-profile">
-                user profile
-            </div>
-            <div class="page" data-pagename="home-wall">
-                <!-- post creator -->
-                <div class="align-center bg-white border-2 border-primary border-solid flex flex-row gap-2 rounded-2xl py-4 px-[1.25rem_2rem]" data-creatorid="home-wall">
-                    <i class="mt-2 text-3xl hgi hgi-stroke hgi-rounded hgi-quill-write-01"></i>
-                    <span class="bg-muted p-[0.75rem_1rem] rounded-4xl select-none w-full hover:bg-muted-hovered transition-all duration-300">Create post</span>
-                </div>
-            </div>
-            <div class="page hidden" data-pagename="search">
-                search
-            </div>
-        </section>
-        <section>
-            <!-- just to balance things out. no purpose of its own yet -->
-        </section>
+  </head>
+  <body>
+    <main
+      class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface"
+    >
+      <section
+        class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-primary bg-accent"
+      >
+        <h1 class="ml-6 font-heading text-white">greenwall</h1>
+      </section>
+      <section
+        class="h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto"
+      >
+        <nav class="mt-8 flex flex-col select-none">
+          <a href="#" data-pagename="user-profile" data-action="navigate">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-circle text-3xl"></i>
+            <span>Profile</span>
+          </a>
+          <a
+            class="selected"
+            href="#"
+            data-pagename="home-wall"
+            data-action="navigate"
+          >
+            <i class="hgi hgi-stroke hgi-rounded hgi-home-01 text-3xl"></i>
+            <span>Home Wall</span>
+          </a>
+          <a href="#" data-pagename="search" data-action="navigate">
+            <i class="hgi hgi-stroke hgi-rounded hgi-search-02 text-3xl"></i>
+            <span>Search</span>
+          </a>
+        </nav>
+      </section>
+      <section
+        class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto"
+      >
+        <div class="page hidden" data-pagename="user-profile">user profile</div>
+        <div class="page" data-pagename="home-wall">
+          <!-- post creator -->
+          <div
+            class="align-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
+            data-creatorid="home-wall"
+          >
+            <i
+              class="hgi hgi-stroke hgi-rounded hgi-quill-write-01 mt-2 text-3xl"
+            ></i>
+            <span
+              class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
+              >Create post</span
+            >
+          </div>
+        </div>
+        <div class="page hidden" data-pagename="search">search</div>
+      </section>
+      <section>
+        <!-- just to balance things out. no purpose of its own yet -->
+      </section>
     </main>
-    
+
     <script type="module" src="static/script.js"></script>
-</body>
+  </body>
 </html>

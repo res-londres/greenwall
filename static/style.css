@@ -2,13 +2,13 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #1e392a;
-    --color-accent: #3cc47c;
-    --color-surface: #caf4dd;
-    --color-muted: #e5e5e5;
-    --color-muted-hovered: #cccccc;
-    --font-heading: "Amarante", serif;
-    --font-sans: "Nunito", serif;
+  --color-primary: #1e392a;
+  --color-accent: #3cc47c;
+  --color-surface: #caf4dd;
+  --color-muted: #e5e5e5;
+  --color-muted-hovered: #cccccc;
+  --font-heading: "Amarante", serif;
+  --font-sans: "Nunito", serif;
 }
 
 @layer base {
@@ -18,7 +18,7 @@
 }
 @layer components {
   a {
-    @apply content-center flex gap-2 p-[1rem_2rem] hover:scale-105 hover:bg-linear-to-r hover:from-white hover:to-surface active:scale-100 transition-all duration-300;
+    @apply flex content-center gap-2 p-[1rem_2rem] transition-all duration-300 hover:scale-105 hover:bg-linear-to-r hover:from-white hover:to-surface active:scale-100;
   }
   a.selected {
     @apply bg-linear-to-r from-accent to-surface;

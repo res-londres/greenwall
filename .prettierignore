@@ -1,0 +1,11 @@
+node_modules/
+static/dist/
+*.log
+.env
+*.pyc
+__pycache__/
+*.min.css
+*.min.js
+
+**/*.js
+static/script.js

@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "npx @tailwindcss/cli -i ./static/style.css -o ./static/dist/output.css --minify",
-    "watch": "npx @tailwindcss/cli -i ./static/style.css -o ./static/dist/output.css --watch"
+    "watch": "npx @tailwindcss/cli -i ./static/style.css -o ./static/dist/output.css --watch",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,8 @@
   "homepage": "https://github.com/res-londres/greenwall#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3"
   }
 }
