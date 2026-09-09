@@ -27,14 +27,15 @@ function handlePostCreatorEvents() {
 
     // POST CREATOR MODAL : input events //
     document.querySelectorAll('.textarea').forEach(function(textarea) {
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
 
-        if (this.id === 'textarea-subject') {
-            const postButton = document.getElementById('post-button');
-            postButton.disabled = this.value.length < 1;
-        }
+            if (this.id === 'textarea-subject') {
+                const postButton = document.getElementById('post-button');
+                postButton.disabled = this.value.length < 1;
+            }
+        });
     });
 
     // POST CREATOR MODAL : keydown events //
@@ -44,8 +45,8 @@ function handlePostCreatorEvents() {
         event.preventDefault();
         document.getElementById('textarea-content').focus();
     });
-});
 }
+
 
 function openPostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'flex';
