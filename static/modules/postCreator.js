@@ -26,14 +26,20 @@ function handlePostCreatorEvents() {
     });
 
     // POST CREATOR MODAL : input events //
-    document.querySelectorAll('.textarea').forEach(function(textArea) {
-    textArea.addEventListener('input', function() {
+    document.querySelectorAll('.textarea').forEach(function(textarea) {
+    textarea.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
+
+        if (this.id === 'textarea-subject') {
+            const postButton = document.getElementById('post-button');
+            postButton.disabled = this.value.length < 1;
+        }
     });
 
     // POST CREATOR MODAL : keydown events //
-    document.getElementById('textarea-subject').addEventListener('keydown', function(event) {
+    const textareaSubject = document.getElementById('textarea-subject');
+    textareaSubject.addEventListener('keydown', function(event) {
         if (event.key !== 'Enter') return;
         event.preventDefault();
         document.getElementById('textarea-content').focus();
