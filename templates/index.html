@@ -28,12 +28,16 @@
                 </a>
             </nav>
         </section>
-        <section class="scrollbar-custom h-[calc(100dvh - 3rem)] overflow-y-auto">
+        <section class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto">
             <div class="page hidden" data-pagename="user-profile">
                 user profile
             </div>
             <div class="page" data-pagename="home-wall">
-                home wall
+                <!-- post creator -->
+                <div class="align-center bg-white border-2 border-primary border-solid flex flex-row gap-2 rounded-2xl py-4 px-[1.25rem_2rem]" data-creatorid="home-wall">
+                    <i class="mt-2 text-3xl hgi hgi-stroke hgi-rounded hgi-quill-write-01"></i>
+                    <span class="bg-muted p-[0.75rem_1rem] rounded-4xl select-none w-full hover:bg-muted-hovered transition-all duration-300">Create post</span>
+                </div>
             </div>
             <div class="page hidden" data-pagename="search">
                 search

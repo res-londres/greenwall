@@ -5,7 +5,8 @@
     --color-primary: #1e392a;
     --color-accent: #3cc47c;
     --color-surface: #caf4dd;
-    --color-muted: #51907b;
+    --color-muted: #e5e5e5;
+    --color-muted-hovered: #cccccc;
     --font-heading: "Amarante", serif;
     --font-sans: "Nunito", serif;
 }
