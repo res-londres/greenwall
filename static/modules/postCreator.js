@@ -27,6 +27,7 @@ function handlePostCreatorEvents() {
                 closePostCreatorModal(postCreatorModal);
             } else if (action === 'post') {
                 createPost(textareaSubject, textareaContent);
+                closePostCreatorModal(postCreatorModal);
             }
         }
     });
