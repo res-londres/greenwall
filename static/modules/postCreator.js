@@ -4,6 +4,7 @@ function handlePostCreatorEvents() {
     const postCreatorModal = document.getElementById('post-creator-modal');
     const textareaSubject = document.getElementById('textarea-subject');
     const textareaContent = document.getElementById('textarea-content');
+    const postButton = document.getElementById('post-button');
 
     // POST CREATOR //
     document.querySelectorAll('.post-creator').forEach(function(postCreator) {
@@ -12,7 +13,7 @@ function handlePostCreatorEvents() {
             if (actionElement) {
                 const action = actionElement.dataset.action;
                 if (action === 'openPostCreatorModal') {
-                    openPostCreatorModal(postCreatorModal);
+                    openPostCreatorModal(postCreatorModal, postButton);
                 }
             }
         });
@@ -39,7 +40,6 @@ function handlePostCreatorEvents() {
             this.style.height = this.scrollHeight + 'px';
 
             if (this.id === 'textarea-subject') {
-                const postButton = document.getElementById('post-button');
                 postButton.disabled = this.value.length < 1;
             }
         });
@@ -59,8 +59,9 @@ function handlePostCreatorEvents() {
     });
 }
 
-function openPostCreatorModal(postCreatorModal) {
+function openPostCreatorModal(postCreatorModal, postButton) {
     postCreatorModal.style.display = 'flex';
+    postButton.disabled = true;
 }
 
 function closePostCreatorModal(postCreatorModal) {
