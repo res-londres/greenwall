@@ -40,10 +40,17 @@ function handlePostCreatorEvents() {
 
     // POST CREATOR MODAL : keydown events //
     const textareaSubject = document.getElementById('textarea-subject');
+    const textareaContent = document.getElementById('textarea-content');
     textareaSubject.addEventListener('keydown', function(event) {
         if (event.key !== 'Enter') return;
         event.preventDefault();
-        document.getElementById('textarea-content').focus();
+        textareaContent.focus();
+    });
+    textareaContent.addEventListener('keydown', function(event) {
+        if (event.key !== 'Backspace') return;
+        if (textareaContent.value.length > 0) return;
+        event.preventDefault();
+        textareaSubject.focus();
     });
 }
 
