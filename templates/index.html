@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
     <title>Greenwall</title>
   </head>
-  <body>
+  <body class="text-primary">
     <main
       class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface"
     >
@@ -77,17 +77,46 @@
     <!-- post creator modal -->
     <div
       id="post-creator-modal"
-      class="fixed top-0 left-0 z-10 hidden h-full w-full items-center justify-center p-6"
+      class="fixed top-0 left-0 z-10 flex h-full w-full items-center justify-center p-6"
     >
       <div
         class="fixed top-0 left-0 h-full w-full backdrop-blur-xs"
         data-action="closePostCreatorModal"
       ></div>
       <div
-        class="relative z-10 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem]"
+        class="relative z-10 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem]"
       >
-        <div id="post-creator-detail">
-          <!-- post creator detail here -->
+        <div>
+          <div class="border-b-2 border-muted">
+            <p class="text-[150%] font-bold">Create post</p>
+          </div>
+          <div class="mt-4 flex flex-col gap-2">
+            <div class="flex gap-2">
+              <i class="hgi hgi-stroke hgi-rounded hgi-user-02 text-2xl"></i>
+              <span class="font-bold">account-name</span>
+            </div>
+            <div>
+              <textarea
+                class="textarea min-h-5 w-full resize-none overflow-hidden text-[150%] font-bold outline-0"
+                placeholder="Enter subject"
+                rows="1"
+                maxlength="150"
+              ></textarea>
+              <textarea
+                class="textarea w-full resize-none overflow-hidden outline-0"
+                placeholder="Enter content"
+                rows="3"
+                maxlength="2000"
+              ></textarea>
+            </div>
+            <div class="sticky bottom-0 border-t-2 border-muted bg-white pb-4">
+              <button
+                class="mt-4 w-full rounded-4xl bg-accent p-1 font-bold transition-all duration-300 hover:bg-accent-hovered hover:text-muted active:scale-95"
+              >
+                Post
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

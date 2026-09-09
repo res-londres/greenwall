@@ -14,7 +14,7 @@ function handlePostCreatorEvents() {
         });
     });
 
-    // POST CREATOR MODAL //
+    // POST CREATOR MODAL : click events //
     postCreatorModal.addEventListener('click', function(event) {
         const actionElement = event.target.closest('[data-action]');
         if (actionElement) {
@@ -24,6 +24,14 @@ function handlePostCreatorEvents() {
             }
         }
     });
+
+    // POST CREATOR MODAL : input events //
+    document.querySelectorAll('.textarea').forEach(function(textArea) {
+    textArea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+});
 }
 
 function openPostCreatorModal(postCreatorModal) {
