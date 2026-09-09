@@ -2,7 +2,7 @@ document.addEventListener('click', function(event) {
     const actionElement = event.target.closest('[data-action');
     if (actionElement) {
         const action = actionElement.dataset.action;
-        if (action === "navigate") {
+        if (action === 'navigate') {
             const pageName = actionElement.dataset.pagename;
             showPage(pageName);
         }

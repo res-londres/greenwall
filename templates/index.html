@@ -14,11 +14,13 @@
     <main
       class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface"
     >
+      <!-- HEADER -->
       <section
         class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-primary bg-accent"
       >
         <h1 class="ml-6 font-heading text-white">greenwall</h1>
       </section>
+      <!-- LEFT SIDE BAR / NAVIGATION -->
       <section
         class="h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto"
       >
@@ -42,6 +44,7 @@
           </a>
         </nav>
       </section>
+      <!-- CONTENT AREA -->
       <section
         class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto"
       >
@@ -57,12 +60,15 @@
             ></i>
             <span
               class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
+              data-action="openPostCreatorModal"
+              data-creatorid="home-wall"
               >Create post</span
             >
           </div>
         </div>
         <div class="page hidden" data-pagename="search">search</div>
       </section>
+      <!-- RIGHT SIDE BAR -->
       <section>
         <!-- just to balance things out. no purpose of its own yet -->
       </section>
@@ -71,9 +77,12 @@
     <!-- post creator modal -->
     <div
       id="post-creator-modal"
-      class="fixed top-0 left-0 z-10 flex h-full w-full items-center justify-center p-6"
+      class="fixed top-0 left-0 z-10 hidden h-full w-full items-center justify-center p-6"
     >
-      <div class="fixed top-0 left-0 h-full w-full backdrop-blur-xs"></div>
+      <div
+        class="fixed top-0 left-0 h-full w-full backdrop-blur-xs"
+        data-action="closePostCreatorModal"
+      ></div>
       <div
         class="relative z-10 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem]"
       >
