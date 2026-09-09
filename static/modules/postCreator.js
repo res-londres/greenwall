@@ -1,5 +1,9 @@
+import { socket } from './socket.js';
+
 function handlePostCreatorEvents() {
     const postCreatorModal = document.getElementById('post-creator-modal');
+    const textareaSubject = document.getElementById('textarea-subject');
+    const textareaContent = document.getElementById('textarea-content');
 
     // POST CREATOR //
     document.querySelectorAll('.post-creator').forEach(function(postCreator) {
@@ -21,6 +25,8 @@ function handlePostCreatorEvents() {
             const action = actionElement.dataset.action;
             if (action === 'closePostCreatorModal') {
                 closePostCreatorModal(postCreatorModal);
+            } else if (action === 'post') {
+                createPost(textareaSubject, textareaContent);
             }
         }
     });
@@ -39,8 +45,6 @@ function handlePostCreatorEvents() {
     });
 
     // POST CREATOR MODAL : keydown events //
-    const textareaSubject = document.getElementById('textarea-subject');
-    const textareaContent = document.getElementById('textarea-content');
     textareaSubject.addEventListener('keydown', function(event) {
         if (event.key !== 'Enter') return;
         event.preventDefault();
@@ -54,13 +58,24 @@ function handlePostCreatorEvents() {
     });
 }
 
-
 function openPostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'flex';
 }
 
 function closePostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'none';
+}
+
+function createPost(textareaSubject, textareaContent) {
+    const subject = textareaSubject.value;
+    const content = textareaContent.value;
+    textareaSubject.value = '';
+    textareaContent.value = '';
+    // TODO: include user id and display name  when available
+    socket.emit('create_post', {
+        subject: subject,
+        content: content
+    });
 }
 
 // INIT //
