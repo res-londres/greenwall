@@ -1,14 +1,25 @@
 import * as bus from './eventBus.js';
-import { createPostHTML } from './HTMLCreator.js';
+import * as HTMLCreator from './HTMLCreator.js';
 import { getCurrentWall } from './wallManager.js';
+import { getGlobalPosts } from './postManager.js';
 
 // INIT //
 export function init() {
-    bus.on('postManager:postAdded', renderPost);
+    renderGlobalPosts();
+    bus.on('postManager:postAdded', renderGlobalPosts);
 }
 
-function renderPost(post) {
-    const postHTML = createPostHTML(post);
+function renderGlobalPosts() {
     const currentWall = getCurrentWall();
-    currentWall.innerHTML += postHTML;
+    const globalPosts = getGlobalPosts();
+    if (globalPosts.length === 0) {
+        currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
+        return;
+    }
+    currentWall.innerHTML = '';
+    let html = '';
+    globalPosts.forEach(function(post) {
+        html += HTMLCreator.createPostHTML(post);
+    });
+    currentWall.innerHTML += html;
 }
