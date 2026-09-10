@@ -48,12 +48,15 @@
       <section
         class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto"
       >
-        <div class="page hidden" data-pagename="user-profile">user profile</div>
-        <div class="page" data-pagename="home-wall">
+        <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
+          <div id="profile-wall">
+            <!-- posts provided by js -->
+          </div>
+        </div>
+        <div class="page" data-pagename="home-wall" data-wallid="home-wall">
           <!-- post creator -->
           <div
             class="post-creator align-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
-            data-creatorid="home-wall"
           >
             <i
               class="hgi hgi-stroke hgi-rounded hgi-quill-write-01 mt-2 text-3xl"
@@ -61,9 +64,12 @@
             <span
               class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
               data-action="openPostCreatorModal"
-              data-creatorid="home-wall"
               >Create post</span
             >
+          </div>
+          <!-- wall -->
+          <div id="home-wall">
+            <!-- posts provided by js -->
           </div>
         </div>
         <div class="page hidden" data-pagename="search">search</div>

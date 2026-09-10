@@ -1,4 +1,5 @@
 import { changePage } from './pageManager.js';
+import { changeWall } from './wallManager.js';
 
 function handlePageNavigatorEvents() {
     document.getElementById('page-navigator').addEventListener('click', function(event) {
@@ -8,6 +9,7 @@ function handlePageNavigatorEvents() {
             if (action === 'navigate') {
                 const pageName = actionElement.dataset.pagename;
                 changePage(pageName);
+                changeWall(pageName);
             }
         }
     });
