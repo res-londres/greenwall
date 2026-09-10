@@ -92,6 +92,8 @@ function createPost(subject, content) {
 function clearTextareas(textareaSubject, textareaContent) {
     textareaSubject.value = '';
     textareaContent.value = '';
+    textareaSubject.style.height = 'auto';
+    textareaContent.style.height = 'auto';
 }
 
 function setPostButtonState(subjectLength, postButton) {
