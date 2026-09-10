@@ -2,7 +2,7 @@ export function createEmptyWallHTML() {
     return `
         <div class="text-[0.95rem] py-8 text-center">
             <div class>
-                <i class="hgi hgi-stroke hgi-rounded hgi-leaf-01"></i>
+                <span class="text-2xl icon-[meteor-icons--leaf]"></span>
             </div>
             <p>No posts yet..</p>
         </div>
@@ -17,9 +17,12 @@ export function createPostHTML(post) {
     const postLikeCount = '0';   // TEMP
     const commentCount = '0';
 
+    // liked icon; for later
+    // <span class="icon-[ant-design--heart-filled]"></span>
+
     return `
         <div
-            class="bg-white text-primary border-2 border-solid border-primary rounded-2xl my-2 p-[1rem_1.5rem]"
+            class="bg-white text-primary border-2 border-solid border-primary rounded-2xl my-2 px-6 py-[1rem_0.5rem]"
         >
             <div class="items-center flex justify-between mb-2">
                 <span class="text-[0.95rem] font-bold">${postAttribution}</span>
@@ -30,13 +33,13 @@ export function createPostHTML(post) {
             <div class="items-center border-t border-solid border-muted flex gap-6 pt-2">
                 <button class="post-action" data-action="likePost">
                     <span class="">
-                        <i class="mt-1 hgi hgi-stroke hgi-rounded hgi-heart"></i>
+                        <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
                     </span>
                     <span class="">${postLikeCount}</span>
                 </button>
                 <button class="post-action" data-action="openPostModal">
                     <span class="">
-                        <i class="mt-1 hgi hgi-stroke hgi-rounded hgi-comment-03"></i>
+                        <span class="text-2xl icon-[ant-design--comment-outlined]"></span>
                     </span>
                     <span class="">${commentCount}</span>
                 </button>

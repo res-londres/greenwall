@@ -7,7 +7,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='dist/output.css') }}"
     />
-    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
     <title>Greenwall</title>
   </head>
   <body class="text-primary">
@@ -26,8 +25,8 @@
       >
         <nav id="page-navigator" class="mt-8 flex flex-col select-none">
           <a href="#" data-pagename="user-profile" data-action="navigate">
-            <i class="hgi hgi-stroke hgi-rounded hgi-user-circle text-3xl"></i>
-            <span>Profile</span>
+            <span class="text-4xl icon-[boxicons--user-circle]"></span>
+            <span class="mt-1.5">Profile</span>
           </a>
           <a
             class="selected"
@@ -35,12 +34,12 @@
             data-pagename="home-wall"
             data-action="navigate"
           >
-            <i class="hgi hgi-stroke hgi-rounded hgi-home-01 text-3xl"></i>
-            <span>Home Wall</span>
+            <span class="text-4xl icon-[akar-icons--home]"></span>
+            <span class="mt-2">Home Wall</span>
           </a>
           <a href="#" data-pagename="search" data-action="navigate">
-            <i class="hgi hgi-stroke hgi-rounded hgi-search-02 text-3xl"></i>
-            <span>Search</span>
+            <span class="text-4xl icon-[ant-design--search-outlined]"></span>
+            <span class="mt-1">Search</span>
           </a>
         </nav>
       </section>
@@ -58,9 +57,7 @@
           <div
             class="post-creator align-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
           >
-            <i
-              class="hgi hgi-stroke hgi-rounded hgi-quill-write-01 mt-2 text-3xl"
-            ></i>
+            <span class="text-4xl mt-1.5 icon-[hugeicons--quill-write-02]"></span>
             <span
               class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
               data-action="openPostCreatorModal"
@@ -96,7 +93,7 @@
 					<p class="text-[150%] font-bold">Create post</p>
 				</div>
 				<div class="mt-4 flex flex-row gap-2">
-					<i class="hgi hgi-stroke hgi-rounded hgi-user-02 text-2xl"></i>
+					<span class="text-2xl icon-[boxicons--user]"></span>
 					<span class="font-bold">account-name</span>
 				</div>
 				<div class="mt-2">
