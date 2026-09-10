@@ -26,9 +26,10 @@ function handlePostCreatorEvents() {
             const action = actionElement.dataset.action;
             if (action === 'closePostCreatorModal') {
                 closePostCreatorModal(postCreatorModal);
-            } else if (action === 'post') {
-                createPost(textareaSubject, textareaContent);
+            } else if (action === 'createPost') {
+                createPost(textareaSubject.value, textareaContent.value);
                 closePostCreatorModal(postCreatorModal);
+                clearTextareas(textareaSubject, textareaContent);
             }
         }
     });
@@ -68,16 +69,18 @@ function closePostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'none';
 }
 
-function createPost(textareaSubject, textareaContent) {
-    const subject = textareaSubject.value;
-    const content = textareaContent.value;
-    textareaSubject.value = '';
-    textareaContent.value = '';
+function createPost(subject, content) {
     // TODO: include user id and display name  when available
     socket.emit('create_post', {
         subject: subject,
         content: content
     });
+}
+
+// HELPERS //
+function clearTextareas(textareaSubject, textareaContent) {
+    textareaSubject.value = '';
+    textareaContent.value = '';
 }
 
 // INIT //
