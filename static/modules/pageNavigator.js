@@ -1,4 +1,4 @@
-import { changePage } from './helpers/pageManager.js';
+import { changePage } from './pageManager.js';
 
 function handlePageNavigatorEvents() {
     document.getElementById('page-navigator').addEventListener('click', function(event) {

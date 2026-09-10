@@ -1,0 +1,1 @@
+const globalPosts = [] // [{postID, attribution, subject, content}, {anotherPost}]
