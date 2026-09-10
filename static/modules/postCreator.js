@@ -1,5 +1,12 @@
 import { socket } from './socket.js';
+import * as postManager from './postManager.js';
 
+// INIT //
+export function init() {
+    handlePostCreatorEvents();
+}
+
+// EVENT HANDLER //
 function handlePostCreatorEvents() {
     const postCreatorModal = document.getElementById('post-creator-modal');
     const textareaSubject = document.getElementById('textarea-subject');
@@ -70,11 +77,14 @@ function closePostCreatorModal(postCreatorModal) {
 }
 
 function createPost(subject, content) {
-    // TODO: include user id and display name  when available
-    socket.emit('create_post', {
+    // how about post id? temp id?
+    const post = {
         subject: subject,
         content: content
-    });
+    }
+    postManager.addPost(post);
+    // TODO: include user id and display name  when available
+    socket.emit('create_post', post);
 }
 
 // HELPERS //
@@ -86,6 +96,3 @@ function clearTextareas(textareaSubject, textareaContent) {
 function setPostButtonState(subjectLength, postButton) {
     postButton.disabled = subjectLength < 1;
 }
-
-// INIT //
-handlePostCreatorEvents();
