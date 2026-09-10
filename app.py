@@ -1,5 +1,5 @@
 from flask import render_template
-from init import app, socketio
+from init import emit, app, socketio
 
 @app.route('/')
 def index():
