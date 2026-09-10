@@ -13,7 +13,8 @@ function handlePostCreatorEvents() {
             if (actionElement) {
                 const action = actionElement.dataset.action;
                 if (action === 'openPostCreatorModal') {
-                    openPostCreatorModal(postCreatorModal, postButton);
+                    setPostButtonState(textareaSubject.value.length, postButton);
+                    openPostCreatorModal(postCreatorModal);
                 }
             }
         });
@@ -41,7 +42,7 @@ function handlePostCreatorEvents() {
             this.style.height = this.scrollHeight + 'px';
 
             if (this.id === 'textarea-subject') {
-                postButton.disabled = this.value.length < 1;
+                setPostButtonState(this.value.length, postButton);
             }
         });
     });
@@ -60,9 +61,8 @@ function handlePostCreatorEvents() {
     });
 }
 
-function openPostCreatorModal(postCreatorModal, postButton) {
+function openPostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'flex';
-    postButton.disabled = true;
 }
 
 function closePostCreatorModal(postCreatorModal) {
@@ -81,6 +81,10 @@ function createPost(subject, content) {
 function clearTextareas(textareaSubject, textareaContent) {
     textareaSubject.value = '';
     textareaContent.value = '';
+}
+
+function setPostButtonState(subjectLength, postButton) {
+    postButton.disabled = subjectLength < 1;
 }
 
 // INIT //
