@@ -1,3 +1,14 @@
+export function createEmptyWallHTML() {
+    return `
+        <div class="text-[0.95rem] py-8 text-center">
+            <div class>
+                <i class="hgi hgi-stroke hgi-rounded hgi-leaf-01"></i>
+            </div>
+            <p>No posts yet..</p>
+        </div>
+    `;
+}
+
 export function createPostHTML(post) {
     const postAttribution = post.attribution;
     const postSubject = escapeHTML(post.subject);
