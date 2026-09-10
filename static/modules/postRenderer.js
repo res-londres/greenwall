@@ -1,10 +1,14 @@
 import * as bus from './eventBus.js';
+import { createPostHTML } from './HTMLCreator.js';
+import { getCurrentWall } from './wallManager.js';
 
 // INIT //
 export function init() {
-    bus.on('postManager:postAdded', itWorks);
+    bus.on('postManager:postAdded', renderPost);
 }
 
-function itWorks(post) {
-    console.log(`it works: ${post.subject} ${post.content}`);
+function renderPost(post) {
+    const postHTML = createPostHTML(post);
+    const currentWall = getCurrentWall();
+    currentWall.innerHTML += postHTML;
 }

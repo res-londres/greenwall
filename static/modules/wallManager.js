@@ -1,13 +1,5 @@
 let currentWallID = 'home-wall'; // DEFAULT or TEMP
 
-export function setCurrentWallID(newWallID) {
-    currentWallID = newWallID;
-}
-
-export function getCurrentWallID() {
-    return currentWallID;
-}
-
 export function changeWall(currentPageName) {
     console.log(`old wall: ${currentWallID}`);
     const currentPage = document.querySelector(`.page[data-pagename="${currentPageName}"]`);
@@ -17,3 +9,16 @@ export function changeWall(currentPageName) {
         console.log(`new wall: ${currentWallID}`);
     }
 }
+
+export function setCurrentWallID(newWallID) {
+    currentWallID = newWallID;
+}
+
+export function getCurrentWallID() {
+    return currentWallID;
+}
+
+export function getCurrentWall() {
+    return document.getElementById(currentWallID);
+}
+

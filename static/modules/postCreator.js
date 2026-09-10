@@ -79,6 +79,7 @@ function closePostCreatorModal(postCreatorModal) {
 function createPost(subject, content) {
     // how about post id? temp id?
     const post = {
+        attribution: 'user',
         subject: subject,
         content: content
     }
