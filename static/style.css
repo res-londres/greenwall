@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Amarante:wght@400;700&family=Nunito:wght@400;700&display=swap");
 @import "tailwindcss";
 
+@source "./modules/HTMLCreator.js";
+
 @theme {
   --color-primary: #1e392a;
   --color-accent: #3cc47c;
@@ -23,6 +25,10 @@
   }
   a.selected {
     @apply bg-linear-to-r from-accent to-surface;
+  }
+
+  .post-action {
+    @apply items-center bg-none border-none rounded-sm text-gray-500 cursor-pointer flex text-[0.85rem] gap-1 p-[0.25rem_0.5rem] transition-all duration-300 hover:text-accent hover:scale-110 active:scale-100;
   }
 }
 
