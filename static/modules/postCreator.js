@@ -22,6 +22,7 @@ function handlePostCreatorEvents() {
                 if (action === 'openPostCreatorModal') {
                     setPostButtonState(textareaSubject.value.length, postButton);
                     openPostCreatorModal(postCreatorModal);
+                    textareaSubject.focus();
                 }
             }
         });
