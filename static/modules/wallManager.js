@@ -1,12 +1,10 @@
 let currentWallID = 'home-wall'; // DEFAULT or TEMP
 
 export function changeWall(currentPageName) {
-    console.log(`old wall: ${currentWallID}`);
     const currentPage = document.querySelector(`.page[data-pagename="${currentPageName}"]`);
     if (Object.hasOwn(currentPage.dataset, 'wallid')) {
         const wallID = currentPage.dataset.wallid;
         currentWallID = wallID;
-        console.log(`new wall: ${currentWallID}`);
     }
 }
 
