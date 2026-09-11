@@ -10,6 +10,7 @@ function handlePostCreatorEvents() {
     const postButton = document.getElementById('post-button');
 
     // POST CREATOR : click events //
+    // TODO: make a currentPostCreator
     document.querySelectorAll('.post-creator').forEach(function(postCreator) {
         postCreator.addEventListener('click', function(event) {
             const actionElement = event.target.closest('[data-action');
