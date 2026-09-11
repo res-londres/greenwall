@@ -1,6 +1,12 @@
 import { changePage } from './pageManager.js';
 import { changeWall } from './wallManager.js';
 
+// INIT //
+export function init() {
+    handlePageNavigatorEvents();
+}
+
+// EVENT HANDLER //
 function handlePageNavigatorEvents() {
     document.getElementById('page-navigator').addEventListener('click', function(event) {
         const actionElement = event.target.closest('[data-action');
@@ -15,5 +21,3 @@ function handlePageNavigatorEvents() {
     });
 }
 
-// INIT //
-handlePageNavigatorEvents();
