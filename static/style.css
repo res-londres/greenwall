@@ -32,6 +32,17 @@
   .post-action {
     @apply items-center bg-none border-none rounded-sm text-gray-500 cursor-pointer flex text-[0.85rem] gap-1 p-[0.25rem_0.5rem] transition-all duration-300 hover:text-accent hover:scale-110 active:scale-100;
   }
+
+  .modal-screen {
+    @apply scrollbar-custom fixed top-0 left-0 z-30 hidden h-full w-full items-center justify-center p-6
+  }
+  .modal-blur-overlay {
+    @apply fixed top-0 left-0 h-full w-full backdrop-blur-xs
+  }
+  
+  .modal-card {
+    @apply relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem]
+  }
 }
 
 @layer utilities {
