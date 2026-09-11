@@ -61,7 +61,7 @@ function createPost(subject, content) {
     const tempID = crypto.randomUUID();
     // how about post id? temp id?
     const post = {
-        id: tempID,
+        post_id: tempID,
         attribution: 'user',
         subject: subject,
         content: content
