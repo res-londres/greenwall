@@ -10,6 +10,7 @@ export function createEmptyWallHTML() {
 }
 
 export function createPostHTML(post) {
+    const postID = post.id;
     const postAttribution = post.attribution;
     const postSubject = escapeHTML(post.subject);
     const postContentPreview = escapeHTML(post.content.length > 500 ? post.content.slice(0, 497) + '...' : post.content);
@@ -23,6 +24,8 @@ export function createPostHTML(post) {
     return `
         <div
             class="bg-white text-primary border-2 border-solid border-primary rounded-2xl my-2 px-6 py-[1rem_0.5rem]"
+            data-action="openPostModal"
+            data-postid="${postID}"
         >
             <div class="items-center flex justify-between mb-2">
                 <span class="text-[0.95rem] font-bold">${postAttribution}</span>
@@ -31,13 +34,13 @@ export function createPostHTML(post) {
             <div class="font-bold leading-6 mb-3 wrap-break-word">${postSubject}</div>
             <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word">${postContentPreview}</div>
             <div class="items-center border-t border-solid border-muted flex gap-6 pt-2">
-                <button class="post-action" data-action="likePost">
+                <button class="post-action" data-action="likePost" data-postid="${postID}">
                     <span class="">
                         <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
                     </span>
                     <span class="">${postLikeCount}</span>
                 </button>
-                <button class="post-action" data-action="openPostModal">
+                <button class="post-action" data-action="openPostModal" data-postid="${postID}">
                     <span class="">
                         <span class="text-2xl icon-[ant-design--comment-outlined]"></span>
                     </span>
