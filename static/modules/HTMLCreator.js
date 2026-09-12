@@ -126,12 +126,12 @@ export function createCommentHTML(comment, postID) {
                 <div class="break-words [overflow-wrap:anywhere]">${commentContent}</div>
             </div>
             <button 
-                class="shrink-0 flex flex-col items-center" 
+                class="mt-2 shrink-0 self-start flex flex-col items-center gap-0.5 bg-none border-none rounded-sm text-gray-500 cursor-pointer text-[0.85rem] transition-all duration-300 origin-top hover:text-accent hover:scale-110 active:scale-100" 
                 data-action="likeComment" 
                 data-postid="${postID}" 
                 data-commentid="${commentID}"
             >
-                <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
+                <span class="icon-[ant-design--heart-outlined]"></span>
                 <span>${commentLikeCount}</span>
             </button>
         </div>
