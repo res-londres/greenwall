@@ -1,3 +1,5 @@
+import { isLikedByUser } from './managers/likeManager.js';
+
 export function createEmptyWallHTML() {
     return `
         <div class="text-[0.95rem] py-8 text-center">
@@ -15,11 +17,11 @@ export function createPostHTML(post) {
     const postSubject = escapeHTML(post.subject);
     const postContentPreview = escapeHTML(post.content.length > 500 ? post.content.slice(0, 497) + '...' : post.content);
     const postTime = 'just now'; // TEMP
-    const postLikeCount = '0';   // TEMP
+    const postLikeCount = post.likes;   
     const commentCount = '0';
 
-    // liked icon; for later
-    // <span class="icon-[ant-design--heart-filled]"></span>
+    const isLiked = isLikedByUser('user_id', postID);
+    const likeIcon = isLiked ? '<span class="text-2xl text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="text-2xl icon-[ant-design--heart-outlined]"></span>'
 
     return `
         <div
@@ -36,7 +38,7 @@ export function createPostHTML(post) {
             <div class="items-center border-t border-solid border-muted flex gap-6 pt-2">
                 <button class="post-action" data-action="likePost" data-postid="${postID}">
                     <span>
-                        <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
+                        ${likeIcon}
                     </span>
                     <span>${postLikeCount}</span>
                 </button>
@@ -57,8 +59,11 @@ export function createPostModalHTML(post) {
     const postSubject = escapeHTML(post.subject);
     const postContent = escapeHTML(post.content);
     const postTime = 'just now'; // TEMP
-    const postLikeCount = '0';   // TEMP
+    const postLikeCount = post.likes;   
     const commentCount = '0';
+
+    const isLiked = isLikedByUser('user_id', postID);
+    const likeIcon = isLiked ? '<span class="text-2xl text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="text-2xl icon-[ant-design--heart-outlined]"></span>'
 
     return `
         <div class="bg-white text-primary border-b-2 border-solid border-muted mb-4 pb-2">
@@ -71,7 +76,7 @@ export function createPostModalHTML(post) {
             <div class="border-t border-solid border-muted flex gap-6 mt-3 pt-3">
                 <button class="post-action" data-action="likePost" data-postid="${postID}">
                     <span>
-                        <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
+                        ${likeIcon}
                     </span>
                     <span>${postLikeCount}</span>
                 </button>
