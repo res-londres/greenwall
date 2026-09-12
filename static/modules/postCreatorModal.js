@@ -8,8 +8,8 @@ export function init() {
 
 function handlePostCreatorModalEvents() {
     const postCreatorModal = document.getElementById('post-creator-modal');
-    const textareaSubject = document.getElementById('textarea-subject');
-    const textareaContent = document.getElementById('textarea-content');
+    const textareaSubject = document.getElementById('post-creator-modal-textarea-subject');
+    const textareaContent = document.getElementById('post-creator-modal-textarea-content');
     const postButton = document.getElementById('post-button');
 
     // POST CREATOR MODAL : click events //
@@ -33,7 +33,7 @@ function handlePostCreatorModalEvents() {
             this.style.height = 'auto';
             this.style.height = this.scrollHeight + 'px';
 
-            if (this.id === 'textarea-subject') {
+            if (this.id === 'post-creator-modal-textarea-subject') {
                 setPostButtonState(this.value.length, postButton);
             }
         });

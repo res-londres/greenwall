@@ -6,7 +6,7 @@ export function init() {
 // EVENT HANDLER //
 function handlePostCreatorEvents() {
     const postCreatorModal = document.getElementById('post-creator-modal');
-    const textareaSubject = document.getElementById('textarea-subject');
+    const textareaSubject = document.getElementById('post-creator-modal-textarea-subject');
     const postButton = document.getElementById('post-button');
 
     // POST CREATOR : click events //
