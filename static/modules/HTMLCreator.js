@@ -1,4 +1,4 @@
-import { isLikedByUser } from './managers/likeManager.js';
+import { isCommentLiked, isLikedByUser } from './managers/likeManager.js';
 
 export function createEmptyWallHTML() {
     return `
@@ -110,12 +110,16 @@ export function createPostModalHTML(post) {
     `;
 }
 
+// TODO: user postManager.getCurrentPostID, get rid of the param
 export function createCommentHTML(comment, postID) {
     const commentID = comment.comment_id;
     const commentAttribution = comment.attribution;
     const commentContent = escapeHTML(comment.content);
     const commentTime = 'just now'  // TEMP
-    const commentLikeCount = '0';   // TEMP
+    const commentLikeCount = comment.likes;   // TEMP
+
+    const isLiked = isCommentLiked(commentID);
+    const likeIcon = isLiked ? '<span class="text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="icon-[ant-design--heart-outlined]"></span>'
 
     return `
         <div 
@@ -136,7 +140,7 @@ export function createCommentHTML(comment, postID) {
                 data-postid="${postID}" 
                 data-commentid="${commentID}"
             >
-                <span class="icon-[ant-design--heart-outlined]"></span>
+                ${likeIcon}
                 <span>${commentLikeCount}</span>
             </button>
         </div>
