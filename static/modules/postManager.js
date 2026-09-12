@@ -26,6 +26,9 @@ export function getCurrentPost() {
 }
 
 export function getCommentsList() {
+    if (!(currentPostID in postComments)) {
+        postComments[currentPostID] = {};
+    }
     return Object.values(postComments[currentPostID]);
 }
 

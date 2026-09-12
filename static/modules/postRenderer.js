@@ -9,6 +9,7 @@ export function init() {
     bus.on('postManager:addPost', renderGlobalPosts);
     bus.on('postManager:addComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
+    bus.on('post:openPostModal', renderPostComments);
 }
 
 function renderGlobalPosts() {
