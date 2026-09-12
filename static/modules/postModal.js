@@ -14,6 +14,7 @@ function handlePostModalEvents() {
         if (actionElement) {
             const action = actionElement.dataset.action;
             const postID = actionElement.dataset.postid;
+            const commentID = actionElement.dataset.commentid;
 
             event.stopPropagation();
             event.preventDefault();
@@ -25,6 +26,8 @@ function handlePostModalEvents() {
                 clearInput(inputContent);
             } else if (action === 'likePost') {
                 bus.emit('postModal:#toggleLike', postID);
+            } else if (action === 'likeComment') {
+                bus.emit('postModal:#toggleCommentLike', commentID);
             }
         }
     });
@@ -41,7 +44,8 @@ function createComment(content) {
     const comment = {
         comment_id: tempID,
         attribution: 'user',
-        content: content
+        content: content,
+        likes: 0
     }
     commentManager.addPostComment(comment);
 }
