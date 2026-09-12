@@ -58,6 +58,7 @@ function closePostCreatorModal(postCreatorModal) {
 }
 
 function createPost(subject, content) {
+    if (!subject) return;
     const tempID = crypto.randomUUID();
     // how about post id? temp id?
     const post = {

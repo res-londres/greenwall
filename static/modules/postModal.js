@@ -27,6 +27,7 @@ function closePostModal(postModal) {
 }
 
 function createComment(content) {
+    if (!content) return;
     const tempID = crypto.randomUUID();
     const comment = {
         comment_id: tempID,
