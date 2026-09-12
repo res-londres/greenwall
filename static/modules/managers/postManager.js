@@ -1,6 +1,7 @@
 import * as bus from '../eventBus.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
+let postModalActive = false;
 let currentPostID = null;
 
 // SETTER //
@@ -42,6 +43,14 @@ export function decrementPostLikes(postID) {
     globalPosts[postID].likes -= 1;
 }
 
+// POST MODAL ACTIVE //
+export function setPostModalActive(isActive) {
+    postModalActive = isActive;
+}
+
+export function isPostModalActive() {
+    return postModalActive;
+}
 
 // ETC //
 export function addPost(post) {
