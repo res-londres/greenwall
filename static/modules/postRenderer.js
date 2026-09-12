@@ -11,6 +11,7 @@ export function init() {
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
+    bus.on('like:toggleLike', renderGlobalPosts);
 }
 
 function renderGlobalPosts() {
