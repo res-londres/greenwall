@@ -12,6 +12,7 @@ export function init() {
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
     bus.on('like:toggleLike', renderGlobalPosts);
+    bus.on('like:toggleLike:#renderPostModal', renderPostModal);
 }
 
 function renderGlobalPosts() {

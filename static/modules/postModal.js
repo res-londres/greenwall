@@ -1,4 +1,6 @@
+import * as bus from './eventBus.js';
 import * as commentManager from './managers/commentManager.js';
+import { setPostModalActive } from './managers/postManager.js';
 
 export function init() {
     handlePostModalEvents();
@@ -11,12 +13,18 @@ function handlePostModalEvents() {
         const actionElement = event.target.closest('[data-action]');
         if (actionElement) {
             const action = actionElement.dataset.action;
+            const postID = actionElement.dataset.postid;
+
+            event.stopPropagation();
+            event.preventDefault();
             if (action === 'closePostModal') {
                 closePostModal(postModal);
             } else if (action === 'createComment') {
                 const inputContent = document.getElementById('post-modal-input-comment');
                 createComment(inputContent.value);
                 clearInput(inputContent);
+            } else if (action === 'likePost') {
+                bus.emit('postModal:#toggleLike', postID);
             }
         }
     });
@@ -24,6 +32,7 @@ function handlePostModalEvents() {
 
 function closePostModal(postModal) {
     postModal.style.display = 'none';
+    setPostModalActive(false);
 }
 
 function createComment(content) {

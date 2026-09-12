@@ -1,13 +1,13 @@
 import * as bus from './eventBus.js';
 import * as likeManager from './managers/likeManager.js';
-import { incrementPostLikes, decrementPostLikes } from './managers/postManager.js';
+import { incrementPostLikes, decrementPostLikes, isPostModalActive } from './managers/postManager.js';
 
 export function init() {
     bus.on('post:#toggleLike', toggleLike);
+    bus.on('postModal:#toggleLike', toggleLike);
 }
 
 function toggleLike(postID) {
-    console.log('toggle like start');
     const userID = 'user_id';      // TEMP
     const isLiked = likeManager.isLikedByUser(userID, postID) 
     const newLikedState = !isLiked;
@@ -19,5 +19,7 @@ function toggleLike(postID) {
         decrementPostLikes(postID);
     }
     bus.emit('like:toggleLike');
-    console.log('toggle like end');
+    if (isPostModalActive()) {
+        bus.emit('like:toggleLike:#renderPostModal');
+    }
 }
