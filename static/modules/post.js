@@ -16,9 +16,14 @@ function handlePostEvents() {
             const action = actionElement.dataset.action;
             const postID = actionElement.dataset.postid;
 
+            event.stopPropagation();
+            event.preventDefault();
             if (action === 'openPostModal') {
                 openPostModal(postModal, postID);
                 document.getElementById('post-modal-input-comment').focus();
+            } else if (action === 'likePost') {
+                console.log('like button clickd');
+                bus.emit('post:#toggleLike', postID);
             }
         }
     });
