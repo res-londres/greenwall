@@ -86,21 +86,54 @@ export function createPostModalHTML(post) {
 
         <div class="text-primary">
             <div class="font-bold mb-3">Comments (${commentCount})</div>
-            <div id="post-modal-comment-list">
+            <div id="post-modal-comment-list" class="flex flex-col">
                 <!-- TODO: commentsHTML later -->
             </div>
             <div class="bg-white border-t border-solid border-muted flex gap-2 mt-3 py-4 sticky bottom-0 z-30">
                 <input 
                     type="text" 
-                    id="post-modal-comment"
+                    id="post-modal-input-comment"
                     class="bg-muted border-2 border-solid border-muted rounded-4xl flex-1 font-[inherit] p-[0.5rem_0.75rem] focus:outline-none text-[0.9rem]"
                     placeholder="Write a comment.."
                     maxlength="1000"
                 >
-                <button id="comment-button" class="post-action" data-action="submitComment" data-postid="${postID}">
+                <button id="comment-button" class="post-action" data-action="createComment" data-postid="${postID}">
                     <span class="text-2xl icon-[griddy-icons--send]"></span>
                 </button>
             </div>
+        </div>
+    `;
+}
+
+export function createCommentHTML(comment, postID) {
+    const commentID = comment.comment_id;
+    const commentAttribution = comment.attribution;
+    const commentContent = escapeHTML(comment.content);
+    const commentTime = 'just now'  // TEMP
+    const commentLikeCount = '0';   // TEMP
+
+    return `
+        <div 
+            class="text-primary border-b border-solid border-muted flex flex-row gap-2 py-2 items-start"
+            data-postid="${postID}" 
+            data-commentid="${commentID}"
+        >
+            <div class="flex flex-1 flex-col min-w-0">
+                <div class="flex gap-2 items-center">
+                    <span class="font-bold whitespace-nowrap">${commentAttribution}</span>
+                    <span class="text-gray-500 text-[0.9rem]">${commentTime}</span>
+                </div>
+                <div class="break-words [overflow-wrap:anywhere]">${commentContent}</div>
+            </div>
+            <button 
+                class="shrink-0 flex flex-col items-center" 
+                data-action="likeComment" 
+                data-postid="${postID}" 
+                data-commentid="${commentID}"
+            >
+                <span class="text-2xl icon-[ant-design--heart-outlined]"></span>
+                <span>${commentLikeCount}</span>
+            </button>
         </div>
     `;
 }
