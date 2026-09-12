@@ -80,14 +80,14 @@
     <!-- post creator modal -->
     <div
       id="post-creator-modal"
-      class="scrollbar-custom fixed top-0 left-0 z-30 hidden h-full w-full items-center justify-center p-6"
+      class="scrollbar-custom modal-screen"
     >
       <div
-        class="fixed top-0 left-0 h-full w-full backdrop-blur-xs"
+        class="modal-blur-overlay"
         data-action="closePostCreatorModal"
       ></div>
       <div
-        class="relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem]"
+        class="modal-card"
       >
 				<div class="border-b-2 border-muted">
 					<p class="text-[150%] font-bold">Create post</p>
@@ -126,9 +126,9 @@
     </div>
 
     <!-- post modal -->
-    <div id="post-modal" class="scrollbar-custom fixed top-0 left-0 z-30 hidden h-full w-full items-center justify-center p-6">
-      <div class="fixed top-0 left-0 h-full w-full backdrop-blur-xs" data-action="closePostModal"></div>
-      <div class="relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem]">
+    <div id="post-modal" class="scrollbar-custom modal-screen">
+      <div class="modal-blur-overlay" data-action="closePostModal"></div>
+      <div class="modal-card">
         <div id="post-modal-content">
           <!-- post modal content goes here -->
         </div>
