@@ -18,6 +18,7 @@ function handlePostEvents() {
 
             if (action === 'openPostModal') {
                 openPostModal(postModal, postID);
+                document.getElementById('post-modal-input-comment').focus();
             }
         }
     });

@@ -123,7 +123,7 @@ export function createCommentHTML(comment, postID) {
                     <span class="font-bold whitespace-nowrap">${commentAttribution}</span>
                     <span class="text-gray-500 text-[0.9rem]">${commentTime}</span>
                 </div>
-                <div class="break-words [overflow-wrap:anywhere]">${commentContent}</div>
+                <div class="wrap-break-words">${commentContent}</div>
             </div>
             <button 
                 class="mt-2 shrink-0 self-start flex flex-col items-center gap-0.5 bg-none border-none rounded-sm text-gray-500 cursor-pointer text-[0.85rem] transition-all duration-300 origin-top hover:text-accent hover:scale-110 active:scale-100" 
