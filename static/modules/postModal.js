@@ -1,4 +1,5 @@
 import * as postManager from './postManager.js';
+import * as commentManager from './commentManager.js';
 
 export function init() {
     handlePostModalEvents();
@@ -33,7 +34,7 @@ function createComment(content) {
         attribution: 'user',
         content: content
     }
-    postManager.addComment(comment);
+    commentManager.addComment(comment);
 }
 
 // HELPERS //

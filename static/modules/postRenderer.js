@@ -1,6 +1,7 @@
 import * as bus from './eventBus.js';
 import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './postManager.js';
+import * as commentManager from './commentManager.js';
 import { getCurrentWall } from './wallManager.js';
 
 // INIT //
@@ -31,13 +32,13 @@ function renderGlobalPosts() {
 
 function renderPostComments() {
     const postModalCommentsList = document.getElementById('post-modal-comment-list');
-    const postComments = postManager.getCommentsList();
+    const postComments = commentManager.getCommentsList();
     // empty comments html
     postModalCommentsList.innerHTML = '';
     let html = '';
 
     postComments.forEach(function(comment) {
-        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostId);
+        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostID);
     });
     postModalCommentsList.innerHTML += html;
 }

@@ -87,7 +87,7 @@ export function createPostModalHTML(post) {
         <div class="text-primary">
             <div class="font-bold mb-3">Comments (${commentCount})</div>
             <div id="post-modal-comment-list" class="flex flex-col">
-                <!-- TODO: commentsHTML later -->
+                <!-- commentsHTML goes here -->
             </div>
             <div class="bg-white border-t border-solid border-muted flex gap-2 mt-3 py-4 sticky bottom-0 z-30">
                 <input 
