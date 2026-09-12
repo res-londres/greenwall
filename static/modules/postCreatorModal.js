@@ -65,7 +65,8 @@ function createPost(subject, content) {
         post_id: tempID,
         attribution: 'user',
         subject: subject,
-        content: content
+        content: content,
+        likes: 0
     }
     postManager.addPost(post);
     // TODO: include user id and display name  when available
