@@ -89,7 +89,7 @@ export function createPostModalHTML(post) {
             <div id="post-modal-comment-list" class="flex flex-col">
                 <!-- commentsHTML goes here -->
             </div>
-            <div class="bg-white border-t border-solid border-muted flex gap-2 mt-3 py-4 sticky bottom-0 z-30">
+            <div class="bg-white border-t border-solid border-muted flex gap-2 py-4 sticky bottom-0 z-30">
                 <input 
                     type="text" 
                     id="post-modal-input-comment"
@@ -114,7 +114,7 @@ export function createCommentHTML(comment, postID) {
 
     return `
         <div 
-            class="text-primary border-b border-solid border-muted flex flex-row gap-2 py-2 items-start"
+            class="text-primary border-t border-solid border-muted flex flex-row gap-2 py-2 items-start"
             data-postid="${postID}" 
             data-commentid="${commentID}"
         >
