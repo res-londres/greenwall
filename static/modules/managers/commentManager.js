@@ -14,6 +14,23 @@ export function addPostComment(comment) {
     bus.emit('postManager:addPostComment');
 }
 
+// COMMENT LIKES //
+export function setCommentLikes(commentID, newLikes) {
+    commentsByPost[getCurrentPostID()][commentID].likes = newLikes;
+}
+
+export function getCommentLikes(commentID) {
+    return commentsByPost[getCurrentPostID()][commentID].likes;
+}
+
+export function incrementCommentLikes(commentID) {
+    commentsByPost[getCurrentPostID()][commentID].likes += 1;
+}
+
+export function decrementCommentLikes(commentID) {
+    commentsByPost[getCurrentPostID()][commentID].likes -= 1;
+}
+
 // HELPERS //
 function getPostComments() {
     const currentPostID = getCurrentPostID();
