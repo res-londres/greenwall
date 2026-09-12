@@ -7,6 +7,7 @@ import { getCurrentWall } from './wallManager.js';
 export function init() {
     renderGlobalPosts();
     bus.on('postManager:addPost', renderGlobalPosts);
+    bus.on('postManager:addComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
 }
 
@@ -25,6 +26,19 @@ function renderGlobalPosts() {
         html += HTMLCreator.createPostHTML(post);
     });
     currentWall.innerHTML += html;
+}
+
+function renderPostComments() {
+    const postModalCommentsList = document.getElementById('post-modal-comment-list');
+    const postComments = postManager.getCommentsList();
+    // empty comments html
+    postModalCommentsList.innerHTML = '';
+    let html = '';
+
+    postComments.forEach(function(comment) {
+        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostId);
+    });
+    postModalCommentsList.innerHTML += html;
 }
 
 function renderPostModal() {
