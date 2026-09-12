@@ -1,26 +1,27 @@
 import * as bus from './eventBus.js';
 
-// TODO: how about a dict for globalPosts for easier lookup?
-const globalPosts = [] // [{post_id, attribution, subject, content}, {anotherPost}]
+const globalPosts = {};      // {post_id: {post}, post_id: {another_post}}
 let currentPostID = null;
 
 export function setCurrentPostID(newPostID) {
     currentPostID = newPostID;
 }
 
+// deprecated
 export function getGlobalPosts() {
     return structuredClone(globalPosts);
 }
 
+export function getGlobalPostsList() {
+    return Object.values(globalPosts);
+}
+
 export function getCurrentPost() {
-    for (const post of globalPosts) {
-        if (currentPostID === post.post_id) {
-            return post;
-        }
-    }
+    return structuredClone(globalPosts[currentPostID]);
 }
 
 export function addPost(post) {
-    globalPosts.unshift(post);
-    bus.emit('postManager:postAdded');
+    const postID = post.post_id;
+    globalPosts[postID] = post;
+    bus.emit('postManager:addPost');
 }
