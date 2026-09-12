@@ -1,4 +1,3 @@
-import * as postManager from './postManager.js';
 import * as commentManager from './commentManager.js';
 
 export function init() {
@@ -34,7 +33,7 @@ function createComment(content) {
         attribution: 'user',
         content: content
     }
-    commentManager.addComment(comment);
+    commentManager.addPostComment(comment);
 }
 
 // HELPERS //

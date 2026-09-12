@@ -1,23 +1,23 @@
 import * as bus from './eventBus.js';
 import { getCurrentPostID } from './postManager.js';
 
-const postComments = {};    // {post_id: {comment_id: {comment}, comment_id: {another_comment}}, post_id: {comments}}
+const commentsByPost = {};    // {post_id: {comment_id: {comment}, comment_id: {another_comment}}, post_id: {comments}}
 
-export function getCommentsList() {
+export function getPostCommentsList() {
     return Object.values(getPostComments());
 }
 
-export function addComment(comment) {
+export function addPostComment(comment) {
     const commentID = comment.comment_id;
     getPostComments()[commentID] = comment;
-    bus.emit('postManager:addComment');
+    bus.emit('postManager:addPostComment');
 }
 
 // HELPERS //
 function getPostComments() {
     const currentPostID = getCurrentPostID();
-    if (!(currentPostID in postComments)) {
-        postComments[currentPostID] = {};
+    if (!(currentPostID in commentsByPost)) {
+        commentsByPost[currentPostID] = {};
     }
-    return postComments[currentPostID];
+    return commentsByPost[currentPostID];
 }

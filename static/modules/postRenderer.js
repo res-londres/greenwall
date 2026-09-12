@@ -8,7 +8,7 @@ import { getCurrentWall } from './wallManager.js';
 export function init() {
     renderGlobalPosts();
     bus.on('postManager:addPost', renderGlobalPosts);
-    bus.on('postManager:addComment', renderPostComments);
+    bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
 }
@@ -32,7 +32,7 @@ function renderGlobalPosts() {
 
 function renderPostComments() {
     const postModalCommentsList = document.getElementById('post-modal-comment-list');
-    const postComments = commentManager.getCommentsList();
+    const postComments = commentManager.getPostCommentsList();
     // empty comments html
     postModalCommentsList.innerHTML = '';
     let html = '';
