@@ -1,6 +1,6 @@
 import * as bus from './eventBus.js';
-import { setCurrentPostID } from './postManager.js';
-import { getCurrentWall } from './wallManager.js';
+import { setCurrentPostID } from './managers/postManager.js';
+import { getCurrentWall } from './managers/wallManager.js';
 
 export function init() {
     handlePostEvents();

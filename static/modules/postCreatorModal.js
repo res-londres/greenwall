@@ -1,6 +1,6 @@
 import { socket } from './socket.js';
 import { setPostButtonState } from './postCreator.js';
-import * as postManager from './postManager.js';
+import * as postManager from './managers/postManager.js';
 
 export function init() {
     handlePostCreatorModalEvents();

@@ -1,4 +1,4 @@
-import * as commentManager from './commentManager.js';
+import * as commentManager from './managers/commentManager.js';
 
 export function init() {
     handlePostModalEvents();

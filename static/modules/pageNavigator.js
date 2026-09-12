@@ -1,5 +1,5 @@
-import { changePage } from './pageManager.js';
-import { changeWall } from './wallManager.js';
+import { changePage } from './managers/pageManager.js';
+import { changeWall } from './managers/wallManager.js';
 
 // INIT //
 export function init() {

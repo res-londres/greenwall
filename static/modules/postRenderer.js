@@ -1,8 +1,8 @@
 import * as bus from './eventBus.js';
 import * as HTMLCreator from './HTMLCreator.js';
-import * as postManager from './postManager.js';
-import * as commentManager from './commentManager.js';
-import { getCurrentWall } from './wallManager.js';
+import * as postManager from './managers/postManager.js';
+import * as commentManager from './managers/commentManager.js';
+import { getCurrentWall } from './managers/wallManager.js';
 
 // INIT //
 export function init() {

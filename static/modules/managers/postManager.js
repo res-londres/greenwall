@@ -1,4 +1,4 @@
-import * as bus from './eventBus.js';
+import * as bus from '../eventBus.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
 let currentPostID = null;
