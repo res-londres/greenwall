@@ -1,4 +1,4 @@
-import { isCommentLiked, isLikedByUser } from './managers/likeManager.js';
+import { isCommentLiked, isPostLiked } from './managers/likeManager.js';
 
 export function createEmptyWallHTML() {
     return `
@@ -20,7 +20,7 @@ export function createPostHTML(post) {
     const postLikeCount = post.likes;   
     const commentCount = '0';
 
-    const isLiked = isLikedByUser('user_id', postID);
+    const isLiked = isPostLiked(postID);
     const likeIcon = isLiked ? '<span class="text-2xl text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="text-2xl icon-[ant-design--heart-outlined]"></span>'
 
     return `
@@ -62,7 +62,7 @@ export function createPostModalHTML(post) {
     const postLikeCount = post.likes;   
     const commentCount = '0';
 
-    const isLiked = isLikedByUser('user_id', postID);
+    const isLiked = isPostLiked(postID);
     const likeIcon = isLiked ? '<span class="text-2xl text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="text-2xl icon-[ant-design--heart-outlined]"></span>'
 
     return `

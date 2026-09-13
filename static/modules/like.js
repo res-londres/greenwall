@@ -11,16 +11,14 @@ export function init() {
 
 // TODO: rename toggleLike => togglePostLike
 // TODO: also, what do we need postID param for? we have postManager.getCurrentPostID()
-function toggleLike(postID) {
-    const userID = 'user_id';      // TEMP
-    // TODO: rename isLiked => isPostLiked
-    const isLiked = likeManager.isLikedByUser(userID, postID) 
-    const newLikedState = !isLiked;
+function toggleLike(postID) { // TEMP
+    const isPostLiked = likeManager.isPostLiked(postID);
+    const newLikedState = !isPostLiked;
     if (newLikedState) {
-        likeManager.addlikedPostByUser(userID, postID);
+        likeManager.addLikedPost(postID);
         postManager.incrementPostLikes(postID);
     } else {
-        likeManager.removeLikedPostByUser(userID, postID);
+        likeManager.removeLikedPost(postID);
         postManager.decrementPostLikes(postID);
     }
     bus.emit('like:toggleLike');
