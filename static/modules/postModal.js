@@ -25,7 +25,7 @@ function handlePostModalEvents() {
                 createComment(inputContent.value);
                 clearInput(inputContent);
             } else if (action === 'likePost') {
-                bus.emit('postModal:#toggleLike', postID);
+                bus.emit('postModal:#togglePostLike', postID);
             } else if (action === 'likeComment') {
                 bus.emit('postModal:#toggleCommentLike', commentID);
             }

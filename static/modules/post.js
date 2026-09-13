@@ -22,7 +22,7 @@ function handlePostEvents() {
                 openPostModal(postModal, postID);
                 document.getElementById('post-modal-input-comment').focus();
             } else if (action === 'likePost') {
-                bus.emit('post:#toggleLike', postID);
+                bus.emit('post:#togglePostLike', postID);
             }
         }
     });
