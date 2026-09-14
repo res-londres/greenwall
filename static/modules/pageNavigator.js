@@ -1,3 +1,4 @@
+import * as bus from './eventBus.js';
 import { changePage } from './managers/pageManager.js';
 import { changeWall } from './managers/wallManager.js';
 
@@ -16,6 +17,7 @@ function handlePageNavigatorEvents() {
                 const pageName = actionElement.dataset.pagename;
                 changePage(pageName);
                 changeWall(pageName);
+                bus.emit('pageNavigator:#renderPosts');
             }
         }
     });
