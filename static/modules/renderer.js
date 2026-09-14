@@ -3,23 +3,37 @@ import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
+import { getCurrentAccountID, getViewingAccountID } from './managers/profileManager.js';
 
 // INIT //
 export function init() {
-    renderGlobalPosts();
-    bus.on('postManager:addPost', renderGlobalPosts);
+    renderPosts();
+    bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
-    bus.on('like:togglePostLike', renderGlobalPosts);
+    bus.on('like:togglePostLike', renderPosts);
     bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
     bus.on('like:togglePostLike:#renderPostModal', renderPostComments);
     bus.on('like:toggleCommentLike', renderPostComments);
+    bus.on('pageNavigator:#renderPosts', renderPosts);
 }
 
-function renderGlobalPosts() {
-    // TODO: render global posts latest on top, when u get to postTime
+function renderPosts() {
     const currentWall = getCurrentWall();
+    const currentWallAccountID = currentWall.dataset.accountid;
+    if (currentWallAccountID === 'null') {
+        renderGlobalPosts(currentWall);
+    } else if (currentWallAccountID === 'user') {
+        renderPostsByUser(null, currentWall);
+    } else {
+        // for when we open another account profile
+    }
+}
+
+function renderGlobalPosts(currentWall = null) {
+    // TODO: render global posts latest on top, when u get to postTime
+    currentWall = currentWall === null ? getCurrentWall() : currentWall;
     const globalPosts = postManager.getGlobalPostsList();
     if (globalPosts.length === 0) {
         currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
@@ -29,6 +43,23 @@ function renderGlobalPosts() {
     let html = '';
 
     globalPosts.forEach(function(post) {
+        html += HTMLCreator.createPostHTML(post);
+    });
+    currentWall.innerHTML += html;
+}
+
+function renderPostsByUser(userID = null, currentWall = null) {
+    userID = userID === null ? getCurrentAccountID() : userID;
+    currentWall = currentWall === null ? getCurrentWall() : currentWall;
+    const postsByUser = postManager.getPostsByUserList(userID);
+    if (postsByUser.length === 0) {
+        currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
+        return;
+    }
+    currentWall.innerHTML = '';
+    let html = '';
+
+    postsByUser.forEach(function(post) {
         html += HTMLCreator.createPostHTML(post);
     });
     currentWall.innerHTML += html;
