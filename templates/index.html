@@ -26,7 +26,7 @@
         <nav id="page-navigator" class="mt-8 flex flex-col select-none">
           <a href="#" data-pagename="user-profile" data-action="navigate">
             <span class="text-4xl icon-[boxicons--user-circle]"></span>
-            <span class="mt-1.5">Profile</span>
+            <span class="mt-1.5">Your Profile</span>
           </a>
           <a
             class="selected"
@@ -48,6 +48,59 @@
         class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto"
       >
         <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
+          <!-- profile card -->
+          <div class="border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4 rounded-2xl mx-auto mb-4">
+            <div class="flex items-start gap-4">
+              <div class="w-24 h-24 aspect-square rounded-full bg-light/10 flex items-center justify-center shrink-0">
+                <span class="text-8xl icon-[boxicons--user-circle]"></span>
+              </div>
+              <div class="flex flex-col justify-center min-h-24 gap-1">
+                <h2 class="text-2xl font-bold">Display Name</h2>
+                <div class="flex items-center gap-3 text-sm text-gray-500">
+                  <span class="mr-3">account_id1</span>
+                  <button 
+                    class="hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300"
+                  >
+                    <span class="text-2xl icon-[akar-icons--eye-open]"></span>
+                  </button>
+                  <button 
+                    class="hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300"
+                  >
+                    <span class="text-2xl icon-[basil--copy-outline]"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p class="mt-4 leading-relaxed">
+              bio
+            </p>
+            <div class="border-t-2 border-muted mt-4 pt-4 flex items-center justify-between text-gray-500">
+              <div class="flex items-center gap-6">
+                <button class="hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300">
+                  <span class="text-2xl icon-[flowbite--user-edit-outline]"></span>
+                </button>
+                <button class="hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300">
+                  <span class="text-2xl icon-[mdi--account-group-outline]"></span>
+                </button>
+                <button class="hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300">
+                  <span class="text-2xl icon-[akar-icons--gear]"></span>
+                </button>
+              </div>
+              <span>0 posts</span>
+            </div>
+          </div>
+          <!-- post-creator -->
+          <div
+            class="post-creator items-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
+          >
+            <span class="text-4xl mt-1.5 icon-[hugeicons--quill-write-02]"></span>
+            <span
+              class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
+              data-action="openPostCreatorModal"
+              >Create post</span
+            >
+          </div>
+          <!-- wall -->
           <div id="profile-wall">
             <!-- posts provided by js -->
           </div>
