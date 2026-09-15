@@ -21,6 +21,7 @@ const publicAccounts = {
 }
 
 let currentAccountID = 'account_id1';
+let viewingAccountID = currentAccountID;    // ID of the account we're currently viewing; default is currentAccountID, never null (make sure of that)
 
 export function getUserProfile() {
     return structuredClone(userProfile);
@@ -40,4 +41,12 @@ export function setCurrentAccountID(newAccountID) {
 
 export function getCurrentAccountID() {
     return currentAccountID;
+}
+
+export function setViewingAccountID(newViewingAccountID) {
+    viewingAccountID = newViewingAccountID;
+}
+
+export function getViewingAccountID() {
+    return viewingAccountID;
 }
