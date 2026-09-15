@@ -1,16 +1,12 @@
 import * as bus from './eventBus.js';
 import { setCurrentPostID, setPostModalActive } from './managers/postManager.js';
-import { getCurrentWall } from './managers/wallManager.js';
 
 export function init() {
     handlePostEvents();
 }
 
 function handlePostEvents() {
-    const postModal = document.getElementById('post-modal');
-    const currentWall = getCurrentWall();
-
-    currentWall.addEventListener('click', function(event) {
+    document.addEventListener('click', function(event) {
         const actionElement = event.target.closest('[data-action]');
         if (actionElement) {
             const action = actionElement.dataset.action;
@@ -19,7 +15,7 @@ function handlePostEvents() {
             event.stopPropagation();
             event.preventDefault();
             if (action === 'openPostModal') {
-                openPostModal(postModal, postID);
+                openPostModal(document.getElementById('post-modal'), postID);
                 document.getElementById('post-modal-input-comment').focus();
             } else if (action === 'likePost') {
                 bus.emit('post:#togglePostLike', postID);
