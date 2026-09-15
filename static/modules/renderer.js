@@ -25,7 +25,7 @@ function renderPosts() {
     if (currentWallAccountID === 'null') {
         renderGlobalPosts(currentWall);
     } else if (currentWallAccountID === 'user') {
-        renderPostsByUser(null, currentWall);
+        renderPostsByAccount(null, currentWall);
     } else {
         // for when we open another account profile
     }
@@ -48,10 +48,10 @@ function renderGlobalPosts(currentWall = null) {
     currentWall.innerHTML += html;
 }
 
-function renderPostsByUser(userID = null, currentWall = null) {
-    userID = userID === null ? getCurrentAccountID() : userID;
+function renderPostsByAccount(accountID = null, currentWall = null) {
+    accountID = accountID === null ? getCurrentAccountID() : accountID;
     currentWall = currentWall === null ? getCurrentWall() : currentWall;
-    const postsByUser = postManager.getPostsByUserList(userID);
+    const postsByUser = postManager.getPostsByAccountList(accountID);
     if (postsByUser.length === 0) {
         currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
         return;

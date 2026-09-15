@@ -2,12 +2,12 @@ import * as bus from '../eventBus.js';
 import { getCurrentAccountID } from './profileManager.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
-const postsByUsers = {};     // {user_id: {post_id: {post}}, user_id: {..}}
+const postsByAccounts = {};     // {account_id: {post_id: {post}}, account_id: {..}}
 let postModalActive = false;
 let currentPostID = null;
 
 // TODO: rename everything -ByUsers, it should be -ByAccounts
-// TODO: in extension, rename everything that uses userID because most likely they mean accountID
+// TODO: in extension, rename everything that uses accountID because most likely they mean accountID
 
 // SETTER //
 export function setCurrentPostID(newPostID) {
@@ -19,11 +19,11 @@ export function getGlobalPostsList() {
     return Object.values(globalPosts);
 }
 
-export function getPostsByUserList(userID) {
-    if (!(userID in postsByUsers)) {
-        postsByUsers[userID] = {};
+export function getPostsByAccountList(accountID) {
+    if (!(accountID in postsByAccounts)) {
+        postsByAccounts[accountID] = {};
     }
-    return Object.values(postsByUsers[userID]);
+    return Object.values(postsByAccounts[accountID]);
 }
 
 export function getCurrentPostID() {
@@ -65,14 +65,14 @@ export function isPostModalActive() {
 }
 
 // ETC //
-export function addPost(post, userID = null) {
+export function addPost(post, accountID = null) {
     const postID = post.post_id;
-    userID = userID === null ? getCurrentAccountID() : userID;
+    accountID = accountID === null ? getCurrentAccountID() : accountID;
     globalPosts[postID] = post;
-    if (!(userID in postsByUsers)) {
-        postsByUsers[userID] = {};
+    if (!(accountID in postsByAccounts)) {
+        postsByAccounts[accountID] = {};
     }
-    postsByUsers[userID][postID] = post;
+    postsByAccounts[accountID][postID] = post;
     bus.emit('postManager:addPost');
 }
 
