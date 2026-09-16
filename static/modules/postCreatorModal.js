@@ -28,7 +28,7 @@ function handlePostCreatorModalEvents() {
     });
 
     // POST CREATOR MODAL : input events //
-    document.querySelectorAll('.textarea').forEach(function(textarea) {
+    postCreatorModal.querySelectorAll('.textarea').forEach(function(textarea) {
         textarea.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = this.scrollHeight + 'px';
