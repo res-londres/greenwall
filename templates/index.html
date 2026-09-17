@@ -69,9 +69,16 @@
             </p>
             <div class="border-t-2 border-muted mt-4 pt-4 flex items-center justify-between text-gray-500">
               <div class="flex items-center gap-6">
-                <button class="simple-button">
-                  <span class="text-2xl icon-[flowbite--user-edit-outline]"></span>
-                </button>
+                <div class="group relative inline-block">
+                  <button class="simple-button">
+                    <span class="text-2xl icon-[flowbite--user-edit-outline]"></span>
+                  </button>
+                  <div class="hidden absolute bg-white py-2 rounded-xl border border-primary border-solid min-w-10 max-w-56 w-max z-30 group-hover:flex flex-col">
+                    <div class="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted">option1</div>
+                    <div class="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted">option2</div>
+                    <div class="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted">option3</div>
+                  </div>
+                </div>
                 <button class="simple-button">
                   <span class="text-2xl icon-[mdi--account-group-outline]"></span>
                 </button>
