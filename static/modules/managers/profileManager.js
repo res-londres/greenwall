@@ -5,18 +5,21 @@ const userProfile = {
     username: 'username'   
 }
 
-const publicAccounts = {
+const userPublicAccounts = {
     account_id1: {
         account_id: 'account_id1',
-        display_name: 'account1'
+        display_name: 'account1',
+        bio: ''
     },
     account_id2: {
         account_id: 'account_id2',
-        display_name: 'account2'
+        display_name: 'account2',
+        bio: ''
     },
     account_id3: {
         account_id: 'account_id3',
-        display_name: 'account3'
+        display_name: 'account3',
+        bio: ''
     }
 }
 
@@ -27,12 +30,12 @@ export function getUserProfile() {
     return structuredClone(userProfile);
 }
 
-export function getPublicAccounts() {
-    return structuredClone(publicAccounts);
+export function getUserPublicAccounts() {
+    return structuredClone(userPublicAccounts);
 }
 
-export function getCurrentAccount() {
-    return structuredClone(publicAccounts[currentAccountID]);
+export function getCurrentUserAccount() {
+    return structuredClone(userPublicAccounts[currentAccountID]);
 }
 
 export function setCurrentAccountID(newAccountID) {
