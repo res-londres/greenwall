@@ -29,6 +29,15 @@ function handleProfileEvents() {
         }
     })
     textareaBio.addEventListener('input', function() {
+        const pos = this.selectionStart;
+        if (this.value[pos - 1] === '\n' && this.value[pos - 2] === '\n') {
+            this.value = this.value.slice(0, pos - 1) + this.value.slice(pos);
+            this.selectionStart = this.selectionEnd = pos - 1;
+        } else if (pos === 1 && this.value[0] === '\n') {
+            this.value = this.value.slice(1);
+            this.selectionStart = this.selectionEnd = 0;
+        }
+
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     });
@@ -49,5 +58,6 @@ function stopEditBio(textareaBio) {
         textareaBio.value = '';
     }
     textareaBio.style.height = 'auto';
+    textareaBio.style.height = textareaBio.scrollHeight + 'px';
     setCurrentAccountBio(bio);
 }
