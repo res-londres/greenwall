@@ -99,7 +99,7 @@ function renderUserAccountsSelection() {
 }
 
 function renderProfile() {
-    const currentAccount = getCurrentUserAccount();
+    const currentAccount = getCurrentUserAccount(); // TODO: maybe change to currentViewingAccount
     const {account_id: accountID, display_name: displayName, bio} = currentAccount;
     
     document.getElementById('display-account-id').textContent = accountID;

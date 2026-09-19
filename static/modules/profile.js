@@ -11,23 +11,26 @@ function handleProfileEvents() {
     const profileCard = document.getElementById('profile-card');
     const textareaBio = document.getElementById('textarea-bio');
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', async function(event) {
         const actionElement = event.target.closest('[data-action]');
 
-        event.preventDefault();
-        event.stopPropagation();
         if (actionElement) {
+            event.preventDefault();
+            event.stopPropagation();
             const action = actionElement.dataset.action;
             switch (action) {
                 case 'editBio':
                     editBio(textareaBio);
                     break;
-                case 'changeAccount':
+                case 'changeAccount': 
                     const changeAccountID = actionElement.dataset.accountid;
                     changeAccount(changeAccountID);
                     break;
                 case 'logOut':
                     /* soon */
+                    break;
+                case 'copyAccountID':
+                    await navigator.clipboard.writeText(document.getElementById('display-account-id').textContent);
                     break;
             }
         }
@@ -53,6 +56,7 @@ function handleProfileEvents() {
 function editBio(textareaBio) {
     isEditingBio = true;
     textareaBio.classList.remove('hidden');
+    textareaBio.style.height = 'auto';
     textareaBio.focus();
 }
 
