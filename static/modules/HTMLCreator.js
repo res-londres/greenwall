@@ -147,6 +147,32 @@ export function createCommentHTML(comment, postID) {
     `;
 }
 
+export function createUserAccountOptionHTML(account) {
+    const accountID = account.accout_id;
+    const displayName = account.display_name;
+    return `
+        <div 
+            class="hover-dropdown-item" 
+            data-accountid="${accountID}" 
+            data-action="changeAccount"
+        >
+            <span class="text-gray-500 icon-[boxicons--user]"></span>
+            <span>${displayName}</span>
+        </div>
+    `;
+}
+
+export function createLogOutAccountOptionHTML() {
+    return `
+        <div 
+            class="hover-dropdown-item border-t border-t-muted text-danger" data-action="logOut"
+        >
+            <span class="icon-[akar-icons--sign-out]"></span>
+            <span>Log Out</span>
+        </div>
+    `;
+}
+
 // HELPERS //
 function escapeHTML(str) {
     if (!str) return '';
