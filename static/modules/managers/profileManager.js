@@ -53,3 +53,8 @@ export function setViewingAccountID(newViewingAccountID) {
 export function getViewingAccountID() {
     return viewingAccountID;
 }
+
+export function setCurrentAccountBio(newBio) {
+    userPublicAccounts[currentAccountID].bio = newBio;
+    /* send to database via bus */
+}
