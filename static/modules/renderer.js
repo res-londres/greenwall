@@ -3,12 +3,11 @@ import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import { getCurrentAccountID, getUserPublicAccounts } from './managers/profileManager.js';
+import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } from './managers/profileManager.js';
 
 // INIT //
 export function init() {
-    renderPosts();
-    renderUserAccountsSelection();
+    renderProfile();
     bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
@@ -18,6 +17,7 @@ export function init() {
     bus.on('like:togglePostLike:#renderPostModal', renderPostComments);
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('pageNavigator:#renderPosts', renderPosts);
+    bus.on('profile:changeAccount', renderProfile);
 }
 
 function renderPosts() {
@@ -96,4 +96,29 @@ function renderUserAccountsSelection() {
     });
     html += HTMLCreator.createLogOutAccountOptionHTML();
     changeAccountContent.innerHTML = html;
+}
+
+function renderProfile() {
+    const currentAccount = getCurrentUserAccount();
+    Object.values(currentAccount).forEach(function(s) {
+        console.log(s);
+    });
+    
+    document.getElementById('display-account-id').textContent = currentAccount.account_id;
+    document.getElementById('display-name').textContent = currentAccount.display_name;
+    renderBio(document.getElementById('textarea-bio'), currentAccount.bio);
+    renderPosts();
+    renderUserAccountsSelection();
+}
+
+function renderBio(textareaBio, bio) {
+    if (bio === '') {
+        textareaBio.classList.add('hidden');
+        textareaBio.value = '';
+    } else {
+        textareaBio.classList.remove('hidden');
+        textareaBio.value = bio;
+    }
+    textareaBio.style.height = 'auto';
+    textareaBio.style.height = textareaBio.scrollHeight + 'px';
 }
