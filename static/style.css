@@ -57,10 +57,10 @@
     @apply flex flex-col;
   }
   .hover-dropdown-content {
-    @apply hidden absolute bg-white py-2 rounded-xl border border-primary border-solid min-w-10 max-w-56 w-max z-30;
+    @apply hidden absolute bg-white py-2 rounded-xl border border-primary border-solid min-w-10 max-w-56 w-max z-30 text-primary overflow-hidden;
   }
   .hover-dropdown-item {
-    @apply flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted;
+    @apply flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted hover:scale-110 active:bg-accent active:scale-100 select-none;
   }
 }
 
