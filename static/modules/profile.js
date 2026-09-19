@@ -1,5 +1,5 @@
 import * as bus from './eventBus.js';
-import { setCurrentAccountBio } from './managers/profileManager.js';
+import * as profileManager from './managers/profileManager.js';
 
 let isEditingBio = false;
 
@@ -21,6 +21,14 @@ function handleProfileEvents() {
             switch (action) {
                 case 'editBio':
                     editBio(textareaBio);
+                    break;
+                case 'changeAccount':
+                    const changeAccountID = actionElement.dataset.accountid;
+                    console.log('change account to: ' + changeAccountID);
+                    changeAccount(changeAccountID);
+                    break;
+                case 'logOut':
+                    /* soon */
                     break;
             }
         }
@@ -59,5 +67,11 @@ function stopEditBio(textareaBio) {
     }
     textareaBio.style.height = 'auto';
     textareaBio.style.height = textareaBio.scrollHeight + 'px';
-    setCurrentAccountBio(bio);
+    profileManager.setCurrentAccountBio(bio);
+}
+
+function changeAccount(changeAccountID) {
+    profileManager.setCurrentAccountID(changeAccountID);
+    profileManager.setViewingAccountID(changeAccountID);
+    bus.emit('profile:changeAccount');
 }

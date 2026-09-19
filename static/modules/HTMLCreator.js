@@ -148,7 +148,7 @@ export function createCommentHTML(comment, postID) {
 }
 
 export function createUserAccountOptionHTML(account) {
-    const accountID = account.accout_id;
+    const accountID = account.account_id;
     const displayName = account.display_name;
     return `
         <div 
