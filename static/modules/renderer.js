@@ -3,11 +3,12 @@ import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import { getCurrentAccountID, getViewingAccountID } from './managers/profileManager.js';
+import { getCurrentAccountID, getUserPublicAccounts } from './managers/profileManager.js';
 
 // INIT //
 export function init() {
     renderPosts();
+    renderUserAccountsSelection();
     bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
@@ -82,4 +83,17 @@ function renderPostModal() {
     const postModalContent = document.getElementById('post-modal-content');
     const post = postManager.getCurrentPost();
     postModalContent.innerHTML = HTMLCreator.createPostModalHTML(post);
+}
+
+function renderUserAccountsSelection() {
+    const userAccounts = getUserPublicAccounts();
+    const changeAccountContent = document.getElementById('hover-dropdown-content-account-change');
+    let html = '';
+    Object.values(userAccounts).forEach(function(account) {
+        if (!(account.account_id === getCurrentAccountID())) {
+            html += HTMLCreator.createUserAccountOptionHTML(account);
+        }
+    });
+    html += HTMLCreator.createLogOutAccountOptionHTML();
+    changeAccountContent.innerHTML = html;
 }
