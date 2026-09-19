@@ -58,3 +58,7 @@ export function setCurrentAccountBio(newBio) {
     userPublicAccounts[currentAccountID].bio = newBio;
     /* send to database via bus */
 }
+
+export function getCurrentAccountDisplayName() {
+    return userPublicAccounts[currentAccountID].display_name;
+}

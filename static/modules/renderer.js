@@ -103,10 +103,13 @@ function renderProfile() {
     Object.values(currentAccount).forEach(function(s) {
         console.log(s);
     });
+    const {account_id: accountID, display_name: displayName, bio} = currentAccount;
     
-    document.getElementById('display-account-id').textContent = currentAccount.account_id;
-    document.getElementById('display-name').textContent = currentAccount.display_name;
-    renderBio(document.getElementById('textarea-bio'), currentAccount.bio);
+    document.getElementById('display-account-id').textContent = accountID;
+    document.querySelectorAll('.current-account-display-name').forEach(function(element) {
+        element.textContent = displayName;
+    });
+    renderBio(document.getElementById('textarea-bio'), bio);
     renderPosts();
     renderUserAccountsSelection();
 }
