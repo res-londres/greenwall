@@ -24,7 +24,6 @@ function handleProfileEvents() {
                     break;
                 case 'changeAccount':
                     const changeAccountID = actionElement.dataset.accountid;
-                    console.log('change account to: ' + changeAccountID);
                     changeAccount(changeAccountID);
                     break;
                 case 'logOut':

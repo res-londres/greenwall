@@ -6,9 +6,6 @@ const postsByAccounts = {};     // {account_id: {post_id: {post}}, account_id: {
 let postModalActive = false;
 let currentPostID = null;
 
-// TODO: rename everything -ByUsers, it should be -ByAccounts
-// TODO: in extension, rename everything that uses accountID because most likely they mean accountID
-
 // SETTER //
 export function setCurrentPostID(newPostID) {
     currentPostID = newPostID;

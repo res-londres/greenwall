@@ -1,6 +1,6 @@
 import { socket } from './socket.js';
 import { setPostButtonState } from './postCreator.js';
-import { getCurrentAccountDisplayName } from './managers/profileManager.js';
+import { getCurrentAccountDisplayName, getCurrentAccountID } from './managers/profileManager.js';
 import * as postManager from './managers/postManager.js';
 
 export function init() {
@@ -64,6 +64,7 @@ function createPost(subject, content) {
     // how about post id? temp id?
     const post = {
         post_id: tempID,
+        account_id: getCurrentAccountID(),
         attribution: getCurrentAccountDisplayName(),
         subject: subject,
         content: content,
