@@ -1,6 +1,7 @@
 import * as bus from './eventBus.js';
 import * as commentManager from './managers/commentManager.js';
 import { setPostModalActive } from './managers/postManager.js';
+import { getCurrentAccountDisplayName } from './managers/profileManager.js';
 
 export function init() {
     handlePostModalEvents();
@@ -43,7 +44,7 @@ function createComment(content) {
     const tempID = crypto.randomUUID();
     const comment = {
         comment_id: tempID,
-        attribution: 'user',
+        attribution: getCurrentAccountDisplayName(),
         content: content,
         likes: 0
     }
