@@ -50,6 +50,7 @@ function createComment(content) {
         likes: 0
     }
     commentManager.addPostComment(comment);
+    bus.emit('postModal:createComment');
 }
 
 // HELPERS //

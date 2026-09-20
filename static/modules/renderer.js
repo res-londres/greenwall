@@ -8,16 +8,18 @@ import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } fro
 // INIT //
 export function init() {
     renderProfile();
+    // TODO: reevaluate every time u used renderPosts
+    // make a renderer that renders only one post
     bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
     bus.on('like:togglePostLike', renderPosts);
     bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
-    bus.on('like:togglePostLike:#renderPostModal', renderPostComments);
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('pageNavigator:#renderPosts', renderPosts);
     bus.on('profile:changeAccount', renderProfile);
+    bus.on('postModal:createComment', renderPostModal);
 }
 
 function renderPosts() {
@@ -83,6 +85,7 @@ function renderPostModal() {
     const postModalContent = document.getElementById('post-modal-content');
     const post = postManager.getCurrentPost();
     postModalContent.innerHTML = HTMLCreator.createPostModalHTML(post);
+    renderPostComments();
 }
 
 function renderUserAccountsSelection() {

@@ -8,6 +8,10 @@ export function getPostCommentsList() {
     return Object.values(getPostComments());
 }
 
+export function getPostCommentsCount(postID) {
+    return Object.values(getPostComments(postID)).length;
+}
+
 export function addPostComment(comment) {
     const commentID = comment.comment_id;
     getPostComments()[commentID] = comment;
@@ -32,8 +36,8 @@ export function decrementCommentLikes(commentID) {
 }
 
 // HELPERS //
-function getPostComments() {
-    const currentPostID = getCurrentPostID();
+function getPostComments(postID = null) {
+    const currentPostID = postID == null ? getCurrentPostID() : postID;
     if (!(currentPostID in commentsByPost)) {
         commentsByPost[currentPostID] = {};
     }
