@@ -19,7 +19,7 @@ function togglePostLike(postID) {
         likeManager.removeLikedPost(postID);
         postManager.decrementPostLikes(postID);
     }
-    bus.emit('like:togglePostLike');
+    bus.emit('like:togglePostLike', postManager.getPostByID(postID));
     if (postManager.isPostModalActive()) {
         bus.emit('like:togglePostLike:#renderPostModal');
     }

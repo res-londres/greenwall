@@ -13,7 +13,7 @@ export function init() {
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
     bus.on('post:openPostModal', renderPostComments);
-    bus.on('like:togglePostLike', renderPosts);
+    bus.on('like:togglePostLike', renderUpdateTargetPost);
     bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('pageNavigator:#renderPosts', renderPosts);
