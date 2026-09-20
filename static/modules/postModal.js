@@ -1,6 +1,6 @@
 import * as bus from './eventBus.js';
 import * as commentManager from './managers/commentManager.js';
-import { setPostModalActive } from './managers/postManager.js';
+import { getCurrentPost, setPostModalActive } from './managers/postManager.js';
 import { getCurrentAccountDisplayName, getCurrentAccountID } from './managers/profileManager.js';
 
 export function init() {
@@ -50,7 +50,7 @@ function createComment(content) {
         likes: 0
     }
     commentManager.addPostComment(comment);
-    bus.emit('postModal:createComment');
+    bus.emit('postModal:createComment', getCurrentPost());
 }
 
 // HELPERS //

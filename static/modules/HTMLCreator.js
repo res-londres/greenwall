@@ -26,9 +26,9 @@ export function createPostHTML(post) {
 
     return `
         <div
+            id="${postID}"
             class="bg-white text-primary border-2 border-solid border-primary rounded-2xl my-2 px-6 py-[1rem_0.5rem]"
             data-action="openPostModal"
-            data-postid="${postID}"
         >
             <div class="items-center flex justify-between mb-2">
                 <span class="text-[0.95rem] font-bold">${postAttribution}</span>

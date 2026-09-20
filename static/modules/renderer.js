@@ -8,8 +8,7 @@ import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } fro
 // INIT //
 export function init() {
     renderProfile();
-    // TODO: reevaluate every time u used renderPosts
-    // make a renderer that renders only one post
+    // TODO: adding post shouldnt render all posts, only insert the new post on top
     bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('post:openPostModal', renderPostModal);
@@ -19,7 +18,13 @@ export function init() {
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('pageNavigator:#renderPosts', renderPosts);
     bus.on('profile:changeAccount', renderProfile);
+    bus.on('postModal:createComment', renderUpdateTargetPost);
     bus.on('postModal:createComment', renderPostModal);
+}
+
+function renderUpdateTargetPost(post) {
+    const oldPostRender = document.getElementById(post.post_id);
+    oldPostRender.outerHTML = HTMLCreator.createPostHTML(post);
 }
 
 function renderPosts() {
