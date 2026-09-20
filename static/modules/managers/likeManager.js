@@ -28,21 +28,31 @@ export function removeLikedPost(postID) {
 
 // COMMENT LIKES //
 export function isCommentLiked(commentID) {
+    const currentAccountID = getCurrentAccountID();
     const currentPostID = getCurrentPostID();
-    return ((currentPostID in likedCommentsByPost) && (commentID in likedCommentsByPost[currentPostID]));
+    return currentAccountID in likedCommentsByPostByAccount && currentPostID in likedCommentsByPostByAccount[currentAccountID] && commentID in likedCommentsByPostByAccount[currentAccountID][currentPostID];
 }
 
 export function addCommentLike(commentID) {
+    const currentAccountID = getCurrentAccountID();
     const currentPostID = getCurrentPostID();
-    if (!(currentPostID in likedCommentsByPost)) {
-        likedCommentsByPost[currentPostID] = {};
+    if (!(currentAccountID in likedCommentsByPostByAccount)) {
+        likedCommentsByPostByAccount[currentAccountID] = {};
     }
-    likedCommentsByPost[currentPostID][commentID] = true;
+    if (!(currentPostID in likedCommentsByPostByAccount[currentAccountID])) {
+        likedCommentsByPostByAccount[currentAccountID][currentPostID] = {};
+    }
+    likedCommentsByPostByAccount[currentAccountID][currentPostID][commentID] = true;
 }
 
 export function removeCommentLike(commentID) {
+    const currentAccountID = getCurrentAccountID();
     const currentPostID = getCurrentPostID();
-    if (!(currentPostID in likedCommentsByPost)) return;
-    if (!(commentID in likedCommentsByPost[currentPostID])) return;
-    delete likedCommentsByPost[currentPostID][commentID];
+    if (!(currentAccountID in likedCommentsByPostByAccount)) {
+        return;
+    }
+    if (!(currentPostID in likedCommentsByPostByAccount[currentAccountID])) {
+        return;
+    }
+    delete likedCommentsByPostByAccount[currentAccountID][currentPostID][commentID];
 }
