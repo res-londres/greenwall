@@ -25,7 +25,7 @@
       >
         <nav id="page-navigator" class="mt-8 flex flex-col select-none">
           <a href="#" data-pagename="user-profile" data-action="navigate">
-            <span class="text-4xl icon-[boxicons--user-circle]"></span>
+            <span class="icon-[boxicons--user-circle] text-4xl"></span>
             <span class="mt-1.5">Your Profile</span>
           </a>
           <a
@@ -34,11 +34,11 @@
             data-pagename="home-wall"
             data-action="navigate"
           >
-            <span class="text-4xl icon-[akar-icons--home]"></span>
+            <span class="icon-[akar-icons--home] text-4xl"></span>
             <span class="mt-2">Home Wall</span>
           </a>
           <a href="#" data-pagename="search" data-action="navigate">
-            <span class="text-4xl icon-[ant-design--search-outlined]"></span>
+            <span class="icon-[ant-design--search-outlined] text-4xl"></span>
             <span class="mt-1">Search</span>
           </a>
         </nav>
@@ -47,18 +47,29 @@
       <section
         class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto"
       >
-        <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
+        <div
+          class="page hidden"
+          data-pagename="user-profile"
+          data-wallid="profile-wall"
+        >
           <!-- profile card -->
-          <div id="profile-card" class="border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4 rounded-2xl mx-auto mb-4">
+          <div
+            id="profile-card"
+            class="mx-auto mb-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
+          >
             <div class="flex items-start gap-4">
-              <div class="w-24 h-24 aspect-square rounded-full bg-light/10 flex items-center justify-center shrink-0">
-                <span class="text-8xl icon-[boxicons--user-circle]"></span>
+              <div
+                class="bg-light/10 flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full"
+              >
+                <span class="icon-[boxicons--user-circle] text-8xl"></span>
               </div>
-              <div class="flex flex-col justify-center min-h-24 gap-1">
-                <h2 class="current-account-display-name text-2xl font-bold"></h2>
+              <div class="flex min-h-24 flex-col justify-center gap-1">
+                <h2
+                  class="current-account-display-name text-2xl font-bold"
+                ></h2>
                 <div class="flex items-center gap-1 text-sm text-gray-500">
                   <button class="simple-button" data-action="copyAccountID">
-                    <span class="text-2xl icon-[basil--copy-outline]"></span>
+                    <span class="icon-[basil--copy-outline] text-2xl"></span>
                   </button>
                   <span id="display-account-id" class="mr-3"></span>
                 </div>
@@ -66,31 +77,42 @@
             </div>
             <textarea
               id="textarea-bio"
-              class="textarea w-full resize-none overflow-hidden outline-0 mt-4 leading-relaxed pointer-events-none hidden"
+              class="textarea pointer-events-none mt-4 hidden w-full resize-none overflow-hidden leading-relaxed outline-0"
               rows="1"
               maxlength="160"
             ></textarea>
-            <div class="border-t-2 border-muted mt-4 pt-4 flex items-center justify-between text-gray-500">
+            <div
+              class="mt-4 flex items-center justify-between border-t-2 border-muted pt-4 text-gray-500"
+            >
               <div class="flex items-center gap-6">
                 <div class="hover-dropdown">
                   <button class="simple-button">
-                    <span class="text-2xl icon-[flowbite--user-edit-outline]"></span>
+                    <span
+                      class="icon-[flowbite--user-edit-outline] text-2xl"
+                    ></span>
                   </button>
                   <div class="hover-dropdown-content">
-                    <div class="hover-dropdown-item" data-action="editBio">Edit bio</div>
+                    <div class="hover-dropdown-item" data-action="editBio">
+                      Edit bio
+                    </div>
                   </div>
                 </div>
                 <div class="hover-dropdown">
                   <button class="simple-button">
-                    <span class="text-2xl icon-[mdi--account-group-outline]"></span>
+                    <span
+                      class="icon-[mdi--account-group-outline] text-2xl"
+                    ></span>
                   </button>
-                  <div id="hover-dropdown-content-account-change" class="hover-dropdown-content">
+                  <div
+                    id="hover-dropdown-content-account-change"
+                    class="hover-dropdown-content"
+                  >
                     <!-- from js -->
                   </div>
                 </div>
                 <div class="hover-dropdown">
                   <button class="simple-button">
-                    <span class="text-2xl icon-[akar-icons--gear]"></span>
+                    <span class="icon-[akar-icons--gear] text-2xl"></span>
                   </button>
                   <div class="hover-dropdown-content">
                     <!-- idk what settings to put yet -->
@@ -102,9 +124,11 @@
           </div>
           <!-- post-creator -->
           <div
-            class="post-creator items-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
+            class="post-creator flex flex-row items-center gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
           >
-            <span class="text-4xl mt-1.5 icon-[hugeicons--quill-write-02]"></span>
+            <span
+              class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl"
+            ></span>
             <span
               class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
               data-action="openPostCreatorModal"
@@ -121,7 +145,9 @@
           <div
             class="post-creator align-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4"
           >
-            <span class="text-4xl mt-1.5 icon-[hugeicons--quill-write-02]"></span>
+            <span
+              class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl"
+            ></span>
             <span
               class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered"
               data-action="openPostCreatorModal"
@@ -142,50 +168,42 @@
     </main>
 
     <!-- post creator modal -->
-    <div
-      id="post-creator-modal"
-      class="scrollbar-custom modal-screen"
-    >
-      <div
-        class="modal-blur-overlay"
-        data-action="closePostCreatorModal"
-      ></div>
-      <div
-        class="modal-card"
-      >
-				<div class="border-b-2 border-muted">
-					<p class="text-[150%] font-bold">Create post</p>
-				</div>
-				<div class="mt-4 flex flex-row gap-2">
-					<span class="text-2xl icon-[boxicons--user]"></span>
-					<span class="current-account-display-name font-bold"></span>
-				</div>
-				<div class="mt-2">
-					<textarea
+    <div id="post-creator-modal" class="scrollbar-custom modal-screen">
+      <div class="modal-blur-overlay" data-action="closePostCreatorModal"></div>
+      <div class="modal-card">
+        <div class="border-b-2 border-muted">
+          <p class="text-[150%] font-bold">Create post</p>
+        </div>
+        <div class="mt-4 flex flex-row gap-2">
+          <span class="icon-[boxicons--user] text-2xl"></span>
+          <span class="current-account-display-name font-bold"></span>
+        </div>
+        <div class="mt-2">
+          <textarea
             id="post-creator-modal-textarea-subject"
-						class="textarea min-h-5 w-full resize-none overflow-hidden text-[150%] font-bold outline-0"
-						placeholder="Enter subject"
-						rows="1"
-						maxlength="150"
-					></textarea>
-					<textarea
+            class="textarea min-h-5 w-full resize-none overflow-hidden text-[150%] font-bold outline-0"
+            placeholder="Enter subject"
+            rows="1"
+            maxlength="150"
+          ></textarea>
+          <textarea
             id="post-creator-modal-textarea-content"
-						class="textarea w-full resize-none overflow-hidden outline-0"
-						placeholder="Enter content"
-						rows="3"
-						maxlength="2000"
-					></textarea>
-				</div>
-				<div class="sticky bottom-0 border-t-2 border-muted bg-white pb-4">
-					<button
+            class="textarea w-full resize-none overflow-hidden outline-0"
+            placeholder="Enter content"
+            rows="3"
+            maxlength="2000"
+          ></textarea>
+        </div>
+        <div class="sticky bottom-0 border-t-2 border-muted bg-white pb-4">
+          <button
             id="post-button"
-						class="mt-4 w-full rounded-4xl bg-accent p-1 font-bold transition-all duration-300 enabled:hover:bg-accent-hovered enabled:hover:text-muted enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-muted"
+            class="mt-4 w-full rounded-4xl bg-accent p-1 font-bold transition-all duration-300 enabled:hover:bg-accent-hovered enabled:hover:text-muted enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-muted"
             disabled
             data-action="createPost"
-					>
-						Post
-					</button>
-				</div>
+          >
+            Post
+          </button>
+        </div>
       </div>
     </div>
 

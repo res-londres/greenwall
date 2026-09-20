@@ -33,11 +33,11 @@
   }
 
   .post-action {
-    @apply items-center bg-none border-none rounded-sm text-gray-500 cursor-pointer flex text-[0.85rem] gap-1 p-[0.25rem_0.5rem] transition-all duration-300 hover:text-accent hover:scale-110 origin-top active:scale-100;
+    @apply flex origin-top cursor-pointer items-center gap-1 rounded-sm border-none bg-none p-[0.25rem_0.5rem] text-[0.85rem] text-gray-500 transition-all duration-300 hover:scale-110 hover:text-accent active:scale-100;
   }
 
   .simple-button {
-    @apply hover:text-accent hover:scale-110 active:scale-100 transition-all duration-300;
+    @apply transition-all duration-300 hover:scale-110 hover:text-accent active:scale-100;
   }
 
   /* modal */
@@ -47,7 +47,7 @@
   .modal-blur-overlay {
     @apply fixed top-0 left-0 h-full w-full backdrop-blur-xs;
   }
-  
+
   .modal-card {
     @apply relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem];
   }
@@ -60,10 +60,10 @@
     @apply flex flex-col;
   }
   .hover-dropdown-content {
-    @apply hidden absolute bg-white py-2 rounded-xl border border-primary border-solid min-w-10 max-w-56 w-max z-30 text-primary overflow-hidden;
+    @apply absolute z-30 hidden w-max max-w-56 min-w-10 overflow-hidden rounded-xl border border-solid border-primary bg-white py-2 text-primary;
   }
   .hover-dropdown-item {
-    @apply flex items-center gap-2 px-4 py-2 text-sm cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-muted hover:scale-110 active:bg-accent active:scale-100 select-none;
+    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-110 hover:bg-muted active:scale-100 active:bg-accent;
   }
 }
 
