@@ -1,29 +1,29 @@
 import { getCurrentPostID } from './postManager.js';
 import { getCurrentAccountID } from './profileManager.js';
 
-const likedPostsByAccount = {}     // {account_id: {post_id: true, post_id: true}}
-const likedCommentsByPost = {}     // {post_id: {comment_id: true, comment_id: true}, post_id: {..}}
+const likedPostsByAccount = {}          // {account_id: {post_id: true, post_id: true}}
+const likedCommentsByPostByAccount = {} // {account_id: {post_id: {comment_id: true, comment_id: true}}}
 
 // POST LIKES //
 export function isPostLiked(postID) {
-    const accountID = getCurrentAccountID();
-    return accountID in likedPostsByAccount && postID in likedPostsByAccount[accountID];
+    const currentAccountID = getCurrentAccountID();
+    return currentAccountID in likedPostsByAccount && postID in likedPostsByAccount[currentAccountID];
 }
 
 export function addLikedPost(postID) {
-    const accountID = getCurrentAccountID();
-    if (!(accountID in likedPostsByAccount)) {
-        likedPostsByAccount[accountID] = {};
+    const currentAccountID = getCurrentAccountID();
+    if (!(currentAccountID in likedPostsByAccount)) {
+        likedPostsByAccount[currentAccountID] = {};
     }
-    likedPostsByAccount[accountID][postID] = true;
+    likedPostsByAccount[currentAccountID][postID] = true;
 }
 
 export function removeLikedPost(postID) {
-    const accountID = getCurrentAccountID();
-    if (!(accountID in likedPostsByAccount)) {
+    const currentAccountID = getCurrentAccountID();
+    if (!(currentAccountID in likedPostsByAccount)) {
         return;
     }
-    delete likedPostsByAccount[accountID][postID];
+    delete likedPostsByAccount[currentAccountID][postID];
 }
 
 // COMMENT LIKES //
