@@ -6,6 +6,8 @@
 @source "./modules/HTMLCreator.js";
 
 @theme {
+  /* TODO: improve semantics, ampanget.
+  make base colors then alias semantic colors */
   --color-primary: #1e392a;
   --color-accent: #3cc47c;
   --color-accent-hovered: #269466;
