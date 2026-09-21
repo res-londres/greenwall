@@ -8,18 +8,19 @@ import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } fro
 // INIT //
 export function init() {
     renderProfile();
+    bus.on('like:toggleCommentLike', renderPostComments);
+    bus.on('like:togglePostLike', renderUpdateTargetPost);
+    bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
+    bus.on('pageNavigator:#renderPosts', renderPosts);
+    bus.on('post:openPostModal', renderPostModal);
     // TODO: adding post shouldnt render all posts, only insert the new post on top
     bus.on('postManager:addPost', renderPosts);
     bus.on('postManager:addPostComment', renderPostComments);
-    bus.on('post:openPostModal', renderPostModal);
-    bus.on('post:openPostModal', renderPostComments);
-    bus.on('like:togglePostLike', renderUpdateTargetPost);
-    bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
-    bus.on('like:toggleCommentLike', renderPostComments);
-    bus.on('pageNavigator:#renderPosts', renderPosts);
-    bus.on('profile:changeAccount', renderProfile);
-    bus.on('postModal:createComment', renderUpdateTargetPost);
     bus.on('postModal:createComment', renderPostModal);
+    bus.on('postModal:createComment', renderUpdateTargetPost);
+    bus.on('profile:changeAccount', renderProfile);
+    bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
+    bus.on('profile:openUserSettingsModal', renderUserSettingsModal);
 }
 
 function renderUpdateTargetPost(post) {
@@ -129,4 +130,14 @@ function renderBio(textareaBio, bio) {
     }
     textareaBio.style.height = 'auto';
     textareaBio.style.height = textareaBio.scrollHeight + 'px';
+}
+
+function renderUserSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal-content');
+    settingsModal.innerHTML = HTMLCreator.createUserSettingsModalHTML();
+}
+
+function renderAccountSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal-content');
+    settingsModal.innerHTML = HTMLCreator.createAccountSettingsModalHTML();
 }

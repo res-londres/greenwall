@@ -116,11 +116,11 @@
                     <span class="icon-[akar-icons--gear] text-2xl"></span>
                   </button>
                   <div class="hover-dropdown-content">
-                    <div class="hover-dropdown-item" data-action="openAccountSettingsModal">
+                    <div class="hover-dropdown-item" data-action="openUserSettingsModal">
                       <span class="text-gray-500 icon-[hugeicons--user-settings-02]"></span>
                       <span>User Settings</span>
                     </div>
-                    <div class="hover-dropdown-item" data-action="openProfileSettingsModal">
+                    <div class="hover-dropdown-item" data-action="openAccountSettingsModal">
                       <span class="text-gray-500 icon-[hugeicons--user-settings-02]"></span>
                       <span>Account Settings</span>
                     </div>
@@ -225,12 +225,13 @@
       </div>
     </div>
     
-    <!-- TODO: consider what happens if all modals go here, we just create post modal and post creator modal?-->
-    <!-- other modals -->
-    <div class="scrollbar-custom modal-screen">
-      <div class="modal-blur-overlay" data-action="closeModal"></div>
+    <!-- settings modal -->
+    <div id="settings-modal" class="scrollbar-custom modal-screen">
+      <div class="modal-blur-overlay" data-action="closeSettingsModal"></div>
       <div class="modal-card">
-        <!-- whatever goes here -->
+        <div id="settings-modal-content">
+          <!-- whatever goes here -->
+        </div>
       </div>
     </div>
 

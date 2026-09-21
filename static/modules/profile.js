@@ -32,6 +32,15 @@ function handleProfileEvents() {
                 case 'copyAccountID':
                     await navigator.clipboard.writeText(document.getElementById('display-account-id').textContent);
                     break;
+                case 'openUserSettingsModal':
+                    openUserSettingsModal();
+                    break;
+                case 'openAccountSettingsModal':
+                    openAccountSettingsModal();
+                    break;
+                case 'closeSettingsModal':
+                    closeSettingsModal();
+                    break;
             }
         }
         else {
@@ -77,4 +86,21 @@ function changeAccount(changeAccountID) {
     profileManager.setCurrentAccountID(changeAccountID);
     profileManager.setViewingAccountID(changeAccountID);
     bus.emit('profile:changeAccount');
+}
+
+function openUserSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal');
+    settingsModal.style.display = 'flex';
+    bus.emit('profile:openUserSettingsModal');
+}
+
+function openAccountSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal');
+    settingsModal.style.display = 'flex';
+    bus.emit('profile:openAccountSettingsModal');
+}
+
+function closeSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal');
+    settingsModal.style.display = 'none';
 }

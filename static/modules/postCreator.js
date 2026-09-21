@@ -5,7 +5,6 @@ export function init() {
 
 // EVENT HANDLER //
 function handlePostCreatorEvents() {
-    const postCreatorModal = document.getElementById('post-creator-modal');
     const textareaSubject = document.getElementById('post-creator-modal-textarea-subject');
     const postButton = document.getElementById('post-button');
 
@@ -18,7 +17,7 @@ function handlePostCreatorEvents() {
                 const action = actionElement.dataset.action;
                 if (action === 'openPostCreatorModal') {
                     setPostButtonState(textareaSubject.value.length, postButton);
-                    openPostCreatorModal(postCreatorModal);
+                    openPostCreatorModal();
                     textareaSubject.focus();
                 }
             }
@@ -26,7 +25,8 @@ function handlePostCreatorEvents() {
     });
 }
 
-function openPostCreatorModal(postCreatorModal) {
+function openPostCreatorModal() {
+    const postCreatorModal = document.getElementById('post-creator-modal');
     postCreatorModal.style.display = 'flex';
 }
 
