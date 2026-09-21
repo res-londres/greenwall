@@ -1,5 +1,7 @@
 import { getPostCommentsCount } from './managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from './managers/likeManager.js';
+import { getPostsByAccountList } from './managers/postManager.js';
+import { getCurrentUserAccount, getUserPublicAccounts } from './managers/profileManager.js';
 
 export function createEmptyWallHTML() {
     return `
@@ -175,7 +177,94 @@ export function createLogOutAccountOptionHTML() {
     `;
 }
 
+export function createUserSettingsModalHTML() {
+    const userAccounts = Object.values(getUserPublicAccounts());
+    const accountCards = userAccounts.map(createUserAccountCardHTML).join('');
+    const createAccountButton = userAccounts.length < 3 ? `
+        <button class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-muted p-3 text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary">
+            <span class="icon-[carbon--add]"></span>
+            <span>Create new account</span>
+        </button>
+    ` : '';
+
+    return `
+        <div class="border-b-2 border-muted">
+            <p class="text-[150%] font-bold">User settings</p>
+        </div>
+        <div class="border-b-2 border-muted py-4 text-gray-500">
+            <h2 class="text-xl font-bold text-primary mb-3">User</h2>
+            <div class="flex content-center gap-2">
+                <button class="simple-button">
+                    <span class="icon-[ant-design--eye-invisible-outlined] text-2xl"></span>
+                </button>
+                <span>[USERNAME HIDDEN]</span>
+            </div>
+            <div class="flex content-center gap-2">
+                <button class="simple-button">
+                    <span class="icon-[ant-design--eye-invisible-outlined] text-2xl"></span>
+                </button>
+                <span>[USER ID HIDDEN]</span>
+            </div>
+        </div>
+        <section class="py-4">
+            <h2 class="mb-3 text-xl font-bold">Manage accounts</h2>
+            <div class="flex flex-col gap-3">
+                ${accountCards}
+            </div>
+            ${createAccountButton}
+        </section>
+        <section class="border-t-2 border-muted pt-4 pb-8">
+            <h2 class="mb-3 text-xl font-bold">Danger Zone</h2>
+            <button class="flex items-center gap-2 text-danger active:scale-100 transition-all duration-300 hover:scale-110">
+                <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
+                <span>Delete user</span>
+            </button>
+        </section>
+    `;
+}
+
+export function createAccountSettingsModalHTML() {
+    return `
+        <div class="border-b-2 border-muted">
+            <p class="text-[150%] font-bold">Account settings</p>
+        </div>
+        <div class="flex flex-col gap-1 border-b-2 border-muted py-4">
+            <h2 class="text-xl font-bold text-primary mb-3">Account</h2>
+            <div class="flex flex-row content-center gap-2">
+                <span class="icon-[boxicons--user] text-2xl"></span>
+                <span class="font-bold">${escapeHTML(getCurrentUserAccount().display_name)}</span>
+            </div>
+            <div class="flex flex-row content-center gap-2">
+                <span class="icon-[reicon--user-id] text-2xl"></span>
+                <span class="text-gray-500">${escapeHTML(getCurrentUserAccount().account_id)}</span>
+            </div>
+        </div>
+        <section class="pt-4 pb-8">
+            <h2 class="mb-3 text-xl font-bold">Danger Zone</h2>
+            <button class="flex items-center gap-2 text-danger transition-all duration-300 hover:scale-110 active:scale-100">
+                <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
+                <span>Delete account</span>
+            </button>
+        </section>
+    `;
+}
+
 // HELPERS //
+function createUserAccountCardHTML(account) {
+    const accountID = account.account_id;
+    const postCount = getPostsByAccountList(accountID).length;
+
+    return `
+        <div class="rounded-xl border-2 border-solid border-muted py-2 px-4">
+            <div class="min-w-0 text-sm text-gray-500 flex flex-col gap-0.5">
+                <div class="font-bold text-primary wrap-anywhere">${escapeHTML(account.display_name)}</div>
+                <div class="wrap-anywhere">${escapeHTML(accountID)}</div>
+                <div>${postCount} posts</div>
+            </div>
+        </div>
+    `;
+}
+
 function escapeHTML(str) {
     if (!str) return '';
     const div = document.createElement('div');
