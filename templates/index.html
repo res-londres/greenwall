@@ -11,11 +11,67 @@
   </head>
   <body class="text-primary">
     <!-- Loading Screen -->
-    <div class="bg-surface flex justify-center items-center p-8 min-h-dvh">
-      <span class="text-accent text-9xl icon-[svg-spinners--pulse-rings-multiple]"></span>
+    <div
+      id="loading-screen"
+      class="flex min-h-dvh items-center justify-center bg-surface p-8"
+    >
+      <span
+        class="icon-[svg-spinners--pulse-rings-multiple] text-9xl text-accent"
+      ></span>
+    </div>
+    <!-- Sign Up Screen -->
+    <div
+      id="sign-up-screen"
+      class="flex min-h-dvh items-center justify-center bg-surface p-8"
+    >
+      <div
+        class="grid w-full max-w-175 grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary"
+      >
+        <div class="flex w-full flex-col overflow-hidden bg-white p-8">
+          <p class="mb-2 font-heading text-6xl wrap-break-word">greenwall</p>
+          <p class="text-2xl">welcome!</p>
+        </div>
+        <div
+          class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8 text-white"
+        >
+          <p class="my-4 text-3xl">Sign up to Greenwall</p>
+          <div class="mt-3">
+            <p>Private username</p>
+            <input
+              class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 placeholder-gray-500 focus:outline-none"
+              type="text"
+              id="signup-username-input"
+              data-action="enterSignupUsername"
+              placeholder="Private username"
+              maxlength="20"
+            />
+          </div>
+          <div class="mt-3">
+            <p>Password</p>
+            <input
+              class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 placeholder-gray-500 focus:outline-none"
+              type="text"
+              id="signup-password-input"
+              data-action="enterSignupPassword"
+              placeholder="Password"
+              maxlength="20"
+            />
+          </div>
+          <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
+          <div class="flex items-center justify-center">
+            <button
+              class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 transition-all duration-300 hover:scale-110 active:scale-100"
+              data-action="signUp"
+            >
+              Sign up
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Main Screen -->
     <main
+      id="main-screen"
       class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface"
     >
       <!-- HEADER -->
@@ -98,7 +154,9 @@
                   </button>
                   <div class="hover-dropdown-content">
                     <div class="hover-dropdown-item" data-action="editBio">
-                      <span class="text-gray-500 icon-[lets-icons--edit-alt]"></span>
+                      <span
+                        class="icon-[lets-icons--edit-alt] text-gray-500"
+                      ></span>
                       <span>Edit Bio</span>
                     </div>
                   </div>
@@ -121,12 +179,22 @@
                     <span class="icon-[akar-icons--gear] text-2xl"></span>
                   </button>
                   <div class="hover-dropdown-content">
-                    <div class="hover-dropdown-item" data-action="openUserSettingsModal">
-                      <span class="text-gray-500 icon-[hugeicons--user-settings-02]"></span>
+                    <div
+                      class="hover-dropdown-item"
+                      data-action="openUserSettingsModal"
+                    >
+                      <span
+                        class="icon-[hugeicons--user-settings-02] text-gray-500"
+                      ></span>
                       <span>User Settings</span>
                     </div>
-                    <div class="hover-dropdown-item" data-action="openAccountSettingsModal">
-                      <span class="text-gray-500 icon-[hugeicons--user-settings-02]"></span>
+                    <div
+                      class="hover-dropdown-item"
+                      data-action="openAccountSettingsModal"
+                    >
+                      <span
+                        class="icon-[hugeicons--user-settings-02] text-gray-500"
+                      ></span>
                       <span>Account Settings</span>
                     </div>
                   </div>
@@ -229,7 +297,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- settings modal -->
     <div id="settings-modal" class="scrollbar-custom modal-screen">
       <div class="modal-blur-overlay" data-action="closeSettingsModal"></div>
