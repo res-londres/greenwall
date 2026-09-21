@@ -63,7 +63,7 @@
     @apply absolute z-30 hidden w-max max-w-56 min-w-10 overflow-hidden rounded-xl border border-solid border-primary bg-white py-2 text-primary;
   }
   .hover-dropdown-item {
-    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-110 hover:bg-muted active:scale-100 active:bg-accent;
+    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-110 hover:bg-surface active:scale-100 active:bg-accent;
   }
 }
 
