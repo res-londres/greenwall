@@ -1,5 +1,10 @@
 // ALIAS: publicAccount => account
 
+// RENAME EVERYTHING
+// user account = the private account
+// user profile = the public profile
+// MALI LAHAT
+
 const userProfile = {
     user_id: 'user_id',    
     username: 'username'   
