@@ -21,7 +21,7 @@
     </div>
     <!-- Sign Up Screen -->
     <div
-      id="sign-up-screen"
+      id="signup-screen"
       class="flex min-h-dvh items-center justify-center bg-surface p-8"
     >
       <div
@@ -61,11 +61,64 @@
           <div class="flex flex-col gap-4 items-center justify-center">
             <button
               class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 transition-all duration-300 hover:scale-110 active:scale-100 text-white"
-              data-action="signUp"
+              data-action="signup"
             >
               Sign up
             </button>
-            <span class="text-primary">Already have an account? <span class="underline cursor-pointer hover:text-white transition-all duration-300">Log in</span></span>
+            <span class="text-primary">Already have an account? <span class="underline cursor-pointer hover:text-white transition-all duration-300" data-action="goToLogin">Log in</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO: how about one shared screen for sign up and log in? they look almost the same anyway-->
+    <!-- Log in Screen -->
+    <div
+      id="login-screen"
+      class="flex min-h-dvh items-center justify-center bg-surface p-8"
+    >
+      <div
+        class="grid w-full max-w-175 grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary"
+      >
+        <div class="flex w-full flex-col overflow-hidden bg-white p-8">
+          <p class="mb-2 font-heading text-6xl wrap-break-word">greenwall</p>
+          <p class="text-2xl">welcome back!</p>
+        </div>
+        <div
+          class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8"
+        >
+          <p class="mb-4 text-4xl text-white">Log in to Greenwall</p>
+          <div class="mt-3">
+            <p>Private username</p>
+            <input
+              class="w-full rounded-lg border-2 border-solid text-primary border-primary bg-white px-4 py-2 placeholder-gray-500 focus:outline-none"
+              type="text"
+              id="login-username-input"
+              data-action="enterLoginUsername"
+              placeholder="Private username"
+              maxlength="20"
+            />
+          </div>
+          <div class="mt-3">
+            <p>Password</p>
+            <input
+              class="w-full rounded-lg border-2 border-solid text-primary border-primary bg-white px-4 py-2 placeholder-gray-500 focus:outline-none"
+              type="text"
+              id="login-password-input"
+              data-action="enterLoginPassword"
+              placeholder="Password"
+              maxlength="20"
+            />
+          </div>
+          <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
+          <div class="flex flex-col gap-4 items-center justify-center">
+            <button
+              class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 transition-all duration-300 hover:scale-110 active:scale-100 text-white"
+              data-action="login"
+            >
+              Log in
+            </button>
+            <span class="text-primary">Don't have an account? <span class="underline cursor-pointer hover:text-white transition-all duration-300" data-action="goToSignup">Sign up</span></span>
           </div>
         </div>
       </div>
