@@ -13,6 +13,8 @@ function handleAuthEvents() {
         if (actionElement) {
             const action = actionElement.dataset.action;
 
+            event.stopPropagation();
+            event.preventDefault();
             switch (action) {
                 case 'goToLogin':
                     goToLogin();
@@ -25,10 +27,38 @@ function handleAuthEvents() {
     });
 }
 
+let isSwapping = false;
+
+function swapAuthScreen(renderFn) {
+    const card = document.getElementById('auth-card');
+    if (!card) return;
+
+    if (isSwapping) return;
+    isSwapping = true;
+
+    card.classList.add('auth-card-fading');
+
+    card.addEventListener('transitionend', function onOut(event) {
+        if (event.propertyName !== 'opacity') return;
+        card.removeEventListener('transitionend', onOut);
+
+        renderFn(); 
+
+        card.classList.remove('auth-card-fading');
+        card.classList.add('auth-card-animating');
+
+        card.addEventListener('animationend', function onIn() {
+            card.removeEventListener('animationend', onIn);
+            card.classList.remove('auth-card-animating');
+            isSwapping = false; 
+        });
+    });
+}
+
 function goToLogin() {
-    bus.emit('auth:#renderLoginScreen');
+    swapAuthScreen(() => bus.emit('auth:#renderLoginScreen'));
 }
 
 function goToSignup() {
-    bus.emit('auth:#renderSignupScreen');
+    swapAuthScreen(() => bus.emit('auth:#renderSignupScreen'));
 }

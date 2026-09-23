@@ -13,6 +13,9 @@ function handlePostCreatorEvents() {
     document.querySelectorAll('.post-creator').forEach(function(postCreator) {
         postCreator.addEventListener('click', function(event) {
             const actionElement = event.target.closest('[data-action');
+
+            event.stopPropagation();
+            event.preventDefault();
             if (actionElement) {
                 const action = actionElement.dataset.action;
                 if (action === 'openPostCreatorModal') {
