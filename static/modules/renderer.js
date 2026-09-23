@@ -8,6 +8,8 @@ import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } fro
 // INIT //
 export function init() {
     renderProfile();
+    bus.on('auth:#renderLoginScreen', renderLoginScreen);
+    bus.on('auth:#renderSignupScreen', renderSignupScreen);
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('like:togglePostLike', renderUpdateTargetPost);
     bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
@@ -140,4 +142,32 @@ function renderUserSettingsModal() {
 function renderAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal-content');
     settingsModal.innerHTML = HTMLCreator.createAccountSettingsModalHTML();
+}
+
+function renderLoginScreen() {
+    document.getElementById('auth-welcome-text').textContent = 'welcome back!';
+    document.getElementById('auth-right-title').textContent = 'Log in to Greenwall';
+    document.getElementById('auth-username-input').dataset.action = 'enterLoginUsername';
+    document.getElementById('auth-password-input').dataset.action = 'enterLoginPassword';
+    const authButton = document.getElementById('auth-button');
+    authButton.dataset.action = 'login';
+    authButton.textContent = 'Log in';
+    document.getElementById('auth-goto-text').textContent = 'Don\'t have an account? ';
+    const authGoToLink = document.getElementById('auth-goto-link');
+    authGoToLink.dataset.action = 'goToSignup';
+    authGoToLink.textContent = 'Sign up';
+}
+
+function renderSignupScreen() {
+    document.getElementById('auth-welcome-text').textContent = 'welcome!';
+    document.getElementById('auth-right-title').textContent = 'Sign up to Greenwall';
+    document.getElementById('auth-username-input').dataset.action = 'enterSignupUsername';
+    document.getElementById('auth-password-input').dataset.action = 'enterSignupPassword';
+    const authButton = document.getElementById('auth-button');
+    authButton.dataset.action = 'signup';
+    authButton.textContent = 'Sign up';
+    document.getElementById('auth-goto-text').textContent = 'Already have an account? ';
+    const authGoToLink = document.getElementById('auth-goto-link');
+    authGoToLink.dataset.action = 'goToLogin';
+    authGoToLink.textContent = 'Log in';
 }
