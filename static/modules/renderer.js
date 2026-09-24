@@ -3,7 +3,7 @@ import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import { getCurrentProfileID, getCurrentProfile, getUserProfiles } from './managers/profileManager.js';
+import { getCurrentProfileID, getViewingProfile, getUserProfiles } from './managers/profileManager.js';
 
 // INIT //
 export function init() {
@@ -110,7 +110,7 @@ function renderUserProfilesSelection() {
 }
 
 function renderProfile() {
-    const currentProfile = getCurrentProfile(); // TODO: maybe change to currentViewingProfile
+    const currentProfile = getViewingProfile(); // TODO: maybe change to currentViewingProfile
     const {profile_id: profileID, profile_name: profileName, bio} = currentProfile;
     
     document.getElementById('display-profileid').textContent = profileID;
