@@ -110,7 +110,7 @@ function renderUserProfilesSelection() {
 }
 
 function renderProfile() {
-    const currentProfile = getViewingProfile(); // TODO: maybe change to currentViewingProfile
+    const currentProfile = getViewingProfile(); 
     const {profile_id: profileID, profile_name: profileName, bio} = currentProfile;
     
     document.getElementById('display-profileid').textContent = profileID;

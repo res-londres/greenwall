@@ -16,7 +16,6 @@ export function getGlobalPostsList() {
     return Object.values(globalPosts);
 }
 
-// unused?
 export function getPostsByProfileList(profileID) {
     if (!(profileID in postsByProfile)) {
         postsByProfile[profileID] = {};
@@ -72,9 +71,4 @@ export function addPost(post, profileID = null) {
     }
     postsByProfile[profileID][postID] = post;
     bus.emit('postManager:addPost');
-}
-
-// deprecated //
-export function getGlobalPosts() {
-    return structuredClone(globalPosts);
 }

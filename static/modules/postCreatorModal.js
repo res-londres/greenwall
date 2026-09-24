@@ -1,4 +1,3 @@
-import { socket } from './socket.js';
 import { setPostButtonState } from './postCreator.js';
 import { getCurrentProfileName, getCurrentProfileID } from './managers/profileManager.js';
 import * as postManager from './managers/postManager.js';
@@ -71,8 +70,6 @@ function createPost(subject, content) {
         likes: 0
     }
     postManager.addPost(post);
-    // TODO: include profile id and name  when available
-    socket.emit('create_post', post);
 }
 
 // HELPERS //
