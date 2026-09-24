@@ -1,6 +1,6 @@
 import { socket } from './socket.js';
 import { setPostButtonState } from './postCreator.js';
-import { getCurrentAccountDisplayName, getCurrentAccountID } from './managers/profileManager.js';
+import { getCurrentProfileName, getCurrentProfileID } from './managers/profileManager.js';
 import * as postManager from './managers/postManager.js';
 
 export function init() {
@@ -64,14 +64,14 @@ function createPost(subject, content) {
     // how about post id? temp id?
     const post = {
         post_id: tempID,
-        account_id: getCurrentAccountID(),
-        attribution: getCurrentAccountDisplayName(),
+        profile_id: getCurrentProfileID(),
+        attribution: getCurrentProfileName(),
         subject: subject,
         content: content,
         likes: 0
     }
     postManager.addPost(post);
-    // TODO: include user id and display name  when available
+    // TODO: include profile id and name  when available
     socket.emit('create_post', post);
 }
 

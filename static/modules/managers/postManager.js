@@ -1,8 +1,8 @@
 import * as bus from '../eventBus.js';
-import { getCurrentAccountID } from './profileManager.js';
+import { getCurrentProfileID } from './profileManager.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
-const postsByAccounts = {};     // {account_id: {post_id: {post}}, account_id: {..}}
+const postsByProfile = {};     // {profile_id: {post_id: {post}}, profile_id: {..}}
 let postModalActive = false;
 let currentPostID = null;
 
@@ -16,11 +16,12 @@ export function getGlobalPostsList() {
     return Object.values(globalPosts);
 }
 
-export function getPostsByAccountList(accountID) {
-    if (!(accountID in postsByAccounts)) {
-        postsByAccounts[accountID] = {};
+// unused?
+export function getPostsByProfileList(profileID) {
+    if (!(profileID in postsByProfile)) {
+        postsByProfile[profileID] = {};
     }
-    return Object.values(postsByAccounts[accountID]);
+    return Object.values(postsByProfile[profileID]);
 }
 
 export function getCurrentPostID() {
@@ -62,14 +63,14 @@ export function isPostModalActive() {
 }
 
 // ETC //
-export function addPost(post, accountID = null) {
+export function addPost(post, profileID = null) {
     const postID = post.post_id;
-    accountID = accountID === null ? getCurrentAccountID() : accountID;
+    profileID = profileID === null ? getCurrentProfileID() : profileID;
     globalPosts[postID] = post;
-    if (!(accountID in postsByAccounts)) {
-        postsByAccounts[accountID] = {};
+    if (!(profileID in postsByProfile)) {
+        postsByProfile[profileID] = {};
     }
-    postsByAccounts[accountID][postID] = post;
+    postsByProfile[profileID][postID] = post;
     bus.emit('postManager:addPost');
 }
 

@@ -8,7 +8,6 @@ export function init() {
 }
 
 function handleProfileEvents() {
-    const profileCard = document.getElementById('profile-card');
     const textareaBio = document.getElementById('textarea-bio');
 
     document.addEventListener('click', async function(event) {
@@ -22,21 +21,21 @@ function handleProfileEvents() {
                 case 'editBio':
                     editBio(textareaBio);
                     break;
-                case 'changeAccount': 
-                    const changeAccountID = actionElement.dataset.accountid;
-                    changeAccount(changeAccountID);
+                case 'changeProfile': 
+                    const changeProfileID = actionElement.dataset.profileid;
+                    changeProfile(changeProfileID);
                     break;
                 case 'logOut':
                     /* soon */
                     break;
-                case 'copyAccountID':
-                    await navigator.clipboard.writeText(document.getElementById('display-account-id').textContent);
-                    break;
-                case 'openUserSettingsModal':
-                    openUserSettingsModal();
+                case 'copyProfileID':
+                    await navigator.clipboard.writeText(document.getElementById('display-profileid').textContent);
                     break;
                 case 'openAccountSettingsModal':
                     openAccountSettingsModal();
+                    break;
+                case 'openProfileSettingsModal':
+                    openProfileSettingsModal();
                     break;
                 case 'closeSettingsModal':
                     closeSettingsModal();
@@ -79,25 +78,25 @@ function stopEditBio(textareaBio) {
     }
     textareaBio.style.height = 'auto';
     textareaBio.style.height = textareaBio.scrollHeight + 'px';
-    profileManager.setCurrentAccountBio(bio);
+    profileManager.setCurrentProfileBio(bio);
 }
 
-function changeAccount(changeAccountID) {
-    profileManager.setCurrentAccountID(changeAccountID);
-    profileManager.setViewingAccountID(changeAccountID);
-    bus.emit('profile:changeAccount');
-}
-
-function openUserSettingsModal() {
-    const settingsModal = document.getElementById('settings-modal');
-    settingsModal.style.display = 'flex';
-    bus.emit('profile:openUserSettingsModal');
+function changeProfile(changeProfileID) {
+    profileManager.setCurrentProfileID(changeProfileID);
+    profileManager.setViewingProfileID(changeProfileID);
+    bus.emit('profile:changeProfile');
 }
 
 function openAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal');
     settingsModal.style.display = 'flex';
     bus.emit('profile:openAccountSettingsModal');
+}
+
+function openProfileSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal');
+    settingsModal.style.display = 'flex';
+    bus.emit('profile:openProfileSettingsModal');
 }
 
 function closeSettingsModal() {

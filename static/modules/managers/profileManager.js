@@ -1,69 +1,70 @@
-// ALIAS: publicAccount => account
-
 // RENAME EVERYTHING
 // user account = the private account
 // user profile = the public profile
-// MALI LAHAT
 
-const userProfile = {
-    user_id: 'user_id',    
-    username: 'username'   
+const userAccount = {
+    account_id: 'babou#12345',
+    account_name: 'babou'
 }
 
-const userPublicAccounts = {
-    account_id1: {
-        account_id: 'account_id1',
-        display_name: 'account1',
+const userProfiles = {
+    'foo#12345': {
+        profile_id: 'foo#12345',
+        profile_name: 'foo',
         bio: ''
     },
-    account_id2: {
-        account_id: 'account_id2',
-        display_name: 'account2',
+    'tang#12345': {
+        profile_id: 'tang#12345',
+        profile_name: 'tang',
         bio: ''
     },
-    account_id3: {
-        account_id: 'account_id3',
-        display_name: 'account3',
+    'inamo#12345': {
+        profile_id: 'inamo#12345',
+        profile_name: 'inamo',
         bio: ''
     }
 }
 
-let currentAccountID = 'account_id1';
-let viewingAccountID = currentAccountID;    // ID of the account we're currently viewing; default is currentAccountID, never null (make sure of that)
+let currentProfileID = userProfiles["foo#12345"].profile_id;
+let viewingProfileID = currentProfileID;   // ID of the account we're currently viewing; default is currentAccountID, never null (make sure of that)
 
-export function getUserProfile() {
-    return structuredClone(userProfile);
+export function getUserAccount() {
+    return structuredClone(userAccount);
 }
 
-export function getUserPublicAccounts() {
-    return structuredClone(userPublicAccounts);
+export function getUserProfiles() {
+    return structuredClone(userProfiles);
 }
 
-export function getCurrentUserAccount() {
-    return structuredClone(userPublicAccounts[currentAccountID]);
+export function getCurrentProfile() {
+    Object.values(userProfiles[currentProfileID]).forEach(function(el) {
+        console.log(el);
+    });
+    return structuredClone(userProfiles[currentProfileID]);
 }
 
-export function setCurrentAccountID(newAccountID) {
-    currentAccountID = newAccountID;
+export function setCurrentProfileID(newProfileID) {
+    currentProfileID = newProfileID;
 }
 
-export function getCurrentAccountID() {
-    return currentAccountID;
+export function getCurrentProfileID() {
+    return currentProfileID;
 }
 
-export function setViewingAccountID(newViewingAccountID) {
-    viewingAccountID = newViewingAccountID;
+export function setViewingProfileID(newViewingProfileID) {
+    viewingProfileID = newViewingProfileID;
 }
 
-export function getViewingAccountID() {
-    return viewingAccountID;
+export function getViewingProfileID() {
+    return viewingProfileID;
 }
 
-export function setCurrentAccountBio(newBio) {
-    userPublicAccounts[currentAccountID].bio = newBio;
-    /* send to database via bus */
+export function setCurrentProfileBio(newBio) {
+    userProfiles[currentProfileID].bio = newBio;
+    // send to database via bus
 }
 
-export function getCurrentAccountDisplayName() {
-    return userPublicAccounts[currentAccountID].display_name;
+export function getCurrentProfileName() {
+    return userProfiles[currentProfileID].profile_name;
 }
+

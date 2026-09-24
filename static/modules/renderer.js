@@ -3,7 +3,7 @@ import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import { getCurrentAccountID, getCurrentUserAccount, getUserPublicAccounts } from './managers/profileManager.js';
+import { getCurrentProfileID, getCurrentProfile, getUserProfiles } from './managers/profileManager.js';
 
 // INIT //
 export function init() {
@@ -20,9 +20,9 @@ export function init() {
     bus.on('postManager:addPostComment', renderPostComments);
     bus.on('postModal:createComment', renderPostModal);
     bus.on('postModal:createComment', renderUpdateTargetPost);
-    bus.on('profile:changeAccount', renderProfile);
+    bus.on('profile:changeProfile', renderProfile);
+    bus.on('profile:openProfileSettingsModal', renderProfileSettingsModal);
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
-    bus.on('profile:openUserSettingsModal', renderUserSettingsModal);
 }
 
 function renderUpdateTargetPost(post) {
@@ -32,10 +32,10 @@ function renderUpdateTargetPost(post) {
 
 function renderPosts() {
     const currentWall = getCurrentWall();
-    const currentWallAccountID = currentWall.dataset.accountid;
-    if (currentWallAccountID === 'null') {
+    const currentWallProfileID = currentWall.dataset.profileid;
+    if (currentWallProfileID === 'null') {
         renderGlobalPosts(currentWall);
-    } else if (currentWallAccountID === 'user') {
+    } else if (currentWallProfileID === 'user') {
         renderPostsByAccount(null, currentWall);
     } else {
         // for when we open another account profile
@@ -59,10 +59,10 @@ function renderGlobalPosts(currentWall = null) {
     currentWall.innerHTML += html;
 }
 
-function renderPostsByAccount(accountID = null, currentWall = null) {
-    accountID = accountID === null ? getCurrentAccountID() : accountID;
+function renderPostsByAccount(profileID = null, currentWall = null) {
+    profileID = profileID === null ? getCurrentProfileID() : profileID;
     currentWall = currentWall === null ? getCurrentWall() : currentWall;
-    const postsByUser = postManager.getPostsByAccountList(accountID);
+    const postsByUser = postManager.getPostsByProfileList(profileID);
     if (postsByUser.length === 0) {
         currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
         return;
@@ -96,30 +96,30 @@ function renderPostModal() {
     renderPostComments();
 }
 
-function renderUserAccountsSelection() {
-    const userAccounts = getUserPublicAccounts();
-    const changeAccountContent = document.getElementById('hover-dropdown-content-account-change');
+function renderUserProfilesSelection() {
+    const userProfiles = getUserProfiles();
+    const changeProfileContent = document.getElementById('hover-dropdown-content-profile-change');
     let html = '';
-    Object.values(userAccounts).forEach(function(account) {
-        if (!(account.account_id === getCurrentAccountID())) {
-            html += HTMLCreator.createUserAccountOptionHTML(account);
+    Object.values(userProfiles).forEach(function(profile) {
+        if (!(profile.profile_id === getCurrentProfileID())) {
+            html += HTMLCreator.createUserProfileOptionHTML(profile);
         }
     });
-    html += HTMLCreator.createLogOutAccountOptionHTML();
-    changeAccountContent.innerHTML = html;
+    html += HTMLCreator.createLogOutProfileOptionHTML();
+    changeProfileContent.innerHTML = html;
 }
 
 function renderProfile() {
-    const currentAccount = getCurrentUserAccount(); // TODO: maybe change to currentViewingAccount
-    const {account_id: accountID, display_name: displayName, bio} = currentAccount;
+    const currentProfile = getCurrentProfile(); // TODO: maybe change to currentViewingProfile
+    const {profile_id: profileID, profile_name: profileName, bio} = currentProfile;
     
-    document.getElementById('display-account-id').textContent = accountID;
-    document.querySelectorAll('.current-account-display-name').forEach(function(element) {
-        element.textContent = displayName;
+    document.getElementById('display-profileid').textContent = profileID;
+    document.querySelectorAll('.current-profile-name').forEach(function(element) {
+        element.textContent = profileName;
     });
     renderBio(document.getElementById('textarea-bio'), bio);
     renderPosts();
-    renderUserAccountsSelection();
+    renderUserProfilesSelection();
 }
 
 function renderBio(textareaBio, bio) {
@@ -134,14 +134,14 @@ function renderBio(textareaBio, bio) {
     textareaBio.style.height = textareaBio.scrollHeight + 'px';
 }
 
-function renderUserSettingsModal() {
-    const settingsModal = document.getElementById('settings-modal-content');
-    settingsModal.innerHTML = HTMLCreator.createUserSettingsModalHTML();
-}
-
 function renderAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal-content');
     settingsModal.innerHTML = HTMLCreator.createAccountSettingsModalHTML();
+}
+
+function renderProfileSettingsModal() {
+    const settingsModal = document.getElementById('settings-modal-content');
+    settingsModal.innerHTML = HTMLCreator.createProfileSettingsModalHTML();
 }
 
 function renderLoginScreen() {

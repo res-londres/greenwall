@@ -142,13 +142,13 @@
               </div>
               <div class="flex min-h-24 flex-col justify-center gap-1">
                 <h2
-                  class="current-account-display-name text-2xl font-bold"
+                  class="current-profile-name text-2xl font-bold"
                 ></h2>
                 <div class="flex items-center gap-1 text-sm text-gray-500">
-                  <button class="simple-button" data-action="copyAccountID">
+                  <button class="simple-button" data-action="copyProfileID">
                     <span class="icon-[basil--copy-outline] text-2xl"></span>
                   </button>
-                  <span id="display-account-id" class="mr-3"></span>
+                  <span id="display-profileid" class="mr-3"></span>
                 </div>
               </div>
             </div>
@@ -184,7 +184,7 @@
                     ></span>
                   </button>
                   <div
-                    id="hover-dropdown-content-account-change"
+                    id="hover-dropdown-content-profile-change"
                     class="hover-dropdown-content"
                   >
                     <!-- from js -->
@@ -197,21 +197,21 @@
                   <div class="hover-dropdown-content">
                     <div
                       class="hover-dropdown-item"
-                      data-action="openUserSettingsModal"
-                    >
-                      <span
-                        class="icon-[hugeicons--user-settings-02] text-gray-500"
-                      ></span>
-                      <span>User Settings</span>
-                    </div>
-                    <div
-                      class="hover-dropdown-item"
                       data-action="openAccountSettingsModal"
                     >
                       <span
                         class="icon-[hugeicons--user-settings-02] text-gray-500"
                       ></span>
                       <span>Account Settings</span>
+                    </div>
+                    <div
+                      class="hover-dropdown-item"
+                      data-action="openProfileSettingsModal"
+                    >
+                      <span
+                        class="icon-[hugeicons--user-settings-02] text-gray-500"
+                      ></span>
+                      <span>Profile Settings</span>
                     </div>
                   </div>
                 </div>
@@ -233,7 +233,7 @@
             >
           </div>
           <!-- wall -->
-          <div id="profile-wall" data-accountid="user">
+          <div id="profile-wall" data-profileid="user">
             <!-- posts provided by js -->
           </div>
         </div>
@@ -252,7 +252,7 @@
             >
           </div>
           <!-- wall -->
-          <div id="home-wall" data-accountid="null">
+          <div id="home-wall" data-profileid="null">
             <!-- posts provided by js -->
           </div>
         </div>
@@ -273,7 +273,7 @@
         </div>
         <div class="mt-4 flex flex-row gap-2">
           <span class="icon-[boxicons--user] text-2xl"></span>
-          <span class="current-account-display-name font-bold"></span>
+          <span class="current-profile-name font-bold"></span>
         </div>
         <div class="mt-2">
           <textarea

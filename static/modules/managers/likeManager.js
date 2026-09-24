@@ -1,58 +1,58 @@
 import { getCurrentPostID } from './postManager.js';
-import { getCurrentAccountID } from './profileManager.js';
+import { getCurrentProfileID } from './profileManager.js';
 
-const likedPostsByAccount = {}          // {account_id: {post_id: true, post_id: true}}
-const likedCommentsByPostByAccount = {} // {account_id: {post_id: {comment_id: true, comment_id: true}}}
+const likedPostByProfile = {}          // {profile_id: {post_id: true, post_id: true}}
+const likedPostByCommentByProfile = {} // {profile_id: {post_id: {comment_id: true, comment_id: true}}}
 
 // POST LIKES //
 export function isPostLiked(postID) {
-    const currentAccountID = getCurrentAccountID();
-    return currentAccountID in likedPostsByAccount && postID in likedPostsByAccount[currentAccountID];
+    const currentProfileID = getCurrentProfileID();
+    return currentProfileID in likedPostByProfile && postID in likedPostByProfile[currentProfileID];
 }
 
 export function addLikedPost(postID) {
-    const currentAccountID = getCurrentAccountID();
-    if (!(currentAccountID in likedPostsByAccount)) {
-        likedPostsByAccount[currentAccountID] = {};
+    const currentProfileID = getCurrentProfileID();
+    if (!(currentProfileID in likedPostByProfile)) {
+        likedPostByProfile[currentProfileID] = {};
     }
-    likedPostsByAccount[currentAccountID][postID] = true;
+    likedPostByProfile[currentProfileID][postID] = true;
 }
 
 export function removeLikedPost(postID) {
-    const currentAccountID = getCurrentAccountID();
-    if (!(currentAccountID in likedPostsByAccount)) {
+    const currentProfileID = getCurrentProfileID();
+    if (!(currentProfileID in likedPostByProfile)) {
         return;
     }
-    delete likedPostsByAccount[currentAccountID][postID];
+    delete likedPostByProfile[currentProfileID][postID];
 }
 
 // COMMENT LIKES //
 export function isCommentLiked(commentID) {
-    const currentAccountID = getCurrentAccountID();
+    const currentProfileID = getCurrentProfileID();
     const currentPostID = getCurrentPostID();
-    return currentAccountID in likedCommentsByPostByAccount && currentPostID in likedCommentsByPostByAccount[currentAccountID] && commentID in likedCommentsByPostByAccount[currentAccountID][currentPostID];
+    return currentProfileID in likedPostByCommentByProfile && currentPostID in likedPostByCommentByProfile[currentProfileID] && commentID in likedPostByCommentByProfile[currentProfileID][currentPostID];
 }
 
 export function addCommentLike(commentID) {
-    const currentAccountID = getCurrentAccountID();
+    const currentProfileID = getCurrentProfileID();
     const currentPostID = getCurrentPostID();
-    if (!(currentAccountID in likedCommentsByPostByAccount)) {
-        likedCommentsByPostByAccount[currentAccountID] = {};
+    if (!(currentProfileID in likedPostByCommentByProfile)) {
+        likedPostByCommentByProfile[currentProfileID] = {};
     }
-    if (!(currentPostID in likedCommentsByPostByAccount[currentAccountID])) {
-        likedCommentsByPostByAccount[currentAccountID][currentPostID] = {};
+    if (!(currentPostID in likedPostByCommentByProfile[currentProfileID])) {
+        likedPostByCommentByProfile[currentProfileID][currentPostID] = {};
     }
-    likedCommentsByPostByAccount[currentAccountID][currentPostID][commentID] = true;
+    likedPostByCommentByProfile[currentProfileID][currentPostID][commentID] = true;
 }
 
 export function removeCommentLike(commentID) {
-    const currentAccountID = getCurrentAccountID();
+    const currentProfileID = getCurrentProfileID();
     const currentPostID = getCurrentPostID();
-    if (!(currentAccountID in likedCommentsByPostByAccount)) {
+    if (!(currentProfileID in likedPostByCommentByProfile)) {
         return;
     }
-    if (!(currentPostID in likedCommentsByPostByAccount[currentAccountID])) {
+    if (!(currentPostID in likedPostByCommentByProfile[currentProfileID])) {
         return;
     }
-    delete likedCommentsByPostByAccount[currentAccountID][currentPostID][commentID];
+    delete likedPostByCommentByProfile[currentProfileID][currentPostID][commentID];
 }
