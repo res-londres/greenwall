@@ -120,7 +120,7 @@ export function createCommentHTML(comment, postID) {
     const commentAttribution = comment.attribution;
     const commentContent = escapeHTML(comment.content);
     const commentTime = 'just now'  // TEMP
-    const commentLikeCount = comment.likes;   // TEMP
+    const commentLikeCount = comment.likes;   
 
     const isLiked = isCommentLiked(commentID);
     const likeIcon = isLiked ? '<span class="text-accent icon-[ant-design--heart-filled]"></span>' : '<span class="icon-[ant-design--heart-outlined]"></span>'
@@ -181,7 +181,7 @@ export function createAccountSettingsModalHTML() {
     const userProfiles = Object.values(getUserProfiles());
     const profileCards = userProfiles.map(createUserProfileCardHTML).join('');
     const createProfileButton = userProfiles.length < 3 ? `
-        <button class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-muted p-3 text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary">
+        <button class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-muted p-3 text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary" data-action="createProfile">
             <span class="icon-[carbon--add]"></span>
             <span>Create new profile</span>
         </button>

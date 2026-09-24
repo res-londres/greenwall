@@ -84,7 +84,7 @@ function renderPostComments() {
     let html = '';
 
     postComments.forEach(function(comment) {
-        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostID);
+        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostID());
     });
     postModalCommentsList.innerHTML += html;
 }
