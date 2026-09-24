@@ -9,7 +9,12 @@ export function init() {
     bus.on('postModal:#toggleCommentLike', toggleCommentLike);
 }
 
-function togglePostLike(postID) { 
+function togglePostLike(postID) {
+    const existingPost = postManager.getPostByID(postID);
+    if (!existingPost) {
+        return;
+    }
+
     const isPostLiked = likeManager.isPostLiked(postID);
     const newLikedState = !isPostLiked;
     if (newLikedState) {
@@ -19,7 +24,9 @@ function togglePostLike(postID) {
         likeManager.removeLikedPost(postID);
         postManager.decrementPostLikes(postID);
     }
-    bus.emit('like:togglePostLike', postManager.getPostByID(postID));
+
+    const updatedPost = postManager.getPostByID(postID);
+    bus.emit('like:togglePostLike', updatedPost);
     if (postManager.isPostModalActive()) {
         bus.emit('like:togglePostLike:#renderPostModal');
     }

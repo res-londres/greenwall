@@ -1,4 +1,5 @@
 import * as bus from './eventBus.js';
+import * as postManager from './managers/postManager.js';
 import { setCurrentPostID, setPostModalActive } from './managers/postManager.js';
 
 export function init() {
@@ -16,7 +17,6 @@ function handlePostEvents() {
             event.preventDefault();
             if (action === 'openPostModal') {
                 openPostModal(document.getElementById('post-modal'), postID);
-                document.getElementById('post-modal-input-comment').focus();
             } else if (action === 'likePost') {
                 bus.emit('post:#togglePostLike', postID);
             }
@@ -25,8 +25,16 @@ function handlePostEvents() {
 }
 
 function openPostModal(postModal, postID) {
+    if (!postID || !postManager.getPostByID(postID)) return;
     setCurrentPostID(postID);
     postModal.style.display = 'flex';
     setPostModalActive(true);
     bus.emit('post:openPostModal');
+
+    const focusInput = () => {
+        const input = document.getElementById('post-modal-input-comment');
+        if (input) input.focus();
+    };
+
+    requestAnimationFrame(focusInput);
 }

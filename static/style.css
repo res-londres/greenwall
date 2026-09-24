@@ -3,7 +3,7 @@
 
 @plugin "@iconify/tailwind4";
 
-@source "./modules/HTMLCreator.js";
+@source "./modules/views/**/*.js";
 
 @theme {
   /* TODO: improve semantics, ampanget.

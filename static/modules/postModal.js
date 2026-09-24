@@ -41,6 +41,12 @@ function closePostModal(postModal) {
 
 function createComment(content) {
     if (!content) return;
+
+    const currentPost = getCurrentPost();
+    if (!currentPost) {
+        return;
+    }
+
     const tempID = crypto.randomUUID();
     const comment = {
         comment_id: tempID,
@@ -50,7 +56,7 @@ function createComment(content) {
         likes: 0
     }
     commentManager.addPostComment(comment);
-    bus.emit('postModal:createComment', getCurrentPost());
+    bus.emit('postModal:createComment', currentPost);
 }
 
 // HELPERS //

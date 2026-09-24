@@ -1,4 +1,3 @@
-// RENAME EVERYTHING
 // user account = the private account
 // user profile = the public profile
 

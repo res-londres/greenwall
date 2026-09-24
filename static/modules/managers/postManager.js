@@ -28,27 +28,45 @@ export function getCurrentPostID() {
 }
 
 export function getCurrentPost() {
+    if (currentPostID == null || !(currentPostID in globalPosts)) {
+        return null;
+    }
     return structuredClone(globalPosts[currentPostID]);
 }
 
 export function getPostByID(postID) {
+    if (postID == null || !(postID in globalPosts)) {
+        return null;
+    }
     return structuredClone(globalPosts[postID]);
 }
 
 // POST LIKES //
 export function setPostLikes(postID, newLikes) {
+    if (postID == null || !(postID in globalPosts)) {
+        return;
+    }
     globalPosts[postID].likes = newLikes;
 }
 
 export function getPostLikes(postID) {
+    if (postID == null || !(postID in globalPosts)) {
+        return 0;
+    }
     return globalPosts[postID].likes;
 }
 
 export function incrementPostLikes(postID) {
+    if (postID == null || !(postID in globalPosts)) {
+        return;
+    }
     globalPosts[postID].likes += 1;
 }
 
 export function decrementPostLikes(postID) {
+    if (postID == null || !(postID in globalPosts)) {
+        return;
+    }
     globalPosts[postID].likes -= 1;
 }
 

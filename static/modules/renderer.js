@@ -1,9 +1,14 @@
 import * as bus from './eventBus.js';
-import * as HTMLCreator from './HTMLCreator.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
+import { isCommentLiked, isPostLiked } from './managers/likeManager.js';
+import { getPostCommentsCount } from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
 import { getCurrentProfileID, getViewingProfile, getUserProfiles } from './managers/profileManager.js';
+import { createEmptyWallHTML, createPostHTML } from './views/wallView.js';
+import { createCommentHTML, createPostModalHTML } from './views/postModalView.js';
+import { createAccountSettingsModalHTML, createLogOutProfileOptionHTML, createProfileSettingsModalHTML, createUserProfileOptionHTML } from './views/profileView.js';
+import { createAccountSettingsModalHTML as createSettingsModalHTML } from './views/settingsView.js';
 
 // INIT //
 export function init() {
@@ -26,8 +31,22 @@ export function init() {
 }
 
 function renderUpdateTargetPost(post) {
+    if (!post || !post.post_id) {
+        return;
+    }
+
     const oldPostRender = document.getElementById(post.post_id);
-    oldPostRender.outerHTML = HTMLCreator.createPostHTML(post);
+    if (!oldPostRender) {
+        return;
+    }
+
+    const fragment = createPostHTML(post, {
+        isLiked: isPostLiked(post.post_id),
+        likeCount: post.likes,
+        commentCount: getPostCommentsCount(post.post_id),
+    });
+    const newPost = fragment.firstElementChild;
+    oldPostRender.replaceWith(newPost);
 }
 
 function renderPosts() {
@@ -47,16 +66,18 @@ function renderGlobalPosts(currentWall = null) {
     currentWall = currentWall === null ? getCurrentWall() : currentWall;
     const globalPosts = postManager.getGlobalPostsList();
     if (globalPosts.length === 0) {
-        currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
+        currentWall.innerHTML = createEmptyWallHTML();
         return;
     }
-    currentWall.innerHTML = '';
-    let html = '';
-
+    currentWall.replaceChildren();
     globalPosts.forEach(function(post) {
-        html += HTMLCreator.createPostHTML(post);
+        const fragment = createPostHTML(post, {
+            isLiked: isPostLiked(post.post_id),
+            likeCount: post.likes,
+            commentCount: getPostCommentsCount(post.post_id),
+        });
+        currentWall.appendChild(fragment);
     });
-    currentWall.innerHTML += html;
 }
 
 function renderPostsByAccount(profileID = null, currentWall = null) {
@@ -64,35 +85,42 @@ function renderPostsByAccount(profileID = null, currentWall = null) {
     currentWall = currentWall === null ? getCurrentWall() : currentWall;
     const postsByUser = postManager.getPostsByProfileList(profileID);
     if (postsByUser.length === 0) {
-        currentWall.innerHTML = HTMLCreator.createEmptyWallHTML();
+        currentWall.innerHTML = createEmptyWallHTML();
         return;
     }
-    currentWall.innerHTML = '';
-    let html = '';
-
+    currentWall.replaceChildren();
     postsByUser.forEach(function(post) {
-        html += HTMLCreator.createPostHTML(post);
+        const fragment = createPostHTML(post, {
+            isLiked: isPostLiked(post.post_id),
+            likeCount: post.likes,
+            commentCount: getPostCommentsCount(post.post_id),
+        });
+        currentWall.appendChild(fragment);
     });
-    currentWall.innerHTML += html;
 }
 
 function renderPostComments() {
     const postModalCommentsList = document.getElementById('post-modal-comment-list');
     const postComments = commentManager.getPostCommentsList();
-    // empty comments html
-    postModalCommentsList.innerHTML = '';
-    let html = '';
-
+    postModalCommentsList.replaceChildren();
     postComments.forEach(function(comment) {
-        html += HTMLCreator.createCommentHTML(comment, postManager.getCurrentPostID());
+        const fragment = createCommentHTML(comment, postManager.getCurrentPostID(), {
+            isLiked: isCommentLiked(comment.comment_id),
+            likeCount: comment.likes,
+        });
+        postModalCommentsList.appendChild(fragment);
     });
-    postModalCommentsList.innerHTML += html;
 }
 
 function renderPostModal() {
     const postModalContent = document.getElementById('post-modal-content');
     const post = postManager.getCurrentPost();
-    postModalContent.innerHTML = HTMLCreator.createPostModalHTML(post);
+
+    if (!post) {
+        return;
+    }
+
+    postModalContent.innerHTML = createPostModalHTML(post);
     renderPostComments();
 }
 
@@ -102,10 +130,10 @@ function renderUserProfilesSelection() {
     let html = '';
     Object.values(userProfiles).forEach(function(profile) {
         if (!(profile.profile_id === getCurrentProfileID())) {
-            html += HTMLCreator.createUserProfileOptionHTML(profile);
+            html += createUserProfileOptionHTML(profile);
         }
     });
-    html += HTMLCreator.createLogOutProfileOptionHTML();
+    html += createLogOutProfileOptionHTML();
     changeProfileContent.innerHTML = html;
 }
 
@@ -136,12 +164,12 @@ function renderBio(textareaBio, bio) {
 
 function renderAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal-content');
-    settingsModal.innerHTML = HTMLCreator.createAccountSettingsModalHTML();
+    settingsModal.innerHTML = createSettingsModalHTML();
 }
 
 function renderProfileSettingsModal() {
     const settingsModal = document.getElementById('settings-modal-content');
-    settingsModal.innerHTML = HTMLCreator.createProfileSettingsModalHTML();
+    settingsModal.innerHTML = createProfileSettingsModalHTML();
 }
 
 function renderLoginScreen() {

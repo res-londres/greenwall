@@ -1,3 +1,4 @@
+import { bootstrapViews } from './modules/views/bootstrap.js';
 import * as auth from './modules/auth.js';
 import * as like from './modules/like.js';
 import * as pageNavigator from './modules/pageNavigator.js';
@@ -9,6 +10,7 @@ import * as profile from './modules/profile.js';
 import * as renderer from './modules/renderer.js';
 
 // INIT //
+bootstrapViews();
 auth.init();
 like.init();
 pageNavigator.init();
