@@ -18,6 +18,10 @@ export function renderAuthScreen() {
                         <p>Password</p>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-password-input" data-action="enterSignupPassword" placeholder="Password" maxlength="20" />
                     </div>
+                    <div id="auth-profile-creator" class="mt-3">
+                        <p>First public profile name</p>
+                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-profile-name-input" data-action="enterSignupProfileName" placeholder="Profile name" maxlength="20" />
+                    </div>
                     <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
                     <div class="flex flex-col items-center justify-center gap-4">
                         <button id="auth-button" class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 text-white transition-all duration-300 hover:scale-110 active:scale-100" data-action="signup">Sign up</button>

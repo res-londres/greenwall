@@ -176,6 +176,7 @@ function renderLoginScreen() {
     document.getElementById('auth-right-title').textContent = 'Log in to Greenwall';
     document.getElementById('auth-username-input').dataset.action = 'enterLoginUsername';
     document.getElementById('auth-password-input').dataset.action = 'enterLoginPassword';
+    document.getElementById('auth-profile-creator').hidden = true;
     const authButton = document.getElementById('auth-button');
     authButton.dataset.action = 'login';
     authButton.textContent = 'Log in';
@@ -190,6 +191,7 @@ function renderSignupScreen() {
     document.getElementById('auth-right-title').textContent = 'Sign up to Greenwall';
     document.getElementById('auth-username-input').dataset.action = 'enterSignupUsername';
     document.getElementById('auth-password-input').dataset.action = 'enterSignupPassword';
+    document.getElementById('auth-profile-creator').hidden = false;
     const authButton = document.getElementById('auth-button');
     authButton.dataset.action = 'signup';
     authButton.textContent = 'Sign up';
