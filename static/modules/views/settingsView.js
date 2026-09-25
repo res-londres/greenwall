@@ -22,7 +22,7 @@ export function createAccountSettingsModalHTML() {
                 <button class="simple-button">
                     <span class="icon-[ant-design--eye-invisible-outlined] text-2xl"></span>
                 </button>
-                <span>[USERNAME HIDDEN]</span>
+                <span>[ACCOUNT NAME HIDDEN]</span>
             </div>
             <div class="flex content-center gap-2">
                 <button class="simple-button">

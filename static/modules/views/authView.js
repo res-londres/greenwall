@@ -11,14 +11,18 @@ export function renderAuthScreen() {
                 <div class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8">
                     <p id="auth-right-title" class="mb-4 text-4xl text-white">Sign up to Greenwall</p>
                     <div class="mt-3">
-                        <p>Private username</p>
-                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-username-input" data-action="enterSignupUsername" placeholder="Private username" maxlength="20" />
+                        <p>Private account name</p>
+                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-account-name-input" data-action="enterSignupAccountName" placeholder="Account name" maxlength="20" />
                     </div>
                     <div class="mt-3">
                         <p>Password</p>
-                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-password-input" data-action="enterSignupPassword" placeholder="Password" maxlength="20" />
+                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="password" id="auth-password-input" data-action="enterSignupPassword" placeholder="Password" maxlength="20" />
                     </div>
-                    <div id="auth-profile-creator" class="mt-3">
+                    <div id="auth-password-retype-container" class="mt-3">
+                        <label for="auth-password-retype">Retype password</label>
+                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="password" id="auth-password-retype" data-action="retypeSignupPassword" placeholder="Retype password" maxlength="20" />
+                    </div>
+                    <div id="auth-profile-name-input-container" class="mt-3">
                         <p>First public profile name</p>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-profile-name-input" data-action="enterSignupProfileName" placeholder="Profile name" maxlength="20" />
                     </div>

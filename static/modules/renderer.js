@@ -174,9 +174,10 @@ function renderProfileSettingsModal() {
 function renderLoginScreen() {
     document.getElementById('auth-welcome-text').textContent = 'welcome back!';
     document.getElementById('auth-right-title').textContent = 'Log in to Greenwall';
-    document.getElementById('auth-username-input').dataset.action = 'enterLoginUsername';
+    document.getElementById('auth-account-name-input').dataset.action = 'enterLoginAccountName';
     document.getElementById('auth-password-input').dataset.action = 'enterLoginPassword';
-    document.getElementById('auth-profile-creator').hidden = true;
+    document.getElementById('auth-profile-name-input-container').hidden = true;
+    document.getElementById('auth-password-retype-container').hidden = true;
     const authButton = document.getElementById('auth-button');
     authButton.dataset.action = 'login';
     authButton.textContent = 'Log in';
@@ -189,9 +190,10 @@ function renderLoginScreen() {
 function renderSignupScreen() {
     document.getElementById('auth-welcome-text').textContent = 'welcome!';
     document.getElementById('auth-right-title').textContent = 'Sign up to Greenwall';
-    document.getElementById('auth-username-input').dataset.action = 'enterSignupUsername';
+    document.getElementById('auth-account-name-input').dataset.action = 'enterSignupAccountName';
     document.getElementById('auth-password-input').dataset.action = 'enterSignupPassword';
-    document.getElementById('auth-profile-creator').hidden = false;
+    document.getElementById('auth-profile-name-input-container').hidden = false;
+    document.getElementById('auth-password-retype-container').hidden = false;
     const authButton = document.getElementById('auth-button');
     authButton.dataset.action = 'signup';
     authButton.textContent = 'Sign up';
