@@ -2,13 +2,12 @@ import * as bus from './eventBus.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from './managers/likeManager.js';
-import { getPostCommentsCount } from './managers/commentManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
 import { getCurrentProfileID, getViewingProfile, getUserProfiles } from './managers/profileManager.js';
 import { createEmptyWallHTML, createPostHTML } from './views/wallView.js';
 import { createCommentHTML, createPostModalHTML } from './views/postModalView.js';
-import { createAccountSettingsModalHTML, createLogOutProfileOptionHTML, createProfileSettingsModalHTML, createUserProfileOptionHTML } from './views/profileView.js';
-import { createAccountSettingsModalHTML as createSettingsModalHTML } from './views/settingsView.js';
+import { createLogOutProfileOptionHTML, createProfileSettingsModalHTML, createUserProfileOptionHTML } from './views/profileView.js';
+import { createAccountSettingsModalHTML } from './views/settingsView.js';
 
 // INIT //
 export function init() {
@@ -43,7 +42,7 @@ function renderUpdateTargetPost(post) {
     const fragment = createPostHTML(post, {
         isLiked: isPostLiked(post.post_id),
         likeCount: post.likes,
-        commentCount: getPostCommentsCount(post.post_id),
+        commentCount: commentManager.getPostCommentsCount(post.post_id),
     });
     const newPost = fragment.firstElementChild;
     oldPostRender.replaceWith(newPost);
@@ -74,7 +73,7 @@ function renderGlobalPosts(currentWall = null) {
         const fragment = createPostHTML(post, {
             isLiked: isPostLiked(post.post_id),
             likeCount: post.likes,
-            commentCount: getPostCommentsCount(post.post_id),
+            commentCount: commentManager.getPostCommentsCount(post.post_id),
         });
         currentWall.appendChild(fragment);
     });
@@ -93,7 +92,7 @@ function renderPostsByAccount(profileID = null, currentWall = null) {
         const fragment = createPostHTML(post, {
             isLiked: isPostLiked(post.post_id),
             likeCount: post.likes,
-            commentCount: getPostCommentsCount(post.post_id),
+            commentCount: commentManager.getPostCommentsCount(post.post_id),
         });
         currentWall.appendChild(fragment);
     });
@@ -164,7 +163,7 @@ function renderBio(textareaBio, bio) {
 
 function renderAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal-content');
-    settingsModal.innerHTML = createSettingsModalHTML();
+    settingsModal.innerHTML = createAccountSettingsModalHTML();
 }
 
 function renderProfileSettingsModal() {

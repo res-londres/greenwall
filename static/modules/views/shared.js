@@ -6,9 +6,10 @@ export function escapeHTML(str) {
 }
 
 export function createLikeIcon(isLiked, size = 'text-2xl') {
-    const classes = [size, isLiked ? 'text-accent icon-[ant-design--heart-filled]' : 'icon-[ant-design--heart-outlined]']
-        .filter(Boolean)
-        .join(' ');
+    const icon = isLiked
+        ? 'text-accent icon-[ant-design--heart-filled]'
+        : 'icon-[ant-design--heart-outlined]';
+    const classes = size ? `${size} ${icon}` : icon;
 
     return `<span class="${classes}"></span>`;
 }

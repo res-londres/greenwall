@@ -1,4 +1,6 @@
-import { renderAuthScreen, renderLoadingScreen, renderMainScreen, renderPostCreatorModal, renderPostModal, renderSettingsModal } from './shellView.js';
+import { renderLoadingScreen, renderMainScreen, renderPostModal, renderSettingsModal } from './shellView.js';
+import { renderAuthScreen } from './authView.js';
+import { renderPostCreatorModal } from './postCreatorView.js';
 
 export function bootstrapViews() {
     const loadingScreenMount = document.getElementById('loading-screen-mount');

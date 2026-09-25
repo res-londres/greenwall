@@ -13,11 +13,11 @@ export function createEmptyWallHTML() {
     `;
 }
 
+// Returns a DocumentFragment cloned from #tpl-post-card.
 export function createPostHTML(post, view = {}) {
     const template = document.getElementById('tpl-post-card');
     const fragment = template.content.cloneNode(true);
     const root = fragment.firstElementChild;
-    root.dataset.postid = String(post.post_id);
 
     const resolvedView = {
         isLiked: view.isLiked ?? isPostLiked(post.post_id),

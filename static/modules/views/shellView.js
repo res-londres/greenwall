@@ -6,38 +6,6 @@ export function renderLoadingScreen() {
     `;
 }
 
-export function renderAuthScreen() {
-    return `
-        <div id="auth-screen" class="flex min-h-dvh items-center justify-center bg-surface p-8">
-            <div id="auth-card" class="grid w-full max-w-175 grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary">
-                <div class="flex w-full flex-col overflow-hidden bg-white p-8">
-                    <p class="mb-2 font-heading text-6xl wrap-break-word">greenwall</p>
-                    <p id="auth-welcome-text" class="text-2xl">welcome!</p>
-                </div>
-                <div class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8">
-                    <p id="auth-right-title" class="mb-4 text-4xl text-white">Sign up to Greenwall</p>
-                    <div class="mt-3">
-                        <p>Private username</p>
-                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-username-input" data-action="enterSignupUsername" placeholder="Private username" maxlength="20" />
-                    </div>
-                    <div class="mt-3">
-                        <p>Password</p>
-                        <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-password-input" data-action="enterSignupPassword" placeholder="Password" maxlength="20" />
-                    </div>
-                    <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
-                    <div class="flex flex-col items-center justify-center gap-4">
-                        <button id="auth-button" class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 text-white transition-all duration-300 hover:scale-110 active:scale-100" data-action="signup">Sign up</button>
-                        <div class="flex flex-row gap-1">
-                            <span id="auth-goto-text" class="text-primary">Already have an account? </span>
-                            <span id="auth-goto-link" class="cursor-pointer select-none underline transition-all duration-300 hover:text-white" data-action="goToLogin">Log in</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
 export function renderMainScreen() {
     return `
         <main id="main-screen" class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface">
@@ -130,30 +98,6 @@ export function renderMainScreen() {
             </section>
             <section></section>
         </main>
-    `;
-}
-
-export function renderPostCreatorModal() {
-    return `
-        <div id="post-creator-modal" class="scrollbar-custom modal-screen">
-            <div class="modal-blur-overlay" data-action="closePostCreatorModal"></div>
-            <div class="modal-card">
-                <div class="border-b-2 border-muted">
-                    <p class="text-[150%] font-bold">Create post</p>
-                </div>
-                <div class="mt-4 flex flex-row gap-2">
-                    <span class="icon-[boxicons--user] text-2xl"></span>
-                    <span class="current-profile-name font-bold"></span>
-                </div>
-                <div class="mt-2">
-                    <textarea id="post-creator-modal-textarea-subject" class="textarea min-h-5 w-full resize-none overflow-hidden text-[150%] font-bold outline-0" placeholder="Enter subject" rows="1" maxlength="150"></textarea>
-                    <textarea id="post-creator-modal-textarea-content" class="textarea w-full resize-none overflow-hidden outline-0" placeholder="Enter content" rows="3" maxlength="2000"></textarea>
-                </div>
-                <div class="sticky bottom-0 border-t-2 border-muted bg-white pb-4">
-                    <button id="post-button" class="mt-4 w-full rounded-4xl bg-accent p-1 font-bold transition-all duration-300 enabled:hover:bg-accent-hovered enabled:hover:text-muted enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-muted" disabled data-action="createPost">Post</button>
-                </div>
-            </div>
-        </div>
     `;
 }
 

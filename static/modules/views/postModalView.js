@@ -1,10 +1,13 @@
+// TODO: decouple from managers (view-model pattern)
 import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from '../managers/likeManager.js';
 import { createLikeIcon, escapeHTML } from './shared.js';
 
+// Returns an HTML string. Uses innerHTML at the call site.
+// TODO: convert to a <template> clone like createCommentHTML.
 export function createPostModalHTML(post) {
     const postID = post.post_id;
-    const postAttribution = post.attribution;
+    const postAttribution = escapeHTML(post.attribution);
     const postSubject = escapeHTML(post.subject);
     const postContent = escapeHTML(post.content);
     const postTime = 'just now';
@@ -58,6 +61,7 @@ export function createPostModalHTML(post) {
     `;
 }
 
+// Returns a DocumentFragment cloned from #tpl-comment.
 export function createCommentHTML(comment, postID, view = {}) {
     const template = document.getElementById('tpl-comment');
     const fragment = template.content.cloneNode(true);
