@@ -27,6 +27,9 @@ export function createPostHTML(post, view = {}) {
 
     root.id = post.post_id;
     root.dataset.postid = String(post.post_id);
+    root.querySelectorAll('[data-postid]').forEach((element) => {
+        element.dataset.postid = String(post.post_id);
+    });
 
     const slots = {
         attribution: root.querySelector('[data-slot="attribution"]'),

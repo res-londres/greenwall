@@ -1,4 +1,3 @@
-// TODO: decouple from managers (view-model pattern)
 import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from '../managers/likeManager.js';
 import { createLikeIcon, escapeHTML } from './shared.js';
@@ -71,6 +70,8 @@ export function createCommentHTML(comment, postID, view = {}) {
 
     root.dataset.postid = String(postID);
     root.dataset.commentid = String(comment.comment_id);
+    root.querySelector('[data-action="likeComment"]').dataset.postid = String(postID);
+    root.querySelector('[data-action="likeComment"]').dataset.commentid = String(comment.comment_id);
 
     const slots = {
         attribution: root.querySelector('[data-slot="attribution"]'),
