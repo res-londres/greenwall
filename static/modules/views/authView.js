@@ -11,11 +11,11 @@ export function renderAuthScreen() {
                 <div class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8">
                     <p id="auth-right-title" class="mb-4 text-4xl text-white">Sign up to Greenwall</p>
                     <div class="mt-3">
-                        <p>Private account name</p>
+                        <label for="auth-account-name-input">Private account name</label>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-account-name-input" data-action="enterSignupAccountName" placeholder="Account name" maxlength="20" />
                     </div>
                     <div class="mt-3">
-                        <p>Password</p>
+                        <label for="auth-password-input">Password</label>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="password" id="auth-password-input" data-action="enterSignupPassword" placeholder="Password" maxlength="20" />
                     </div>
                     <div id="auth-password-retype-container" class="mt-3">
@@ -23,7 +23,7 @@ export function renderAuthScreen() {
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="password" id="auth-password-retype" data-action="retypeSignupPassword" placeholder="Retype password" maxlength="20" />
                     </div>
                     <div id="auth-profile-name-input-container" class="mt-3">
-                        <p>First public profile name</p>
+                        <label for="auth-profile-name-input">First public profile name</label>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-profile-name-input" data-action="enterSignupProfileName" placeholder="Profile name" maxlength="20" />
                     </div>
                     <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
