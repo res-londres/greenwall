@@ -172,6 +172,7 @@ function renderProfileSettingsModal() {
 }
 
 function renderLoginScreen() {
+    document.getElementById('auth-screen').dataset.authactive = 'login';
     document.getElementById('auth-welcome-text').textContent = 'welcome back!';
     document.getElementById('auth-right-title').textContent = 'Log in to Greenwall';
     document.getElementById('auth-account-name-input').dataset.action = 'enterLoginAccountName';
@@ -188,6 +189,7 @@ function renderLoginScreen() {
 }
 
 function renderSignupScreen() {
+    document.getElementById('auth-screen').dataset.authactive = 'signup';
     document.getElementById('auth-welcome-text').textContent = 'welcome!';
     document.getElementById('auth-right-title').textContent = 'Sign up to Greenwall';
     document.getElementById('auth-account-name-input').dataset.action = 'enterSignupAccountName';

@@ -6,6 +6,11 @@ export function init() {
 
 function handleAuthEvents() {
     const authScreen = document.getElementById('auth-screen');
+    const authButton = document.getElementById('auth-button');
+    const inputAccountName = document.getElementById('auth-account-name-input');
+    const inputPassword = document.getElementById('auth-password-input');
+    const inputPasswordRetype = document.getElementById('auth-password-retype');
+    const inputProfileName = document.getElementById('auth-profile-name-input');
 
     authScreen.addEventListener('click', function(event) {
         const actionElement = event.target.closest('[data-action]');
@@ -24,6 +29,17 @@ function handleAuthEvents() {
                     break;
             }
         }
+    });
+
+    authScreen.addEventListener('input', function() {
+        const authActive = authScreen.dataset.authactive;
+        const inputLengths = [
+            inputAccountName.value.length, 
+            inputPassword.value.length,
+            inputPasswordRetype.value.length,
+            inputProfileName.value.length
+        ]
+        setAuthButtonState(inputLengths, authActive, authButton);
     });
 }
 
@@ -61,4 +77,16 @@ function goToLogin() {
 
 function goToSignup() {
     swapAuthScreen(() => bus.emit('auth:#renderSignupScreen'));
+}
+
+function setAuthButtonState(inputLengths, authActive, authButton) {
+    let isDisabled = false;
+    for (let i = 0; i < inputLengths.length; i++) {
+        if (i > 1 && authActive == 'login') break;
+        if (inputLengths[i] == 0) {
+            isDisabled = true;
+            break;
+        }
+    }
+    authButton.disabled = isDisabled;
 }
