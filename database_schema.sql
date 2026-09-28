@@ -9,8 +9,8 @@ create table accounts (
   account_id text primary key,
   account_name text not null,
   password_hash text not null,
-  deleted_at timestamp,
-  created_at timestamp default now()
+  deleted_at timestamptz,
+  created_at timestamptz default now()
 );
 
 create table profiles (
@@ -18,8 +18,8 @@ create table profiles (
   account_id text not null references accounts(account_id) on delete cascade,
   profile_name text not null,
   bio text not null default '',
-  deleted_at timestamp,
-  created_at timestamp default now()
+  deleted_at timestamptz,
+  created_at timestamptz default now()
 );
 
 create index on profiles (account_id);
@@ -29,8 +29,8 @@ create table posts (
   profile_id text not null references profiles(profile_id),
   subject text not null,
   content text not null default '',
-  deleted_at timestamp,
-  created_at timestamp default now()
+  deleted_at timestamptz,
+  created_at timestamptz default now()
 );
 
 create index on posts (profile_id);
@@ -40,8 +40,8 @@ create table comments (
   post_id integer not null references posts(post_id),
   profile_id text not null references profiles(profile_id),
   content text not null,
-  deleted_at timestamp,
-  created_at timestamp default now()
+  deleted_at timestamptz,
+  created_at timestamptz default now()
 );
 
 create index on comments (post_id);
