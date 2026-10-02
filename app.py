@@ -24,6 +24,9 @@ def signup():
     if not profile_name:
         return fail('Profile name is required')
 
+    if db_user.get_account_by_name(account_name):
+        return fail('Username is already taken', status=409)
+
     account_id = f'{account_name}#{random_suffix()}'
     profile_id = f'{profile_name}#{random_suffix()}' 
 
