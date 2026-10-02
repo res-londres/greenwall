@@ -26,7 +26,7 @@ export function init() {
     bus.on('profile:changeProfile', renderProfile);
     bus.on('profile:openProfileSettingsModal', renderProfileSettingsModal);
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
-    bus.on('auth:#loggedIn', renderProfile);
+    bus.on('auth:login', renderProfile);
 }
 
 function renderUpdateTargetPost(post) {

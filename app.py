@@ -45,6 +45,31 @@ def signup():
         'profiles': [profile],
     }, 201)
 
+@app.post('/api/login')
+def login():
+    data = request.get_json()
+    account_name = (data.get('account_name') or '').strip()
+    password = data.get('password') or ''
+
+    if not account_name or not password:
+        return fail('Account name and password are required')
+
+    account = db_user.get_account_by_name(account_name)
+    if not account:
+        return fail('Account not found', 404)
+
+    if not check_password_hash(account['password_hash'], password):
+        return fail('Incorrect password', 401)
+
+    session['account_id'] = account['account_id']
+    session['profile_id'] = account['profiles'][0]['profile_id'] if account['profiles'] else None
+
+    return success({
+        'account_id': account['account_id'],
+        'account_name': account['account_name'],
+        'profiles': account['profiles'],
+    })
+
 def success(data=None, status=200):
     payload = {'ok': True}
     if data is not None:

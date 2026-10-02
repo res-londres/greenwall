@@ -66,7 +66,7 @@ export function addOtherProfile(profile) {
     profiles.other[profile.profile_id] = profile;
 }
 
-export function setupNewSignup(accountID, accountName, newProfiles) {
+export function setupLogin(accountID, accountName, newProfiles) {
     userAccount.account_id = accountID;
     userAccount.account_name = accountName;
     Object.values(newProfiles).forEach((profile) => {

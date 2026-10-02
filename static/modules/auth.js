@@ -29,13 +29,14 @@ function handleAuthEvents() {
                     goToSignup();
                     break;
                 case 'signup':
-                    const data = await signup(
+                    await signup(
                         inputAccountName.value,
                         inputPassword.value,
                         inputProfileName.value
                     );
-                    userManager.setupNewSignup(data.account_id, data.account_name, data.profiles);
-                    bus.emit('auth:#loggedIn');
+                    break;
+                case 'login':
+                    await login(inputAccountName.value, inputPassword.value);
                     break;
             }
         }
@@ -54,7 +55,6 @@ function handleAuthEvents() {
 }
 
 async function signup(accountName, password, profileName) {
-    console.log('Signing up with:', accountName, password, profileName);
     const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
@@ -70,7 +70,29 @@ async function signup(accountName, password, profileName) {
     if (!body.ok) {
         throw new Error(body.error);
     };
-    return body.data;
+    const data = body.data;
+    userManager.setupLogin(data.account_id, data.account_name, data.profiles);
+    bus.emit('auth:login');
+}
+
+async function login(accountName, password) {
+    const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            account_name: accountName,
+            password: password
+        })
+    });
+    const body = await response.json();
+    if (!body.ok) {
+        throw new Error(body.error);
+    }
+    const data = body.data;
+    userManager.setupLogin(data.account_id, data.account_name, data.profiles);
+    bus.emit('auth:login');
 }
 
 let isSwapping = false;
