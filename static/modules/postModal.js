@@ -1,7 +1,7 @@
 import * as bus from './eventBus.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentPost, setPostModalActive } from './managers/postManager.js';
-import { getCurrentProfileName, getCurrentProfileID } from './managers/profileManager.js';
+import { getCurrentProfileName, getCurrentProfileID } from './managers/userManager.js';
 
 export function init() {
     handlePostModalEvents();

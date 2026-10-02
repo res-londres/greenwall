@@ -1,6 +1,6 @@
-import { renderLoadingScreen, renderMainScreen, renderPostModal, renderSettingsModal } from './shellView.js';
-import { renderAuthScreen } from './authView.js';
-import { renderPostCreatorModal } from './postCreatorView.js';
+import { createLoadingScreenHTML, createMainScreenHTML, createPostModalHTML, createSettingsModalHTML } from './shellView.js';
+import { createAuthScreenHTML } from './authView.js';
+import { createPostCreatorModalHTML } from './postCreatorView.js';
 
 export function bootstrapViews() {
     const loadingScreenMount = document.getElementById('loading-screen-mount');
@@ -10,10 +10,10 @@ export function bootstrapViews() {
     const postModalMount = document.getElementById('post-modal-mount');
     const settingsModalMount = document.getElementById('settings-modal-mount');
 
-    if (loadingScreenMount) loadingScreenMount.innerHTML = renderLoadingScreen();
-    if (authScreenMount) authScreenMount.innerHTML = renderAuthScreen();
-    if (mainScreenMount) mainScreenMount.innerHTML = renderMainScreen();
-    if (postCreatorModalMount) postCreatorModalMount.innerHTML = renderPostCreatorModal();
-    if (postModalMount) postModalMount.innerHTML = renderPostModal();
-    if (settingsModalMount) settingsModalMount.innerHTML = renderSettingsModal();
+    if (loadingScreenMount) loadingScreenMount.innerHTML = createLoadingScreenHTML();
+    if (authScreenMount) authScreenMount.innerHTML = createAuthScreenHTML();
+    if (mainScreenMount) mainScreenMount.innerHTML = createMainScreenHTML();
+    if (postCreatorModalMount) postCreatorModalMount.innerHTML = createPostCreatorModalHTML();
+    if (postModalMount) postModalMount.innerHTML = createPostModalHTML();
+    if (settingsModalMount) settingsModalMount.innerHTML = createSettingsModalHTML();
 }

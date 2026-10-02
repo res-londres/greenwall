@@ -1,6 +1,6 @@
 // TODO: create post creator modal markup in future refactor
 
-export function renderPostCreatorModal() {
+export function createPostCreatorModalHTML() {
     return `
         <div id="post-creator-modal" class="scrollbar-custom modal-screen">
             <div class="modal-blur-overlay" data-action="closePostCreatorModal"></div>

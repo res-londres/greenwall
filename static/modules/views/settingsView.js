@@ -1,5 +1,5 @@
 // TODO: decouple from managers (view-model pattern)
-import { getUserProfiles } from '../managers/profileManager.js';
+import { getUserProfiles } from '../managers/userManager.js';
 import { createUserProfileCardHTML } from './profileView.js';
 
 export function createAccountSettingsModalHTML() {
@@ -28,7 +28,7 @@ export function createAccountSettingsModalHTML() {
                 <button class="simple-button">
                     <span class="icon-[ant-design--eye-invisible-outlined] text-2xl"></span>
                 </button>
-                <span>[USER ID HIDDEN]</span>
+                <span>[ACCOUNT ID HIDDEN]</span>
             </div>
         </div>
         <section class="py-4">

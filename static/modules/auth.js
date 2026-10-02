@@ -1,4 +1,5 @@
 import * as bus from './eventBus.js';
+import * as userManager from './managers/userManager.js';
 
 export function init() {
     handleAuthEvents();
@@ -12,7 +13,7 @@ function handleAuthEvents() {
     const inputPasswordRetype = document.getElementById('auth-password-retype');
     const inputProfileName = document.getElementById('auth-profile-name-input');
 
-    authScreen.addEventListener('click', function(event) {
+    authScreen.addEventListener('click', async function(event) {
         const actionElement = event.target.closest('[data-action]');
 
         if (actionElement) {
@@ -26,6 +27,15 @@ function handleAuthEvents() {
                     break;
                 case 'goToSignup':
                     goToSignup();
+                    break;
+                case 'signup':
+                    const data = await signup(
+                        inputAccountName.value,
+                        inputPassword.value,
+                        inputProfileName.value
+                    );
+                    userManager.setupNewSignup(data.account_id, data.account_name, data.profiles);
+                    bus.emit('auth:#loggedIn');
                     break;
             }
         }
@@ -43,8 +53,27 @@ function handleAuthEvents() {
     });
 }
 
-let isSwapping = false;
+async function signup(accountName, password, profileName) {
+    console.log('Signing up with:', accountName, password, profileName);
+    const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            account_name: accountName,
+            password: password,
+            profile_name: profileName
+        })
+    });
+    const body = await response.json();
+    if (!body.ok) {
+        throw new Error(body.error);
+    };
+    return body.data;
+}
 
+let isSwapping = false;
 function swapAuthScreen(renderFn) {
     const card = document.getElementById('auth-card');
     if (!card) return;

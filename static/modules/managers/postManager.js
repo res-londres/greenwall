@@ -1,5 +1,5 @@
 import * as bus from '../eventBus.js';
-import { getCurrentProfileID } from './profileManager.js';
+import { getCurrentProfileID } from './userManager.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
 const postsByProfile = {};     // {profile_id: {post_id: {post}}, profile_id: {..}}

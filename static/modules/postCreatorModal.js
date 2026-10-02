@@ -1,5 +1,5 @@
 import { setPostButtonState } from './postCreator.js';
-import { getCurrentProfileName, getCurrentProfileID } from './managers/profileManager.js';
+import { getCurrentProfileName, getCurrentProfileID } from './managers/userManager.js';
 import * as postManager from './managers/postManager.js';
 
 export function init() {

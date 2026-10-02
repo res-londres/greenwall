@@ -3,7 +3,7 @@ import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from './managers/likeManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import { getCurrentProfileID, getViewingProfile, getUserProfiles } from './managers/profileManager.js';
+import { getCurrentProfileID, getViewingProfile, getUserProfiles } from './managers/userManager.js';
 import { createEmptyWallHTML, createPostHTML } from './views/wallView.js';
 import { createCommentHTML, createPostModalHTML } from './views/postModalView.js';
 import { createLogOutProfileOptionHTML, createProfileSettingsModalHTML, createUserProfileOptionHTML } from './views/profileView.js';
@@ -11,7 +11,6 @@ import { createAccountSettingsModalHTML } from './views/settingsView.js';
 
 // INIT //
 export function init() {
-    renderProfile();
     bus.on('auth:#renderLoginScreen', renderLoginScreen);
     bus.on('auth:#renderSignupScreen', renderSignupScreen);
     bus.on('like:toggleCommentLike', renderPostComments);
@@ -27,6 +26,7 @@ export function init() {
     bus.on('profile:changeProfile', renderProfile);
     bus.on('profile:openProfileSettingsModal', renderProfileSettingsModal);
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
+    bus.on('auth:#loggedIn', renderProfile);
 }
 
 function renderUpdateTargetPost(post) {
@@ -138,6 +138,7 @@ function renderUserProfilesSelection() {
 
 function renderProfile() {
     const currentProfile = getViewingProfile(); 
+    if (!currentProfile) return;
     const {profile_id: profileID, profile_name: profileName, bio} = currentProfile;
     
     document.getElementById('display-profileid').textContent = profileID;
@@ -145,6 +146,9 @@ function renderProfile() {
         element.textContent = profileName;
     });
     renderBio(document.getElementById('textarea-bio'), bio);
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'grid';
+    document.getElementById('profile-wall').dataset.profileid = profileID;
     renderPosts();
     renderUserProfilesSelection();
 }

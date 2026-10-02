@@ -1,6 +1,6 @@
 // TODO: decouple from managers (view-model pattern)
 import { getPostsByProfileList } from '../managers/postManager.js';
-import { getCurrentProfileID, getCurrentProfileName } from '../managers/profileManager.js';
+import { getCurrentProfileID, getCurrentProfileName } from '../managers/userManager.js';
 import { escapeHTML } from './shared.js';
 
 export function createUserProfileOptionHTML(profile) {

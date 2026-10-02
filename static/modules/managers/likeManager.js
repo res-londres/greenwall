@@ -1,5 +1,5 @@
 import { getCurrentPostID } from './postManager.js';
-import { getCurrentProfileID } from './profileManager.js';
+import { getCurrentProfileID } from './userManager.js';
 
 const likedPostByProfile = {}          // {profile_id: {post_id: true, post_id: true}}
 const likedPostByCommentByProfile = {} // {profile_id: {post_id: {comment_id: true, comment_id: true}}}

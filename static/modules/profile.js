@@ -1,5 +1,5 @@
 import * as bus from './eventBus.js';
-import * as profileManager from './managers/profileManager.js';
+import * as userManager from './managers/userManager.js';
 
 let isEditingBio = false;
 
@@ -78,12 +78,12 @@ function stopEditBio(textareaBio) {
     }
     textareaBio.style.height = 'auto';
     textareaBio.style.height = textareaBio.scrollHeight + 'px';
-    profileManager.setCurrentProfileBio(bio);
+    userManager.setCurrentProfileBio(bio);
 }
 
 function changeProfile(changeProfileID) {
-    profileManager.setCurrentProfileID(changeProfileID);
-    profileManager.setViewingProfileID(changeProfileID);
+    userManager.setCurrentProfileID(changeProfileID);
+    userManager.setViewingProfileID(changeProfileID);
     bus.emit('profile:changeProfile');
 }
 

@@ -1,14 +1,14 @@
-export function renderLoadingScreen() {
+export function createLoadingScreenHTML() {
     return `
-        <div id="loading-screen" class="flex min-h-dvh items-center justify-center bg-surface p-8">
+        <div id="loading-screen" class="hidden min-h-dvh items-center justify-center bg-surface p-8">
             <span class="icon-[svg-spinners--pulse-rings-multiple] text-9xl text-accent"></span>
         </div>
     `;
 }
 
-export function renderMainScreen() {
+export function createMainScreenHTML() {
     return `
-        <main id="main-screen" class="grid h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface">
+        <main id="main-screen" class="hidden h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface">
             <section class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-primary bg-accent">
                 <h1 class="ml-6 font-heading text-white">greenwall</h1>
             </section>
@@ -101,7 +101,7 @@ export function renderMainScreen() {
     `;
 }
 
-export function renderPostModal() {
+export function createPostModalHTML() {
     return `
         <div id="post-modal" class="scrollbar-custom modal-screen">
             <div class="modal-blur-overlay" data-action="closePostModal"></div>
@@ -112,7 +112,7 @@ export function renderPostModal() {
     `;
 }
 
-export function renderSettingsModal() {
+export function createSettingsModalHTML() {
     return `
         <div id="settings-modal" class="scrollbar-custom modal-screen">
             <div class="modal-blur-overlay" data-action="closeSettingsModal"></div>

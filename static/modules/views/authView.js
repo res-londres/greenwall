@@ -1,6 +1,6 @@
 // TODO: create auth card markup in future refactor
 
-export function renderAuthScreen() {
+export function createAuthScreenHTML() {
     return `
         <div id="auth-screen" class="flex min-h-dvh items-center justify-center bg-surface p-8"  data-authactive="signup">
             <div id="auth-card" class="grid w-full max-w-175 grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary">

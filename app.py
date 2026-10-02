@@ -1,6 +1,8 @@
 from flask import render_template, request, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+import random
 from init import app
+import database.db_user as db_user
 
 @app.route('/')
 def index():
@@ -9,20 +11,48 @@ def index():
 @app.post('/api/signup')
 def signup():
     data = request.get_json()
-    username = data['username'].strip()
-    password = data['password']
-    # validate, hash, insert account + default profile, set session
-    ...
+    account_name = (data.get('account_name') or '').strip()
+    profile_name = (data.get('profile_name') or '').strip()
+    password = data.get('password') or ''
 
-@app.post('/api/login')
-def login():
-    ...
+    if not account_name or not password:
+        return fail('Account name and password are required')
+    if len(account_name) < 3 or len(account_name) > 20:
+        return fail('Account name must be between 3 and 20 characters')
+    if len(password) < 6:
+        return fail('Password must be at least 6 characters long')
+    if not profile_name:
+        return fail('Profile name is required')
 
-@app.post('/api/logout')
-def logout():
-    session.clear()
-    return jsonify(ok=True)
+    account_id = f'{account_name}#{random_suffix()}'
+    profile_id = f'{profile_name}#{random_suffix()}' 
 
+    password_hash = generate_password_hash(password)
+
+    profile = db_user.create_account_with_profile(
+        account_id, account_name, password_hash, profile_id, profile_name
+    )
+
+    session['account_id'] = account_id
+    session['profile_id'] = profile_id
+
+    return success({
+        'account_id': account_id,
+        'account_name': account_name,
+        'profiles': [profile],
+    }, 201)
+
+def success(data=None, status=200):
+    payload = {'ok': True}
+    if data is not None:
+        payload['data'] = data
+    return jsonify(payload), status
+
+def fail(message, status=400):
+    return jsonify(ok=False, error=message), status
+
+def random_suffix(length=4):
+    return ''.join(random.choices('0123456789', k=length))
 
 if __name__ == '__main__':
     app.run(debug=True)
