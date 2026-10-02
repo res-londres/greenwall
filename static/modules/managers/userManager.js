@@ -66,7 +66,7 @@ export function addOtherProfile(profile) {
     profiles.other[profile.profile_id] = profile;
 }
 
-export function setupLogin(accountID, accountName, newProfiles) {
+export function login(accountID, accountName, newProfiles) {
     userAccount.account_id = accountID;
     userAccount.account_name = accountName;
     Object.values(newProfiles).forEach((profile) => {
@@ -74,4 +74,17 @@ export function setupLogin(accountID, accountName, newProfiles) {
     });
     currentProfileID = newProfiles[0].profile_id;
     viewingProfileID = newProfiles[0].profile_id;
+}
+
+export function logout() {
+    userAccount.account_id = null;
+    userAccount.account_name = null;
+    Object.keys(profiles.user).forEach((profileID) => {
+        delete profiles.user[profileID];
+    });
+    Object.keys(profiles.other).forEach((profileID) => {
+        delete profiles.other[profileID];
+    });
+    currentProfileID = null;
+    viewingProfileID = null;
 }

@@ -70,6 +70,11 @@ def login():
         'profiles': account['profiles'],
     })
 
+@app.post('/api/logout')
+def logout():
+    session.clear()
+    return success()
+
 def success(data=None, status=200):
     payload = {'ok': True}
     if data is not None:

@@ -21,7 +21,7 @@ export function createUserProfileOptionHTML(profile) {
 export function createLogOutProfileOptionHTML() {
     return `
         <div
-            class="hover-dropdown-item border-t border-t-muted text-danger" data-action="logOut"
+            class="hover-dropdown-item border-t border-t-muted text-danger" data-action="logout"
         >
             <span class="icon-[akar-icons--sign-out]"></span>
             <span>Log Out</span>

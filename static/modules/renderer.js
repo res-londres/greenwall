@@ -27,6 +27,7 @@ export function init() {
     bus.on('profile:openProfileSettingsModal', renderProfileSettingsModal);
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
     bus.on('auth:login', renderProfile);
+    bus.on('auth:logout', renderLoginScreen);
 }
 
 function renderUpdateTargetPost(post) {
@@ -176,7 +177,10 @@ function renderProfileSettingsModal() {
 }
 
 function renderLoginScreen() {
-    document.getElementById('auth-screen').dataset.authactive = 'login';
+    document.getElementById('main-screen').style.display = 'none';
+    const authScreen = document.getElementById('auth-screen');
+    authScreen.style.display = 'grid';
+    authScreen.dataset.authactive = 'login';
     document.getElementById('auth-welcome-text').textContent = 'welcome back!';
     document.getElementById('auth-right-title').textContent = 'Log in to Greenwall';
     document.getElementById('auth-account-name-input').dataset.action = 'enterLoginAccountName';
@@ -193,7 +197,10 @@ function renderLoginScreen() {
 }
 
 function renderSignupScreen() {
-    document.getElementById('auth-screen').dataset.authactive = 'signup';
+    document.getElementById('main-screen').style.display = 'none';
+    const authScreen = document.getElementById('auth-screen');
+    authScreen.style.display = 'grid';
+    authScreen.dataset.authactive = 'signup';
     document.getElementById('auth-welcome-text').textContent = 'welcome!';
     document.getElementById('auth-right-title').textContent = 'Sign up to Greenwall';
     document.getElementById('auth-account-name-input').dataset.action = 'enterSignupAccountName';

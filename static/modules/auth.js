@@ -71,7 +71,7 @@ async function signup(accountName, password, profileName) {
         throw new Error(body.error);
     };
     const data = body.data;
-    userManager.setupLogin(data.account_id, data.account_name, data.profiles);
+    userManager.login(data.account_id, data.account_name, data.profiles);
     bus.emit('auth:login');
 }
 
@@ -91,7 +91,7 @@ async function login(accountName, password) {
         throw new Error(body.error);
     }
     const data = body.data;
-    userManager.setupLogin(data.account_id, data.account_name, data.profiles);
+    userManager.login(data.account_id, data.account_name, data.profiles);
     bus.emit('auth:login');
 }
 

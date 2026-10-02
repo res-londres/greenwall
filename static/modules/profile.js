@@ -25,8 +25,8 @@ function handleProfileEvents() {
                     const changeProfileID = actionElement.dataset.profileid;
                     changeProfile(changeProfileID);
                     break;
-                case 'logOut':
-                    /* soon */
+                case 'logout':
+                    await logout();
                     break;
                 case 'copyProfileID':
                     await navigator.clipboard.writeText(document.getElementById('display-profileid').textContent);
@@ -102,4 +102,17 @@ function openProfileSettingsModal() {
 function closeSettingsModal() {
     const settingsModal = document.getElementById('settings-modal');
     settingsModal.style.display = 'none';
+}
+
+
+async function logout() {
+    const response = await fetch('/api/logout', {
+        method: 'POST'
+    });
+    const body = await response.json();
+    if (!body.ok) {
+        throw new Error(body.error);
+    }
+    userManager.logout();
+    bus.emit('auth:logout');
 }
