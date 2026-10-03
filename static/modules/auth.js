@@ -29,16 +29,24 @@ function handleAuthEvents() {
                     goToSignup();
                     break;
                 case 'signup':
-                    await signup(
+                    const signupSuccess = await signup(
                         inputAccountName.value,
                         inputPassword.value,
                         inputProfileName.value
                     );
-                    clearAuthInputs([inputPassword, inputPasswordRetype]);
+                    if (signupSuccess) {
+                        clearAuthInputs([inputAccountName, inputPassword, inputPasswordRetype, inputProfileName]);
+                    } else {
+                        clearAuthInputs([inputPassword, inputPasswordRetype]);
+                    }
                     break;
                 case 'login':
-                    await login(inputAccountName.value, inputPassword.value);
-                    clearAuthInputs([inputPassword, inputPasswordRetype]);
+                    const loginSuccess = await login(inputAccountName.value, inputPassword.value);
+                    if (loginSuccess) {
+                        clearAuthInputs([inputAccountName, inputPassword, inputPasswordRetype, inputProfileName]);
+                    } else {
+                        clearAuthInputs([inputPassword, inputPasswordRetype]);
+                    }
                     break;
             }
         }
@@ -73,11 +81,12 @@ async function signup(accountName, password, profileName) {
     const body = await response.json();
     if (!body.ok) {
         bus.emit('auth:receiveAuthResponseError', body.error);
-        return;
+        return false;
     };
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
     bus.emit('auth:login');
+    return true;
 }
 
 async function login(accountName, password) {
@@ -95,11 +104,12 @@ async function login(accountName, password) {
     const body = await response.json();
     if (!body.ok) {
         bus.emit('auth:receiveAuthResponseError', body.error);
-        return;
+        return false;
     }
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
     bus.emit('auth:login');
+    return true;
 }
 
 let isSwapping = false;
