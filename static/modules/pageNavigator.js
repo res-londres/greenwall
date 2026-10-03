@@ -17,7 +17,7 @@ function handlePageNavigatorEvents() {
                 const pageName = actionElement.dataset.pagename;
                 changePage(pageName);
                 changeWall(pageName);
-                bus.emit('pageNavigator:#renderPosts');
+                bus.emit('pageNavigator:navigate');
             }
         }
     });

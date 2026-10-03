@@ -28,7 +28,7 @@ function togglePostLike(postID) {
     const updatedPost = postManager.getPostByID(postID);
     bus.emit('like:togglePostLike', updatedPost);
     if (postManager.isPostModalActive()) {
-        bus.emit('like:togglePostLike:#renderPostModal');
+        bus.emit('like:togglePostLike');
     }
 }
 

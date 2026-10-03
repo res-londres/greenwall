@@ -141,11 +141,11 @@ function swapAuthScreen(renderFn) {
 }
 
 function goToLogin() {
-    swapAuthScreen(() => bus.emit('auth:#renderLoginScreen'));
+    swapAuthScreen(() => bus.emit('auth:goToLogin'));
 }
 
 function goToSignup() {
-    swapAuthScreen(() => bus.emit('auth:#renderSignupScreen'));
+    swapAuthScreen(() => bus.emit('auth:goToSignup'));
 }
 
 function setAuthButtonState(inputLengths, authActive, authButton) {

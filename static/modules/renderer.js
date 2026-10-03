@@ -11,12 +11,16 @@ import { createAccountSettingsModalHTML } from './views/settingsView.js';
 
 // INIT //
 export function init() {
-    bus.on('auth:#renderLoginScreen', renderLoginScreen);
-    bus.on('auth:#renderSignupScreen', renderSignupScreen);
+    bus.on('auth:awaitAuthResponse', renderAuthLoadingState);
+    bus.on('auth:goToLogin', renderLoginScreen);
+    bus.on('auth:goToSignup', renderSignupScreen);
+    bus.on('auth:login', renderProfile);
+    bus.on('auth:logout', renderLoginScreen);
+    bus.on('auth:receiveAuthResponseError', renderAuthResponseError);
     bus.on('like:toggleCommentLike', renderPostComments);
     bus.on('like:togglePostLike', renderUpdateTargetPost);
-    bus.on('like:togglePostLike:#renderPostModal', renderPostModal);
-    bus.on('pageNavigator:#renderPosts', renderPosts);
+    bus.on('like:togglePostLike', renderPostModal);
+    bus.on('pageNavigator:navigate', renderPosts);
     bus.on('post:openPostModal', renderPostModal);
     // TODO: adding post shouldnt render all posts, only insert the new post on top
     bus.on('postManager:addPost', renderPosts);
@@ -26,10 +30,6 @@ export function init() {
     bus.on('profile:changeProfile', renderProfile);
     bus.on('profile:openProfileSettingsModal', renderProfileSettingsModal);
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
-    bus.on('auth:login', renderProfile);
-    bus.on('auth:logout', renderLoginScreen);
-    bus.on('auth:awaitAuthResponse', renderAuthLoadingState);
-    bus.on('auth:receiveAuthResponseError', renderAuthResponseError);
 }
 
 function renderUpdateTargetPost(post) {
