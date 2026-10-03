@@ -28,6 +28,8 @@ export function init() {
     bus.on('profile:openAccountSettingsModal', renderAccountSettingsModal);
     bus.on('auth:login', renderProfile);
     bus.on('auth:logout', renderLoginScreen);
+    bus.on('auth:awaitAuthResponse', renderAuthLoadingState);
+    bus.on('auth:receiveAuthResponseError', renderAuthResponseError);
 }
 
 function renderUpdateTargetPost(post) {
@@ -214,4 +216,20 @@ function renderSignupScreen() {
     const authGoToLink = document.getElementById('auth-goto-link');
     authGoToLink.dataset.action = 'goToLogin';
     authGoToLink.textContent = 'Log in';
+}
+
+function renderAuthLoadingState() {
+    const authButton = document.getElementById('auth-button');
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = '';
+    authButton.disabled = true;
+    authButton.innerHTML = '<span class="text-2xl text-accent icon-[svg-spinners--12-dots-scale-rotate]"></span>';
+}
+
+function renderAuthResponseError(error) {
+    const authButton = document.getElementById('auth-button');
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = error;
+    authButton.disabled = false;
+    authButton.innerHTML = authButton.dataset.action === 'login' ? 'Log in' : 'Sign up';
 }

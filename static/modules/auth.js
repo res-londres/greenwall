@@ -34,11 +34,11 @@ function handleAuthEvents() {
                         inputPassword.value,
                         inputProfileName.value
                     );
-                    clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName);
+                    clearAuthInputs([inputPassword, inputPasswordRetype]);
                     break;
                 case 'login':
                     await login(inputAccountName.value, inputPassword.value);
-                    clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName);
+                    clearAuthInputs([inputPassword, inputPasswordRetype]);
                     break;
             }
         }
@@ -57,6 +57,7 @@ function handleAuthEvents() {
 }
 
 async function signup(accountName, password, profileName) {
+    bus.emit('auth:awaitAuthResponse');
     const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
@@ -68,9 +69,11 @@ async function signup(accountName, password, profileName) {
             profile_name: profileName
         })
     });
+    bus.emit('auth:awaitingResponse');
     const body = await response.json();
     if (!body.ok) {
-        throw new Error(body.error);
+        bus.emit('auth:receiveAuthResponseError', body.error);
+        return;
     };
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
@@ -78,6 +81,7 @@ async function signup(accountName, password, profileName) {
 }
 
 async function login(accountName, password) {
+    bus.emit('auth:awaitAuthResponse');
     const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -90,7 +94,8 @@ async function login(accountName, password) {
     });
     const body = await response.json();
     if (!body.ok) {
-        throw new Error(body.error);
+        bus.emit('auth:receiveAuthResponseError', body.error);
+        return;
     }
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
@@ -99,6 +104,7 @@ async function login(accountName, password) {
 
 let isSwapping = false;
 function swapAuthScreen(renderFn) {
+    document.getElementById('error-message').textContent = '';
     const card = document.getElementById('auth-card');
     if (!card) return;
 
@@ -144,9 +150,6 @@ function setAuthButtonState(inputLengths, authActive, authButton) {
     authButton.disabled = isDisabled;
 }
 
-function clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName) {
-    inputAccountName.value = '';
-    inputPassword.value = '';
-    inputPasswordRetype.value = '';
-    inputProfileName.value = '';
-}  
+function clearAuthInputs(authInputs) {
+    authInputs.forEach(input => input.value = '');
+}

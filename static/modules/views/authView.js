@@ -26,9 +26,9 @@ export function createAuthScreenHTML() {
                         <label for="auth-profile-name-input">First public profile name</label>
                         <input class="w-full rounded-lg border-2 border-solid border-primary bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none" type="text" id="auth-profile-name-input" data-action="enterSignupProfileName" placeholder="Profile name" maxlength="20" />
                     </div>
-                    <p id="error-message" class="mb-4 min-h-5 text-danger"></p>
+                    <p id="error-message" class="min-h-15 text-danger"></p>
                     <div class="flex flex-col items-center justify-center gap-4">
-                        <button id="auth-button" class="cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 text-white transition-all duration-300 enabled:hover:scale-110 active:scale-100 enabled:hover:text-muted enabled:active:scale-100 disabled:cursor-not-allowed disabled:text-white disabled:bg-muted font-bold" data-action="signup" disabled>Sign up</button>
+                        <button id="auth-button" class="flex content-center justify-center cursor-pointer rounded-4xl border-none bg-primary px-16 py-2 text-white transition-all duration-300 enabled:hover:scale-110 active:scale-100 enabled:hover:text-muted enabled:active:scale-100 disabled:cursor-not-allowed disabled:text-white disabled:bg-muted font-bold" data-action="signup" disabled>Sign up</button>
                         <div class="flex flex-row gap-1">
                             <span id="auth-goto-text" class="text-primary">Already have an account? </span>
                             <span id="auth-goto-link" class="cursor-pointer select-none underline transition-all duration-300 hover:text-white" data-action="goToLogin">Log in</span>
