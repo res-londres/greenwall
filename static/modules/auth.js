@@ -34,9 +34,11 @@ function handleAuthEvents() {
                         inputPassword.value,
                         inputProfileName.value
                     );
+                    clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName);
                     break;
                 case 'login':
                     await login(inputAccountName.value, inputPassword.value);
+                    clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName);
                     break;
             }
         }
@@ -141,3 +143,10 @@ function setAuthButtonState(inputLengths, authActive, authButton) {
     }
     authButton.disabled = isDisabled;
 }
+
+function clearAuthInputs(inputAccountName, inputPassword, inputPasswordRetype, inputProfileName) {
+    inputAccountName.value = '';
+    inputPassword.value = '';
+    inputPasswordRetype.value = '';
+    inputProfileName.value = '';
+}  
