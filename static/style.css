@@ -52,6 +52,12 @@
     @apply relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem];
   }
 
+  @media (max-width: 767px) {
+    .modal-screen {
+      @apply p-4;
+    }
+  }
+
   /* dropdown menu */
   .hover-dropdown {
     @apply relative inline-block;
