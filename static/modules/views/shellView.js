@@ -26,7 +26,7 @@ export function createMainScreenHTML() {
             </section>
             <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-md:h-[calc(100dvh - 3rem - 3.5rem)] mt-8 overflow-y-auto">
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
-                    <div id="profile-card" class="mx-auto mb-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
+                    <div id="profile-card" class="mx-auto mb-2 rounded-2xl max-md:rounded-none border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
                         <div class="flex items-start gap-4">
                             <div class="bg-light/10 flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full">
                                 <span class="icon-[boxicons--user-circle] text-8xl"></span>
@@ -81,14 +81,14 @@ export function createMainScreenHTML() {
                             <span>0 posts</span>
                         </div>
                     </div>
-                    <div class="post-creator flex flex-row items-center gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
+                    <div class="post-creator flex flex-row items-center gap-2 rounded-2xl max-md:rounded-none border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl"></span>
                         <span class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered" data-action="openPostCreatorModal">Create post</span>
                     </div>
                     <div id="profile-wall" data-profileid="user"></div>
                 </div>
                 <div class="page" data-pagename="home-wall" data-wallid="home-wall">
-                    <div class="post-creator align-center flex flex-row gap-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
+                    <div class="post-creator align-center flex flex-row gap-2 rounded-2xl max-md:rounded-none border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl"></span>
                         <span class="w-full rounded-4xl bg-muted p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-muted-hovered" data-action="openPostCreatorModal">Create post</span>
                     </div>

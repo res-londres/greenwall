@@ -3,12 +3,12 @@
 export function createAuthScreenHTML() {
     return `
         <div id="auth-screen" class="hidden min-h-dvh items-center justify-center bg-surface p-8"  data-authactive="signup">
-            <div id="auth-card" class="grid w-full max-w-175 grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary">
-                <div class="flex w-full flex-col overflow-hidden bg-white p-8">
+            <div id="auth-card" class="grid w-full max-w-175 grid-cols-1 md:grid-cols-[1fr_1fr] overflow-hidden rounded-2xl border-2 border-solid border-primary">
+                <div class="flex w-full flex-col overflow-hidden bg-white p-8 max-md:p-6">
                     <p class="mb-2 font-heading text-6xl wrap-break-word">greenwall</p>
                     <p id="auth-welcome-text" class="text-2xl">welcome!</p>
                 </div>
-                <div class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8">
+                <div class="flex w-full flex-col justify-center overflow-hidden bg-accent p-8 max-md:p-6">
                     <p id="auth-right-title" class="mb-4 text-4xl text-white">Sign up to Greenwall</p>
                     <div class="mt-3">
                         <label for="auth-account-name-input">Private account name</label>
