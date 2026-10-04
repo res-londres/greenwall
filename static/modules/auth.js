@@ -63,6 +63,28 @@ function handleAuthEvents() {
         ]
         setAuthButtonState(inputLengths, authActive, authButton);
     });
+
+    authScreen.addEventListener('keydown', function(event) {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+
+        const active = document.activeElement;
+        if (!active || !authScreen.contains(active) || active.tagName !== 'INPUT') return;
+
+        const inputs = Array.from(authScreen.querySelectorAll('input')).filter(function(input) {
+            return input.offsetParent !== null;   // skip hidden containers
+        });
+        const currentIndex = inputs.indexOf(active);
+
+        if (currentIndex === -1) return;
+
+        const isLast = currentIndex === inputs.length - 1;
+        if (isLast && !authButton.disabled) {
+            authButton.click();
+        } else if (!isLast) {
+            inputs[currentIndex + 1].focus();
+        }
+    });
 }
 
 async function signup(accountName, password, profileName) {
