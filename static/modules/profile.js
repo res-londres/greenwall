@@ -66,6 +66,7 @@ function editBio(textareaBio) {
     isEditingBio = true;
     textareaBio.classList.remove('hidden');
     textareaBio.style.height = 'auto';
+    textareaBio.style.height = textareaBio.scrollHeight + 'px';
     textareaBio.focus();
 }
 
