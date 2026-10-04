@@ -1,4 +1,5 @@
 import * as bus from './eventBus.js';
+import * as events from './events.js';
 import * as commentManager from './managers/commentManager.js';
 import { getCurrentPost, setPostModalActive } from './managers/postManager.js';
 import { getCurrentProfileName, getCurrentProfileID } from './managers/userManager.js';
@@ -26,9 +27,9 @@ function handlePostModalEvents() {
                 createComment(inputContent.value);
                 clearInput(inputContent);
             } else if (action === 'likePost') {
-                bus.emit('postModal:#togglePostLike', postID);
+                bus.emit(events.POST_LIKE_REQUESTED, postID);
             } else if (action === 'likeComment') {
-                bus.emit('postModal:#toggleCommentLike', commentID);
+                bus.emit(events.COMMENT_LIKE_REQUESTED, commentID);
             }
         }
     });
@@ -56,7 +57,6 @@ function createComment(content) {
         likes: 0
     }
     commentManager.addPostComment(comment);
-    bus.emit('postModal:createComment', currentPost);
 }
 
 // HELPERS //

@@ -1,4 +1,5 @@
 import * as bus from './eventBus.js';
+import * as events from './events.js';
 import * as userManager from './managers/userManager.js';
 
 let isEditingBio = false;
@@ -84,19 +85,19 @@ function stopEditBio(textareaBio) {
 function changeProfile(changeProfileID) {
     userManager.setCurrentProfileID(changeProfileID);
     userManager.setViewingProfileID(changeProfileID);
-    bus.emit('profile:changeProfile');
+    bus.emit(events.PROFILE_SWITCHED);
 }
 
 function openAccountSettingsModal() {
     const settingsModal = document.getElementById('settings-modal');
     settingsModal.style.display = 'flex';
-    bus.emit('profile:openAccountSettingsModal');
+    bus.emit(events.SETTINGS_ACCOUNT_OPENED);
 }
 
 function openProfileSettingsModal() {
     const settingsModal = document.getElementById('settings-modal');
     settingsModal.style.display = 'flex';
-    bus.emit('profile:openProfileSettingsModal');
+    bus.emit(events.SETTINGS_PROFILE_OPENED);
 }
 
 function closeSettingsModal() {
@@ -114,5 +115,5 @@ async function logout() {
         throw new Error(body.error);
     }
     userManager.logout();
-    bus.emit('auth:logout');
+    bus.emit(events.AUTH_LOGGED_OUT);
 }

@@ -1,5 +1,6 @@
 import * as bus from '../eventBus.js';
-import { getCurrentPostID } from './postManager.js';
+import * as events from '../events.js';
+import { getCurrentPost, getCurrentPostID } from './postManager.js';
 
 const commentsByPost = {};    // {post_id: {comment_id: {comment}, comment_id: {another_comment}}, post_id: {comments}}`
 
@@ -14,7 +15,9 @@ export function getPostCommentsCount(postID) {
 export function addPostComment(comment) {
     const commentID = comment.comment_id;
     getPostComments()[commentID] = comment;
-    bus.emit('postManager:addPostComment');
+    // Payload is the parent post: wallRenderer needs it to re-render the
+    // correct card's comment count.
+    bus.emit(events.COMMENT_CREATED, getCurrentPost());
 }
 
 // COMMENT LIKES //

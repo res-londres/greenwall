@@ -1,4 +1,5 @@
 import * as bus from './eventBus.js';
+import * as events from './events.js';
 import * as userManager from './managers/userManager.js';
 
 export function init() {
@@ -65,7 +66,7 @@ function handleAuthEvents() {
 }
 
 async function signup(accountName, password, profileName) {
-    bus.emit('auth:awaitAuthResponse');
+    bus.emit(events.AUTH_PENDING);
     const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
@@ -77,20 +78,19 @@ async function signup(accountName, password, profileName) {
             profile_name: profileName
         })
     });
-    bus.emit('auth:awaitingResponse');
     const body = await response.json();
     if (!body.ok) {
-        bus.emit('auth:receiveAuthResponseError', body.error);
+        bus.emit(events.AUTH_ERROR, body.error);
         return false;
     };
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
-    bus.emit('auth:login');
+    bus.emit(events.AUTH_LOGGED_IN);
     return true;
 }
 
 async function login(accountName, password) {
-    bus.emit('auth:awaitAuthResponse');
+    bus.emit(events.AUTH_PENDING);
     const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -103,12 +103,12 @@ async function login(accountName, password) {
     });
     const body = await response.json();
     if (!body.ok) {
-        bus.emit('auth:receiveAuthResponseError', body.error);
+        bus.emit(events.AUTH_ERROR, body.error);
         return false;
     }
     const data = body.data;
     userManager.login(data.account_id, data.account_name, data.profiles);
-    bus.emit('auth:login');
+    bus.emit(events.AUTH_LOGGED_IN);
     return true;
 }
 
@@ -141,11 +141,11 @@ function swapAuthScreen(renderFn) {
 }
 
 function goToLogin() {
-    swapAuthScreen(() => bus.emit('auth:goToLogin'));
+    swapAuthScreen(() => bus.emit(events.AUTH_SHOW_LOGIN));
 }
 
 function goToSignup() {
-    swapAuthScreen(() => bus.emit('auth:goToSignup'));
+    swapAuthScreen(() => bus.emit(events.AUTH_SHOW_SIGNUP));
 }
 
 function setAuthButtonState(inputLengths, authActive, authButton) {

@@ -1,12 +1,12 @@
 import * as bus from './eventBus.js';
+import * as events from './events.js';
 import * as likeManager from './managers/likeManager.js';
 import * as postManager from './managers/postManager.js';
 import * as commentManager from './managers/commentManager.js';
 
 export function init() {
-    bus.on('post:#togglePostLike', togglePostLike);
-    bus.on('postModal:#togglePostLike', togglePostLike);
-    bus.on('postModal:#toggleCommentLike', toggleCommentLike);
+    bus.on(events.POST_LIKE_REQUESTED, togglePostLike);
+    bus.on(events.COMMENT_LIKE_REQUESTED, toggleCommentLike);
 }
 
 function togglePostLike(postID) {
@@ -26,10 +26,7 @@ function togglePostLike(postID) {
     }
 
     const updatedPost = postManager.getPostByID(postID);
-    bus.emit('like:togglePostLike', updatedPost);
-    if (postManager.isPostModalActive()) {
-        bus.emit('like:togglePostLike');
-    }
+    bus.emit(events.POST_LIKED, updatedPost);
 }
 
 function toggleCommentLike(commentID) {
@@ -42,5 +39,5 @@ function toggleCommentLike(commentID) {
         likeManager.removeCommentLike(commentID);
         commentManager.decrementCommentLikes(commentID);
     }
-    bus.emit('like:toggleCommentLike');
+    bus.emit(events.COMMENT_LIKED);
 }

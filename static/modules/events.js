@@ -1,0 +1,29 @@
+// Central registry of all bus events.
+// Naming: SCREAMING_SNAKE_CASE constant, 'feature:event' string value.
+// Never name events after modules.
+
+export const AUTH_PENDING              = 'auth:pending';
+export const AUTH_ERROR                = 'auth:error';
+export const AUTH_LOGGED_IN            = 'auth:loggedIn';
+export const AUTH_LOGGED_OUT           = 'auth:loggedOut';
+export const AUTH_SHOW_LOGIN           = 'auth:showLogin';
+export const AUTH_SHOW_SIGNUP          = 'auth:showSignup';
+
+export const NAV_CHANGED               = 'nav:changed';
+
+export const POST_CREATED              = 'post:created';
+export const POST_LIKED                = 'post:liked';
+export const POST_MODAL_OPENED         = 'post:modalOpened';
+
+export const COMMENT_CREATED           = 'comment:created';
+export const COMMENT_LIKED             = 'comment:liked';
+
+export const PROFILE_SWITCHED          = 'profile:switched';
+
+export const SETTINGS_ACCOUNT_OPENED   = 'settings:accountOpened';
+export const SETTINGS_PROFILE_OPENED   = 'settings:profileOpened';
+
+// User input requests: controllers emit these when the user clicks a like button.
+// like.js consumes them. Unlike state-change events, these are imperatives.
+export const POST_LIKE_REQUESTED = 'post:likeRequested';
+export const COMMENT_LIKE_REQUESTED = 'comment:likeRequested';

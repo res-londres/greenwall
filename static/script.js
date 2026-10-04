@@ -7,7 +7,7 @@ import * as postModal from './modules/postModal.js';
 import * as postCreator from './modules/postCreator.js';
 import * as postCreatorModal from './modules/postCreatorModal.js';
 import * as profile from './modules/profile.js';
-import * as renderer from './modules/renderer.js';
+import * as renderers from './modules/renderers/index.js';
 
 // INIT //
 bootstrapViews();
@@ -19,4 +19,4 @@ postModal.init();
 postCreator.init();
 postCreatorModal.init();
 profile.init();
-renderer.init();
+renderers.init();

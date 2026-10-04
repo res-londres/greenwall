@@ -1,4 +1,5 @@
 import * as bus from '../eventBus.js';
+import * as events from '../events.js';
 import { getCurrentProfileID } from './userManager.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
@@ -88,5 +89,5 @@ export function addPost(post, profileID = null) {
         postsByProfile[profileID] = {};
     }
     postsByProfile[profileID][postID] = post;
-    bus.emit('postManager:addPost');
+    bus.emit(events.POST_CREATED);
 }
