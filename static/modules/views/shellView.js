@@ -8,12 +8,12 @@ export function createLoadingScreenHTML() {
 
 export function createMainScreenHTML() {
     return `
-        <main id="main-screen" class="hidden h-dvh grid-cols-[20%_1fr_20%] grid-rows-[3rem_1fr] overflow-hidden bg-surface">
+        <main id="main-screen" class="hidden h-dvh grid-cols-1 grid-rows-[3rem_1fr] md:grid-cols-[20%_1fr_20%] max-md:grid-rows-[3rem_1fr_3.5rem] overflow-hidden bg-surface">
             <section class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-primary bg-accent">
                 <h1 class="ml-6 font-heading text-white">greenwall</h1>
             </section>
-            <section class="h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto">
-                <nav id="page-navigator" class="mt-8 flex flex-col select-none">
+            <section class="max-md:hidden h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto">
+                <nav class="page-navigator mt-8 flex flex-col select-none">
                     <a href="#" data-pagename="user-profile" data-action="navigate">
                         <span class="icon-[boxicons--user-circle] text-4xl"></span>
                         <span class="mt-1.5">Your Profile</span>
@@ -24,7 +24,7 @@ export function createMainScreenHTML() {
                     </a>
                 </nav>
             </section>
-            <section class="scrollbar-custom h-[calc(100dvh - 3rem)] mt-8 overflow-y-auto">
+            <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-md:h-[calc(100dvh - 3rem - 3.5rem)] mt-8 overflow-y-auto">
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
                     <div id="profile-card" class="mx-auto mb-2 rounded-2xl border-2 border-solid border-primary bg-white px-[1.25rem_2rem] py-4">
                         <div class="flex items-start gap-4">
@@ -96,7 +96,19 @@ export function createMainScreenHTML() {
                 </div>
                 <div class="page hidden" data-pagename="search">search</div>
             </section>
-            <section></section>
+            <section class="max-md:hidden"></section>
+            <!-- Mobile bottom nav (mobile only). Duplicates the desktop sidebar links above. Keep both in sync when adding new links. -->
+            <nav class="page-navigator md:hidden sticky bottom-0 col-span-full flex h-14 border-t-2 border-solid border-t-primary bg-white select-none">
+                <a href="#" data-pagename="user-profile" data-action="navigate"
+                   class="p-0 flex-1 flex-col items-center justify-center gap-0.5">
+                    <span class="icon-[boxicons--user-circle] text-3xl"></span>
+                    <span class="text-xs mt-0.5">Your Profile</span>
+                </a>
+                <a class="selected p-0 flex-1 flex-col items-center justify-center gap-0.5" href="#" data-pagename="home-wall" data-action="navigate">
+                    <span class="icon-[akar-icons--home] text-3xl"></span>
+                    <span class="text-xs mt-0.5">Home Wall</span>
+                </a>
+            </nav>
         </main>
     `;
 }

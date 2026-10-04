@@ -16,9 +16,13 @@ function showTargetPage(pageName) {
 }
 
 function updateSelectedNav(pageName) {
-    const nav = document.getElementById('page-navigator');
-    nav.querySelectorAll('a').forEach(function(page) {
-        page.classList.remove('selected');
+    document.querySelectorAll('.page-navigator').forEach(function(nav) {
+        nav.querySelectorAll('a').forEach(function(page) {
+            page.classList.remove('selected');
+        });
+        const selectedPage = nav.querySelector(`a[data-pagename="${pageName}"]`);
+        if (selectedPage) {
+            selectedPage.classList.add('selected');
+        }
     });
-    nav.querySelector(`a[data-pagename="${pageName}"]`).classList.add('selected');
 }
