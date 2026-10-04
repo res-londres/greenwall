@@ -40,6 +40,10 @@
     @apply transition-all duration-300 hover:scale-110 hover:text-accent active:scale-100;
   }
 
+  .modal-close {
+    @apply p-1 -mr-1 rounded-full text-gray-500 transition-all duration-300 hover:bg-muted hover:text-accent active:scale-95;
+  }
+
   /* modal */
   .modal-screen {
     @apply fixed top-0 left-0 z-30 hidden h-full w-full items-center justify-center p-6;

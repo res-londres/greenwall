@@ -18,10 +18,13 @@ export function createPostModalHTML(post) {
 
     return `
         <div class="bg-white text-primary border-b-2 border-solid border-muted mb-4 pb-2">
-            <div class="items-center flex justify-between mb-2">
+            <div class="items-center flex justify-between">
                 <span class="font-bold">${postAttribution}</span>
-                <span class="text-gray-500 text-[0.8rem]">${postTime}</span>
+                <button class="modal-close" data-action="closePostModal">
+                    <span class="icon-[material-symbols--close] text-xl"></span>
+                </button>
             </div>
+            <div class="text-gray-500 text-[0.8rem] mb-3">${postTime}</div>
             <div class="font-bold leading-6 mb-3 wrap-break-word">${postSubject}</div>
             <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word">${postContent}</div>
             <div class="border-t border-solid border-muted flex gap-6 mt-3 pt-3">

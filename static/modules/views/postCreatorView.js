@@ -5,8 +5,11 @@ export function createPostCreatorModalHTML() {
         <div id="post-creator-modal" class="scrollbar-custom modal-screen">
             <div class="modal-blur-overlay" data-action="closePostCreatorModal"></div>
             <div class="modal-card">
-                <div class="border-b-2 border-muted">
+                <div class="flex items-center justify-between border-b-2 border-muted pb-2">
                     <p class="text-[150%] font-bold">Create post</p>
+                    <button class="modal-close" data-action="closePostCreatorModal">
+                        <span class="icon-[material-symbols--close] text-xl"></span>
+                    </button>
                 </div>
                 <div class="mt-4 flex flex-row gap-2">
                     <span class="icon-[boxicons--user] text-2xl"></span>
