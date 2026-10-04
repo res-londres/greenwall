@@ -10,6 +10,7 @@ export function init() {
 }
 
 function renderLoginScreen() {
+    document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'none';
     const authScreen = document.getElementById('auth-screen');
     authScreen.style.display = 'grid';
@@ -30,6 +31,7 @@ function renderLoginScreen() {
 }
 
 function renderSignupScreen() {
+    document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'none';
     const authScreen = document.getElementById('auth-screen');
     authScreen.style.display = 'grid';

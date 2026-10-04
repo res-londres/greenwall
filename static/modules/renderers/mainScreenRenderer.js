@@ -59,6 +59,7 @@ function renderUserProfilesSelection() {
 
 function showMainScreen() {
     document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'grid';
 }
 

@@ -8,6 +8,21 @@ import database.db_user as db_user
 def index():
     return render_template('index.html')
 
+@app.post('/api/check_session')
+def check_session():
+    if 'account_id' in session:
+        account = db_user.get_account_by_name(session.get('account_name'))
+        if not account:
+            session.clear()
+            return fail('Session expired', status=401)
+        return success({
+            'account_id': session['account_id'],
+            'profile_id': session['profile_id'],
+            'account_name': session['account_name'],
+            'profiles': account['profiles'],
+        })
+    return fail('Not logged in', status=401)
+
 @app.post('/api/signup')
 def signup():
     data = request.get_json()
@@ -36,8 +51,7 @@ def signup():
         account_id, account_name, password_hash, profile_id, profile_name
     )
 
-    session['account_id'] = account_id
-    session['profile_id'] = profile_id
+    set_session(account_id, profile_id, account_name)
 
     return success({
         'account_id': account_id,
@@ -61,8 +75,11 @@ def login():
     if not check_password_hash(account['password_hash'], password):
         return fail('Incorrect password', 401)
 
-    session['account_id'] = account['account_id']
-    session['profile_id'] = account['profiles'][0]['profile_id'] if account['profiles'] else None
+    set_session(
+        account['account_id'],
+        account['profiles'][0]['profile_id'] if account['profiles'] else None,
+        account['account_name']
+    )
 
     return success({
         'account_id': account['account_id'],
@@ -86,6 +103,11 @@ def fail(message, status=400):
 
 def random_suffix(length=4):
     return ''.join(random.choices('0123456789', k=length))
+
+def set_session(account_id, profile_id, account_name):
+    session['account_id'] = account_id
+    session['profile_id'] = profile_id
+    session['account_name'] = account_name
 
 if __name__ == '__main__':
     app.run(debug=True)

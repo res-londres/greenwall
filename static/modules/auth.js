@@ -4,6 +4,7 @@ import * as userManager from './managers/userManager.js';
 
 export function init() {
     handleAuthEvents();
+    checkSession();
 }
 
 function handleAuthEvents() {
@@ -184,4 +185,21 @@ function setAuthButtonState(inputLengths, authActive, authButton) {
 
 function clearAuthInputs(authInputs) {
     authInputs.forEach(input => input.value = '');
+}
+
+async function checkSession() {
+    const response = await fetch('/api/check_session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const body = await response.json();
+    if (body.ok) {
+        const data = body.data;
+        userManager.login(data.account_id, data.account_name, data.profiles);
+        bus.emit(events.AUTH_LOGGED_IN);
+    } else {
+        bus.emit(events.AUTH_SHOW_SIGNUP);
+    }
 }

@@ -1,7 +1,7 @@
 export function createLoadingScreenHTML() {
     return `
-        <div id="loading-screen" class="hidden min-h-dvh items-center justify-center bg-surface p-8">
-            <span class="icon-[svg-spinners--pulse-rings-multiple] text-9xl text-accent"></span>
+        <div id="loading-screen" class="flex min-h-dvh items-center justify-center bg-surface p-8">
+            <span class="icon-[svg-spinners--12-dots-scale-rotate] text-9xl text-accent"></span>
         </div>
     `;
 }
