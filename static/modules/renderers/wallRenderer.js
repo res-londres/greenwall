@@ -39,10 +39,8 @@ export function renderPosts() {
     const currentWallProfileID = currentWall.dataset.profileid;
     if (currentWallProfileID === 'null') {
         renderGlobalPosts(currentWall);
-    } else if (currentWallProfileID === 'user') {
-        renderPostsByAccount(null, currentWall);
     } else {
-        // for when we open another account profile
+        renderPostsByProfile(currentWallProfileID, currentWall);
     }
 }
 
@@ -65,9 +63,7 @@ function renderGlobalPosts(currentWall = null) {
     });
 }
 
-function renderPostsByAccount(profileID = null, currentWall = null) {
-    profileID = profileID === null ? getCurrentProfileID() : profileID;
-    currentWall = currentWall === null ? getCurrentWall() : currentWall;
+function renderPostsByProfile(profileID, currentWall) {
     const postsByUser = postManager.getPostsByProfileList(profileID);
     if (postsByUser.length === 0) {
         currentWall.innerHTML = createEmptyWallHTML();
