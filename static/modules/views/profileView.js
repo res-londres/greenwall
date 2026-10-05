@@ -33,7 +33,7 @@ export function createProfileSettingsModalHTML() {
     const profileName = getCurrentProfileName();
     const profileID = getCurrentProfileID();
     const dangerZone = Object.keys(getUserProfiles()).length > 1 ? `
-        <button class="flex items-center gap-2 text-danger transition-all duration-300 hover:scale-110 active:scale-100" data-action="deleteProfile">
+        <button class="flex items-center gap-2 text-danger transition-all duration-300 hover:scale-105 active:scale-100" data-action="deleteProfile">
             <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
             <span>Delete profile</span>
         </button>

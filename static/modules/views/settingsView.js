@@ -66,7 +66,7 @@ export function createAccountSettingsModalHTML() {
         </section>
         <section class="border-t-2 border-muted pt-4 pb-8">
             <h2 class="mb-3 text-xl font-bold">Danger Zone</h2>
-            <button class="flex items-center gap-2 text-danger active:scale-100 transition-all duration-300 hover:scale-110" data-action="deleteAccount">
+            <button class="flex items-center gap-2 text-danger active:scale-100 transition-all duration-300 hover:scale-105" data-action="deleteAccount">
                 <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
                 <span>Delete user</span>
             </button>
@@ -97,7 +97,7 @@ export function createDeleteAccountConfirmHTML() {
                 data-action="confirmDeleteAccount"
             >Delete account</button>
             <button id="delete-cancel-button"
-                class="flex-1 rounded-xl border-2 border-solid border-muted bg-white p-2 font-bold text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex-1 rounded-xl border-2 border-solid border-muted bg-white p-2 font-bold text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary enabled:active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 data-action="cancelDelete"
                 data-origin="account"
             >Cancel</button>
