@@ -52,6 +52,21 @@ function handleProfileEvents() {
                 case 'cancelCreateProfile':
                     hideCreateProfileForm();
                     break;
+                case 'deleteProfile':
+                    bus.emit(events.PROFILE_DELETE_REQUESTED);
+                    break;
+                case 'confirmDeleteProfile':
+                    await submitDeleteProfile();
+                    break;
+                case 'deleteAccount':
+                    bus.emit(events.ACCOUNT_DELETE_REQUESTED);
+                    break;
+                case 'confirmDeleteAccount':
+                    await submitDeleteAccount();
+                    break;
+                case 'cancelDelete':
+                    cancelDelete(actionElement.dataset.origin);
+                    break;
             }
         }
         else {
@@ -172,6 +187,75 @@ async function submitCreateProfile() {
     changePage('user-profile');
     changeWall('user-profile');
     bus.emit(events.PROFILE_SWITCHED);
+}
+
+async function submitDeleteProfile() {
+    const profileID = userManager.getCurrentProfileID();
+    if (!profileID) return;
+
+    bus.emit(events.PROFILE_DELETE_PENDING);
+
+    let body;
+    try {
+        const response = await fetch('/api/delete_profile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ profile_id: profileID })
+        });
+        body = await response.json();
+    } catch {
+        bus.emit(events.PROFILE_DELETE_ERROR, 'Network error. Please try again.');
+        return;
+    }
+
+    if (!body.ok) {
+        bus.emit(events.PROFILE_DELETE_ERROR, body.error);
+        return;
+    }
+
+    const remainingProfiles = body.data.profiles;
+    const newCurrentProfileID = remainingProfiles[0].profile_id;
+
+    userManager.removeUserProfile(profileID);
+    userManager.setCurrentProfileID(newCurrentProfileID);
+    userManager.setViewingProfileID(newCurrentProfileID);
+
+    closeSettingsModal();
+    changePage('user-profile');
+    changeWall('user-profile');
+    bus.emit(events.PROFILE_SWITCHED);
+}
+
+async function submitDeleteAccount() {
+    bus.emit(events.ACCOUNT_DELETE_PENDING);
+
+    let body;
+    try {
+        const response = await fetch('/api/delete_account', {
+            method: 'POST'
+        });
+        body = await response.json();
+    } catch {
+        bus.emit(events.ACCOUNT_DELETE_ERROR, 'Network error. Please try again.');
+        return;
+    }
+
+    if (!body.ok) {
+        bus.emit(events.ACCOUNT_DELETE_ERROR, body.error);
+        return;
+    }
+
+    userManager.logout();
+    closeSettingsModal();
+    bus.emit(events.AUTH_LOGGED_OUT);
+}
+
+function cancelDelete(origin) {
+    if (origin === 'profile') {
+        bus.emit(events.SETTINGS_PROFILE_OPENED);
+    } else if (origin === 'account') {
+        bus.emit(events.SETTINGS_ACCOUNT_OPENED);
+    }
 }
 
 function openAccountSettingsModal() {

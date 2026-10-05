@@ -1,6 +1,6 @@
 // TODO: decouple from managers (view-model pattern)
 import { getPostsByProfileList } from '../managers/postManager.js';
-import { getCurrentProfileID, getCurrentProfileName } from '../managers/userManager.js';
+import { getCurrentProfileID, getCurrentProfileName, getCurrentProfile, getUserProfiles } from '../managers/userManager.js';
 import { escapeHTML } from './shared.js';
 
 export function createUserProfileOptionHTML(profile) {
@@ -32,6 +32,14 @@ export function createLogOutProfileOptionHTML() {
 export function createProfileSettingsModalHTML() {
     const profileName = getCurrentProfileName();
     const profileID = getCurrentProfileID();
+    const dangerZone = Object.keys(getUserProfiles()).length > 1 ? `
+        <button class="flex items-center gap-2 text-danger transition-all duration-300 hover:scale-110 active:scale-100" data-action="deleteProfile">
+            <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
+            <span>Delete profile</span>
+        </button>
+    ` : `
+        <p class="text-sm text-gray-500">You cannot delete your only profile. Delete your account instead.</p>
+    `;
 
     return `
         <div class="flex items-center justify-between border-b-2 border-muted pb-2">
@@ -53,10 +61,7 @@ export function createProfileSettingsModalHTML() {
         </div>
         <section class="pt-4 pb-8">
             <h2 class="mb-3 text-xl font-bold">Danger Zone</h2>
-            <button class="flex items-center gap-2 text-danger transition-all duration-300 hover:scale-110 active:scale-100">
-                <span class="icon-[ant-design--delete-outlined] text-2xl"></span>
-                <span>Delete profile</span>
-            </button>
+            ${dangerZone}
         </section>
     `;
 }
@@ -73,6 +78,36 @@ export function createUserProfileCardHTML(profile) {
                 <div class="wrap-anywhere">${escapeHTML(profileID)}</div>
                 <div>${postCount} posts</div>
             </div>
+        </div>
+    `;
+}
+
+export function createDeleteProfileConfirmHTML() {
+    const { profile_name: profileName } = getCurrentProfile();
+
+    return `
+        <div class="flex items-center justify-between border-b-2 border-muted pb-2">
+            <p class="text-[150%] font-bold text-danger">Delete profile?</p>
+        </div>
+        <div class="py-4">
+            <p class="mb-3 font-bold">You are about to delete "${escapeHTML(profileName)}".</p>
+            <ul class="list-disc pl-5 text-sm text-gray-600 flex flex-col gap-1">
+                <li>Your posts will remain visible, but your name will show as [deleted].</li>
+                <li>Likes, comments, and other activity from this profile will no longer be attributed to you.</li>
+                <li>This cannot be undone.</li>
+            </ul>
+        </div>
+        <p id="delete-confirm-error" class="text-danger text-sm mb-3 hidden"></p>
+        <div class="flex gap-2 pb-4">
+            <button id="delete-confirm-button"
+                class="flex-1 rounded-xl bg-danger p-2 font-bold text-white transition-all duration-300 enabled:hover:opacity-90 enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                data-action="confirmDeleteProfile"
+            >Delete profile</button>
+            <button id="delete-cancel-button"
+                class="flex-1 rounded-xl border-2 border-solid border-muted bg-white p-2 font-bold text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                data-action="cancelDelete"
+                data-origin="profile"
+            >Cancel</button>
         </div>
     `;
 }
