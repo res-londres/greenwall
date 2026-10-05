@@ -68,6 +68,10 @@ export function addAndSwitchToProfile(profile) {
     viewingProfileID = profile.profile_id;
 }
 
+export function removeUserProfile(profileID) {
+    delete profiles.user[profileID];
+}
+
 export function addOtherProfile(profile) {
     profiles.other[profile.profile_id] = profile;
 }

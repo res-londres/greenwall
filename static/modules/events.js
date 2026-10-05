@@ -31,3 +31,13 @@ export const COMMENT_LIKE_REQUESTED = 'comment:likeRequested';
 // Profile creation
 export const PROFILE_CREATE_PENDING = 'profile:createPending';
 export const PROFILE_CREATE_ERROR   = 'profile:createError';
+
+// Profile deletion
+export const PROFILE_DELETE_REQUESTED = 'profile:deleteRequested';
+export const PROFILE_DELETE_PENDING   = 'profile:deletePending';
+export const PROFILE_DELETE_ERROR     = 'profile:deleteError';
+
+// Account deletion
+export const ACCOUNT_DELETE_REQUESTED = 'account:deleteRequested';
+export const ACCOUNT_DELETE_PENDING   = 'account:deletePending';
+export const ACCOUNT_DELETE_ERROR     = 'account:deleteError';

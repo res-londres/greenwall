@@ -143,6 +143,50 @@ def create_profile():
 
     return success({'profile': new_profile}, 201)
 
+@app.post('/api/delete_profile')
+def delete_profile():
+    if 'account_id' not in session:
+        return fail('Not logged in', status=401)
+
+    data = request.get_json()
+    profile_id = data.get('profile_id')
+
+    if not profile_id:
+        return fail('profile_id is required')
+
+    account = db_user.get_account_by_name(session.get('account_name'))
+    if not account:
+        session.clear()
+        return fail('Session expired', status=401)
+
+    if not any(p['profile_id'] == profile_id for p in account['profiles']):
+        return fail('Profile not found', status=404)
+
+    if len(account['profiles']) <= 1:
+        return fail('Cannot delete your only profile', status=403)
+
+    db_user.soft_delete_profile(profile_id)
+
+    remaining_profiles = [p for p in account['profiles'] if p['profile_id'] != profile_id]
+    session['profile_id'] = remaining_profiles[0]['profile_id']
+
+    return success({'profiles': remaining_profiles})
+
+@app.post('/api/delete_account')
+def delete_account():
+    if 'account_id' not in session:
+        return fail('Not logged in', status=401)
+
+    account = db_user.get_account_by_name(session.get('account_name'))
+    if not account:
+        session.clear()
+        return fail('Session expired', status=401)
+
+    db_user.soft_delete_account(account['account_id'])
+    session.clear()
+
+    return success()
+
 def success(data=None, status=200):
     payload = {'ok': True}
     if data is not None:

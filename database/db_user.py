@@ -27,7 +27,7 @@ def get_account_by_name(account_name):
         cur.execute('''
             SELECT account_id, account_name, password_hash
             FROM accounts
-            WHERE account_name = %s
+            WHERE account_name = %s AND deleted_at IS NULL
         ''', (account_name,))
         account = cur.fetchone()
         if not account:
@@ -36,8 +36,29 @@ def get_account_by_name(account_name):
         cur.execute('''
             SELECT profile_id, profile_name, bio, created_at
             FROM profiles
-            WHERE account_id = %s
+            WHERE account_id = %s AND deleted_at IS NULL
         ''', (account['account_id'],))
         profiles = cur.fetchall()
         account['profiles'] = profiles
         return account
+
+def soft_delete_profile(profile_id):
+    with db_cursor(commit=True) as cur:
+        cur.execute('''
+            UPDATE profiles
+            SET deleted_at = now()
+            WHERE profile_id = %s AND deleted_at IS NULL
+        ''', (profile_id,))
+
+def soft_delete_account(account_id):
+    with db_cursor(commit=True) as cur:
+        cur.execute('''
+            UPDATE accounts
+            SET deleted_at = now()
+            WHERE account_id = %s AND deleted_at IS NULL
+        ''', (account_id,))
+        cur.execute('''
+            UPDATE profiles
+            SET deleted_at = now()
+            WHERE account_id = %s AND deleted_at IS NULL
+        ''', (account_id,))
