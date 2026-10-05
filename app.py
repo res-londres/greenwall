@@ -1,7 +1,6 @@
 from flask import render_template, request, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
-import re
 from init import app
 import database.db_user as db_user
 
@@ -31,18 +30,13 @@ def signup():
     profile_name = (data.get('profile_name') or '').strip()
     password = data.get('password') or ''
 
-    if not account_name or not password:
-        return fail('Account name and password are required')
-    if len(account_name) < 3 or len(account_name) > 20:
-        return fail('Account name must be between 3 and 20 characters')
-    if len(password) < 6:
-        return fail('Password must be at least 6 characters long')
-    if not profile_name:
-        return fail('Profile name is required')
-    if len(profile_name) < 3 or len(profile_name) > 20:
-        return fail('Profile name must be between 3 and 20 characters')
-    if not account_name.isalnum() or not password.isalnum() or not profile_name.isalnum():
-        return fail('Credentials must be alphanumeric') 
+    account_validation = validate_account_credentials(account_name, password)
+    if account_validation is not None:
+        return account_validation
+
+    profile_validation = validate_profile_name(profile_name)
+    if profile_validation is not None:
+        return profile_validation
 
     if db_user.get_account_by_name(account_name):
         return fail('Username is already taken', status=409)
@@ -71,8 +65,9 @@ def login():
     account_name = (data.get('account_name') or '').strip()
     password = data.get('password') or ''
 
-    if not account_name or not password:
-        return fail('Account name and password are required')
+    account_validation = validate_account_credentials(account_name, password)
+    if account_validation is not None:
+        return account_validation
 
     account = db_user.get_account_by_name(account_name)
     if not account:
@@ -129,12 +124,9 @@ def create_profile():
     data = request.get_json()
     profile_name = (data.get('profile_name') or '').strip()
 
-    if not profile_name:
-        return fail('Profile name is required')
-    if not re.match(r'^[a-zA-Z0-9]+$', profile_name):
-        return fail('Profile name must be alphanumeric')
-    if len(profile_name) < 4 or len(profile_name) > 19:
-        return fail('Profile name must be between 4 and 19 characters')
+    profile_validation = validate_profile_name(profile_name)
+    if profile_validation is not None:
+        return profile_validation
 
     account = db_user.get_account_by_name(session.get('account_name'))
     if not account:
@@ -167,6 +159,24 @@ def set_session(account_id, profile_id, account_name):
     session['account_id'] = account_id
     session['profile_id'] = profile_id
     session['account_name'] = account_name
+
+def validate_account_credentials(account_name, password):
+    if not account_name or not password:
+        return fail('Account name and password are required')
+    if len(account_name) < 3 or len(account_name) > 20:
+        return fail('Account name must be between 3 and 20 characters')
+    if len(password) < 6:
+        return fail('Password must be at least 6 characters long')
+    if not account_name.isalnum() or not password.isalnum():
+        return fail('Credentials must be alphanumeric') 
+
+def validate_profile_name(profile_name):
+    if not profile_name:
+        return fail('Profile name is required')
+    if len(profile_name) < 3 or len(profile_name) > 20:
+        return fail('Profile name must be between 3 and 20 characters')
+    if not profile_name.isalnum():
+        return fail('Profile name must be alphanumeric')
 
 if __name__ == '__main__':
     app.run(debug=True)

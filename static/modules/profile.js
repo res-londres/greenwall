@@ -99,18 +99,20 @@ function stopEditBio(textareaBio) {
     userManager.setCurrentProfileBio(bio);
 }
 
-function changeProfile(changeProfileID) {
+async function changeProfile(changeProfileID) {
     userManager.setCurrentProfileID(changeProfileID);
     userManager.setViewingProfileID(changeProfileID);
     bus.emit(events.PROFILE_SWITCHED);
 
-    fetch('/api/set_active_profile', {
+    const response = await fetch('/api/set_active_profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile_id: changeProfileID })
-    }).catch(() => {
-        // Non-critical; client state is already updated.
     });
+    const body = await response.json();
+    if (!body.ok) {
+        throw new Error(body.error);
+    }
 }
 
 function showCreateProfileForm() {
