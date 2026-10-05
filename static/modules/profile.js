@@ -1,6 +1,8 @@
 import * as bus from './eventBus.js';
 import * as events from './events.js';
 import * as userManager from './managers/userManager.js';
+import { changePage } from './managers/pageManager.js';
+import { changeWall } from './managers/wallManager.js';
 
 let isEditingBio = false;
 
@@ -41,6 +43,15 @@ function handleProfileEvents() {
                 case 'closeSettingsModal':
                     closeSettingsModal();
                     break;
+                case 'createProfile':
+                    showCreateProfileForm();
+                    break;
+                case 'confirmCreateProfile':
+                    await submitCreateProfile();
+                    break;
+                case 'cancelCreateProfile':
+                    hideCreateProfileForm();
+                    break;
             }
         }
         else {
@@ -59,6 +70,11 @@ function handleProfileEvents() {
 
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
+    });
+    document.addEventListener('input', function(event) {
+        if (event.target.id !== 'create-profile-input') return;
+        const confirm = document.getElementById('create-profile-confirm');
+        confirm.disabled = event.target.value.trim().length === 0;
     });
 }
 
@@ -95,6 +111,65 @@ function changeProfile(changeProfileID) {
     }).catch(() => {
         // Non-critical; client state is already updated.
     });
+}
+
+function showCreateProfileForm() {
+    document.querySelector('[data-action="createProfile"]').classList.add('hidden');
+    const form = document.getElementById('create-profile-form');
+    form.classList.remove('hidden');
+    form.classList.add('flex');
+
+    const input = document.getElementById('create-profile-input');
+    input.value = '';
+    input.disabled = false;
+    input.focus();
+
+    document.getElementById('create-profile-error').classList.add('hidden');
+    document.getElementById('create-profile-confirm').disabled = true;
+}
+
+function hideCreateProfileForm() {
+    document.querySelector('[data-action="createProfile"]').classList.remove('hidden');
+    const form = document.getElementById('create-profile-form');
+    form.classList.add('hidden');
+    form.classList.remove('flex');
+
+    document.getElementById('create-profile-input').value = '';
+    document.getElementById('create-profile-error').classList.add('hidden');
+}
+
+async function submitCreateProfile() {
+    const input = document.getElementById('create-profile-input');
+    const profileName = input.value.trim();
+    if (!profileName) return;
+
+    bus.emit(events.PROFILE_CREATE_PENDING);
+
+    let body;
+    try {
+        const response = await fetch('/api/create_profile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ profile_name: profileName })
+        });
+        body = await response.json();
+    } catch {
+        bus.emit(events.PROFILE_CREATE_ERROR, 'Network error. Please try again.');
+        return;
+    }
+
+    if (!body.ok) {
+        bus.emit(events.PROFILE_CREATE_ERROR, body.error);
+        return;
+    }
+
+    const newProfile = body.data.profile;
+    userManager.addAndSwitchToProfile(newProfile);
+    closeSettingsModal();
+
+    changePage('user-profile');
+    changeWall('user-profile');
+    bus.emit(events.PROFILE_SWITCHED);
 }
 
 function openAccountSettingsModal() {

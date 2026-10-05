@@ -62,6 +62,12 @@ export function addUserProfile(profile) {
     profiles.user[profile.profile_id] = profile;
 }
 
+export function addAndSwitchToProfile(profile) {
+    profiles.user[profile.profile_id] = profile;
+    currentProfileID = profile.profile_id;
+    viewingProfileID = profile.profile_id;
+}
+
 export function addOtherProfile(profile) {
     profiles.other[profile.profile_id] = profile;
 }

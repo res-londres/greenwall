@@ -40,6 +40,28 @@ export function createAccountSettingsModalHTML() {
                 ${profileCards}
             </div>
             ${createProfileButton}
+            <div id="create-profile-form" class="mt-3 hidden flex-col gap-2">
+                <input
+                    type="text"
+                    id="create-profile-input"
+                    class="w-full rounded-xl border-2 border-solid border-muted bg-white px-4 py-2 text-primary placeholder-gray-500 focus:outline-none focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed"
+                    placeholder="New profile name"
+                    maxlength="19"
+                >
+                <p id="create-profile-error" class="text-danger text-sm hidden"></p>
+                <div class="flex gap-2">
+                    <button
+                        id="create-profile-confirm"
+                        class="flex-1 rounded-xl bg-accent p-2 font-bold transition-all duration-300 enabled:hover:bg-accent-hovered enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-muted"
+                        disabled
+                        data-action="confirmCreateProfile"
+                    >Create</button>
+                    <button
+                        class="flex-1 rounded-xl border-2 border-solid border-muted bg-white p-2 font-bold text-gray-500 transition-all duration-300 hover:border-primary hover:text-primary active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        data-action="cancelCreateProfile"
+                    >Cancel</button>
+                </div>
+            </div>
         </section>
         <section class="border-t-2 border-muted pt-4 pb-8">
             <h2 class="mb-3 text-xl font-bold">Danger Zone</h2>

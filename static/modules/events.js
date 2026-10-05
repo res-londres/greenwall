@@ -27,3 +27,7 @@ export const SETTINGS_PROFILE_OPENED   = 'settings:profileOpened';
 // like.js consumes them. Unlike state-change events, these are imperatives.
 export const POST_LIKE_REQUESTED = 'post:likeRequested';
 export const COMMENT_LIKE_REQUESTED = 'comment:likeRequested';
+
+// Profile creation
+export const PROFILE_CREATE_PENDING = 'profile:createPending';
+export const PROFILE_CREATE_ERROR   = 'profile:createError';

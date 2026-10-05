@@ -1,6 +1,7 @@
 from flask import render_template, request, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
+import re
 from init import app
 import database.db_user as db_user
 
@@ -119,6 +120,36 @@ def set_active_profile():
 
     session['profile_id'] = profile_id
     return success()
+
+@app.post('/api/create_profile')
+def create_profile():
+    if 'account_id' not in session:
+        return fail('Not logged in', status=401)
+
+    data = request.get_json()
+    profile_name = (data.get('profile_name') or '').strip()
+
+    if not profile_name:
+        return fail('Profile name is required')
+    if not re.match(r'^[a-zA-Z0-9]+$', profile_name):
+        return fail('Profile name must be alphanumeric')
+    if len(profile_name) < 4 or len(profile_name) > 19:
+        return fail('Profile name must be between 4 and 19 characters')
+
+    account = db_user.get_account_by_name(session.get('account_name'))
+    if not account:
+        session.clear()
+        return fail('Session expired', status=401)
+
+    if len(account['profiles']) >= 3:
+        return fail('Maximum number of profiles reached', status=403)
+
+    profile_id = f'{profile_name}#{random_suffix()}'
+    new_profile = db_user.create_profile(profile_id, account['account_id'], profile_name)
+
+    session['profile_id'] = profile_id
+
+    return success({'profile': new_profile}, 201)
 
 def success(data=None, status=200):
     payload = {'ok': True}
