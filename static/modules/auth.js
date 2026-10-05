@@ -130,7 +130,7 @@ async function login(accountName, password) {
         return false;
     }
     const data = body.data;
-    userManager.login(data.account_id, data.account_name, data.profiles);
+    userManager.login(data.account_id, data.account_name, data.profiles, data.profile_id);
     bus.emit(events.AUTH_LOGGED_IN);
     return true;
 }
@@ -197,7 +197,7 @@ async function checkSession() {
     const body = await response.json();
     if (body.ok) {
         const data = body.data;
-        userManager.login(data.account_id, data.account_name, data.profiles);
+        userManager.login(data.account_id, data.account_name, data.profiles, data.profile_id);
         bus.emit(events.AUTH_LOGGED_IN);
     } else {
         bus.emit(events.AUTH_SHOW_SIGNUP);

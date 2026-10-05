@@ -87,6 +87,14 @@ function changeProfile(changeProfileID) {
     userManager.setCurrentProfileID(changeProfileID);
     userManager.setViewingProfileID(changeProfileID);
     bus.emit(events.PROFILE_SWITCHED);
+
+    fetch('/api/set_active_profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile_id: changeProfileID })
+    }).catch(() => {
+        // Non-critical; client state is already updated.
+    });
 }
 
 function openAccountSettingsModal() {

@@ -38,6 +38,10 @@ def signup():
         return fail('Password must be at least 6 characters long')
     if not profile_name:
         return fail('Profile name is required')
+    if len(profile_name) < 3 or len(profile_name) > 20:
+        return fail('Profile name must be between 3 and 20 characters')
+    if not account_name.isalnum() or not password.isalnum() or not profile_name.isalnum():
+        return fail('Credentials must be alphanumeric') 
 
     if db_user.get_account_by_name(account_name):
         return fail('Username is already taken', status=409)
@@ -56,6 +60,7 @@ def signup():
     return success({
         'account_id': account_id,
         'account_name': account_name,
+        'profile_id': session['profile_id'],
         'profiles': [profile],
     }, 201)
 
@@ -84,12 +89,35 @@ def login():
     return success({
         'account_id': account['account_id'],
         'account_name': account['account_name'],
+        'profile_id': session['profile_id'],
         'profiles': account['profiles'],
     })
 
 @app.post('/api/logout')
 def logout():
     session.clear()
+    return success()
+
+@app.post('/api/set_active_profile')
+def set_active_profile():
+    if 'account_id' not in session:
+        return fail('Not logged in', status=401)
+
+    data = request.get_json()
+    profile_id = data.get('profile_id')
+
+    if not profile_id:
+        return fail('profile_id is required')
+
+    account = db_user.get_account_by_name(session.get('account_name'))
+    if not account:
+        session.clear()
+        return fail('Session expired', status=401)
+
+    if not any(p['profile_id'] == profile_id for p in account['profiles']):
+        return fail('Profile not found', status=404)
+
+    session['profile_id'] = profile_id
     return success()
 
 def success(data=None, status=200):

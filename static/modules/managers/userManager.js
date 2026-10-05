@@ -66,14 +66,19 @@ export function addOtherProfile(profile) {
     profiles.other[profile.profile_id] = profile;
 }
 
-export function login(accountID, accountName, newProfiles) {
+export function login(accountID, accountName, newProfiles, activeProfileID = null) {
     userAccount.account_id = accountID;
     userAccount.account_name = accountName;
     Object.values(newProfiles).forEach((profile) => {
         profiles.user[profile.profile_id] = profile;
     });
-    currentProfileID = newProfiles[0].profile_id;
-    viewingProfileID = newProfiles[0].profile_id;
+
+    const validActiveID = (activeProfileID && activeProfileID in profiles.user)
+        ? activeProfileID
+        : newProfiles[0].profile_id;
+
+    currentProfileID = validActiveID;
+    viewingProfileID = validActiveID;
 }
 
 export function logout() {
