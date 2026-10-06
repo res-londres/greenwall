@@ -33,7 +33,7 @@
 
   /* Foreground (text) */
   --color-fg-default: var(--color-jungle-green);
-  --color-fg-muted:   var(--color-platinum);
+  --color-fg-muted:   var(--color-pale-sky);
   --color-fg-danger:  var(--color-bright-red);
   --color-fg-inverse: var(--color-mint-cream);
 

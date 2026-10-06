@@ -20,7 +20,7 @@ export function createPostCreatorModalHTML() {
                     <textarea id="post-creator-modal-textarea-content" class="textarea w-full resize-none overflow-hidden outline-0" placeholder="Enter content" rows="3" maxlength="2000"></textarea>
                 </div>
                 <div class="sticky bottom-0 border-t-2 border-divider bg-surface-card pb-4">
-                    <button id="post-button" class="mt-4 w-full rounded-4xl bg-button-default p-1 font-bold transition-all duration-300 enabled:hover:bg-button-hovered enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-fg-muted" disabled data-action="createPost">Post</button>
+                    <button id="post-button" class="mt-4 w-full rounded-4xl bg-button-default p-1 font-bold transition-all duration-300 enabled:hover:bg-button-hovered enabled:active:scale-95 disabled:cursor-not-allowed disabled:bg-button-disabled disabled:opacity-50" disabled data-action="createPost">Post</button>
                 </div>
             </div>
         </div>
