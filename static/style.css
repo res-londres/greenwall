@@ -14,7 +14,7 @@
   --color-blue-romance:  #D2F6DE;
   --color-mint-cream:    #F9FDFB;
   --color-platinum:      #DFE6E1;
-  --color-silver:         #CBC9C9;
+  --color-silver:        #CBC9C9;
   --color-pale-sky:      #6B7280;
   --color-bright-red:    #ff000d;
 
@@ -78,15 +78,11 @@
   }
 
   .post-action {
-    @apply flex origin-top cursor-pointer items-center gap-1 rounded-sm border-none bg-none p-[0.25rem_0.5rem] text-[0.85rem] text-icon-default transition-all duration-300 hover:scale-110 hover:text-icon-hovered active:scale-100;
+    @apply flex origin-top cursor-pointer items-center gap-1 rounded-sm border-none bg-none p-[0.25rem_0.5rem] text-[0.85rem] text-icon-default transition-all duration-300 hover:scale-105 hover:text-icon-hovered active:scale-100;
   }
 
   .simple-button {
-    @apply transition-all duration-300 hover:scale-110 hover:text-icon-hovered active:scale-100;
-  }
-
-  .modal-close {
-    @apply p-1 -mr-1 rounded-full text-icon-default transition-all duration-300 hover:bg-misc-gray-default hover:text-icon-hovered active:scale-95;
+    @apply cursor-pointer transition-all duration-300 hover:scale-105 hover:text-icon-hovered active:scale-100;
   }
 
   /* modal */
@@ -118,7 +114,7 @@
     @apply absolute z-30 hidden w-max max-w-56 min-w-10 overflow-hidden rounded-xl border border-solid border-line-default bg-surface-card py-2 text-fg-default;
   }
   .hover-dropdown-item {
-    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-110 hover:bg-surface-default active:scale-100 active:bg-surface-emphasis;
+    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-105 hover:bg-surface-default active:scale-100 active:bg-surface-emphasis;
   }
 
   /* card swap */

@@ -20,7 +20,7 @@ export function createPostModalHTML(post) {
         <div class="bg-surface-card text-fg-default border-b-2 border-solid border-divider mb-4 pb-2">
             <div class="items-center flex justify-between">
                 <span class="font-bold">${postAttribution}</span>
-                <button class="modal-close" data-action="closePostModal">
+                <button class="simple-button" data-action="closePostModal">
                     <span class="icon-[material-symbols--close] text-xl"></span>
                 </button>
             </div>

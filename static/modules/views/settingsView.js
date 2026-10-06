@@ -16,7 +16,7 @@ export function createAccountSettingsModalHTML() {
     return `
         <div class="flex items-center justify-between border-b-2 border-divider pb-2">
             <p class="text-[150%] font-bold">User settings</p>
-            <button class="modal-close" data-action="closeSettingsModal">
+            <button class="simple-button" data-action="closeSettingsModal">
                 <span class="icon-[material-symbols--close] text-xl"></span>
             </button>
         </div>
