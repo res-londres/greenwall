@@ -17,17 +17,17 @@ export function createPostModalHTML(post) {
     const likeIcon = createLikeIcon(isLiked);
 
     return `
-        <div class="bg-white text-primary border-b-2 border-solid border-muted mb-4 pb-2">
+        <div class="bg-surface-card text-fg-default border-b-2 border-solid border-divider mb-4 pb-2">
             <div class="items-center flex justify-between">
                 <span class="font-bold">${postAttribution}</span>
                 <button class="modal-close" data-action="closePostModal">
                     <span class="icon-[material-symbols--close] text-xl"></span>
                 </button>
             </div>
-            <div class="text-gray-500 text-[0.8rem] mb-3">${postTime}</div>
+            <div class="text-fg-muted text-[0.8rem] mb-3">${postTime}</div>
             <div class="font-bold leading-6 mb-3 wrap-break-word">${postSubject}</div>
             <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word">${postContent}</div>
-            <div class="border-t border-solid border-muted flex gap-6 mt-3 pt-3">
+            <div class="border-t border-solid border-divider flex gap-6 mt-3 pt-3">
                 <button class="post-action" data-action="likePost" data-postid="${postID}">
                     <span>
                         ${likeIcon}
@@ -43,16 +43,16 @@ export function createPostModalHTML(post) {
             </div>
         </div>
 
-        <div class="text-primary">
+        <div class="text-fg-default">
             <div class="font-bold mb-3">Comments (${commentCount})</div>
             <div id="post-modal-comment-list" class="flex flex-col">
                 <!-- commentsHTML goes here -->
             </div>
-            <div class="bg-white border-t border-solid border-muted flex gap-2 py-4 sticky bottom-0 z-30">
+            <div class="bg-surface-card border-t border-solid border-divider flex gap-2 py-4 sticky bottom-0 z-30">
                 <input
                     type="text"
                     id="post-modal-input-comment"
-                    class="bg-muted border-2 border-solid border-muted rounded-4xl flex-1 font-[inherit] p-[0.5rem_0.75rem] focus:outline-none text-[0.9rem]"
+                    class="bg-muted border-2 border-solid border-divider rounded-4xl flex-1 font-[inherit] p-[0.5rem_0.75rem] focus:outline-none text-[0.9rem]"
                     placeholder="Write a comment.."
                     maxlength="1000"
                 >
