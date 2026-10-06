@@ -38,7 +38,7 @@ function renderProfileCreatePending() {
     input.disabled = true;
     cancel.disabled = true;
     confirm.disabled = true;
-    confirm.innerHTML = '<span class="text-xl text-accent icon-[svg-spinners--12-dots-scale-rotate]"></span>';
+    confirm.innerHTML = '<span class="text-xl text-fg-inverse icon-[svg-spinners--12-dots-scale-rotate]"></span>';
 }
 
 function renderProfileCreateError(errorMessage) {
@@ -78,7 +78,7 @@ function renderDeletePending() {
 
     cancel.disabled = true;
     confirm.disabled = true;
-    confirm.innerHTML = '<span class="text-xl text-white icon-[svg-spinners--12-dots-scale-rotate]"></span>';
+    confirm.innerHTML = '<span class="text-xl text-fg-inverse icon-[svg-spinners--12-dots-scale-rotate]"></span>';
 }
 
 function renderDeleteError(errorMessage) {

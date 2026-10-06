@@ -56,7 +56,7 @@ function renderAuthLoadingState() {
     const errorMessage = document.getElementById('error-message');
     errorMessage.textContent = '';
     authButton.disabled = true;
-    authButton.innerHTML = '<span class="text-2xl text-accent icon-[svg-spinners--12-dots-scale-rotate]"></span>';
+    authButton.innerHTML = '<span class="text-2xl text-fg-inverse icon-[svg-spinners--12-dots-scale-rotate]"></span>';
 }
 
 function renderAuthResponseError(error) {

@@ -52,7 +52,7 @@ export function createPostModalHTML(post) {
                 <input
                     type="text"
                     id="post-modal-input-comment"
-                    class="bg-muted border-2 border-solid border-divider rounded-4xl flex-1 font-[inherit] p-[0.5rem_0.75rem] focus:outline-none text-[0.9rem]"
+                    class="bg-misc-gray-default border-2 border-solid border-divider rounded-4xl flex-1 font-[inherit] p-[0.5rem_0.75rem] focus:outline-none text-[0.9rem]"
                     placeholder="Write a comment.."
                     maxlength="1000"
                 >

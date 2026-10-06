@@ -6,11 +6,8 @@
 @source "./modules/views/**/*.js";
 
 @theme {
-  /* ============================================
-     BASE PALETTE
-     Raw colors. Do not use these directly in views.
-     Reference them through the semantic layer below.
-     ============================================ */
+  /* BASE COLORS */
+  /* dont use directly */
   --color-greenish-teal: #32BF84;
   --color-eucalyptus:    #269466;
   --color-jungle-green:  #1e392a;
@@ -21,11 +18,8 @@
   --color-pale-sky:      #6B7280;
   --color-bright-red:    #ff000d;
 
-  /* ============================================
-     SEMANTIC TOKENS
-     Meaning attached. Use these everywhere.
-     ============================================ */
-
+  /* SEMANTIC TOKENS */
+  /* use everywhere */
   /* Surfaces */
   --color-surface-default:  var(--color-blue-romance);
   --color-surface-card:     var(--color-mint-cream);
@@ -57,26 +51,13 @@
   --color-button-active-nav:   var(--color-greenish-teal);
   --color-button-hovered-nav:  var(--color-mint-cream);
 
-  /* Misc — component-specific, may be consolidated later */
+  /* Misc */
   --color-misc-green-default:        var(--color-greenish-teal);
   --color-misc-green-hovered-light:  var(--color-mint-cream);
   --color-misc-green-hovered-dark:   var(--color-eucalyptus);
   --color-misc-gray-default:         var(--color-platinum);
   --color-misc-gray-hovered-light:   var(--color-silver);
   --color-misc-gray-hovered-dark:    var(--color-pale-sky);
-
-  /* ============================================
-     LEGACY ALIASES (temporary)
-     Keep old token names working during the migration.
-     Will be removed once all views are migrated.
-     ============================================ */
-  --color-primary:         var(--color-fg-default);
-  --color-accent:          var(--color-button-default);
-  --color-accent-hovered:  var(--color-button-hovered);
-  --color-surface:         var(--color-surface-default);
-  --color-muted:           var(--color-divider);
-  --color-muted-hovered:   var(--color-misc-gray-hovered-light);
-  --color-danger:          var(--color-fg-danger);
 
   /* Fonts */
   --font-heading: "Amarante", serif;
@@ -158,7 +139,7 @@
 @layer utilities {
   .scrollbar-custom {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-muted) transparent;
+    scrollbar-color: var(--color-divider) transparent;
   }
 
   .scrollbar-custom::-webkit-scrollbar {
@@ -170,13 +151,13 @@
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: var(--color-muted);
+    background: var(--color-divider);
     border-radius: 20px;
     opacity: 0.3;
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: var(--color-muted);
+    background: var(--color-divider);
     opacity: 0.5;
   }
 }
