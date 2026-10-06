@@ -6,15 +6,79 @@
 @source "./modules/views/**/*.js";
 
 @theme {
-  /* TODO: improve semantics, ampanget.
-  make base colors then alias semantic colors */
-  --color-primary: #1e392a;
-  --color-accent: #3cc47c;
-  --color-accent-hovered: #269466;
-  --color-surface: #caf4dd;
-  --color-muted: #e5e5e5;
-  --color-muted-hovered: #cccccc;
-  --color-danger: #ff0e0e;
+  /* ============================================
+     BASE PALETTE
+     Raw colors. Do not use these directly in views.
+     Reference them through the semantic layer below.
+     ============================================ */
+  --color-greenish-teal: #32BF84;
+  --color-eucalyptus:    #269466;
+  --color-jungle-green:  #1e392a;
+  --color-blue-romance:  #D2F6DE;
+  --color-mint-cream:    #F9FDFB;
+  --color-platinum:      #DFE6E1;
+  --color-nobel:         #B2B1B0;
+  --color-pale-sky:      #6B7280;
+  --color-bright-red:    #ff000d;
+
+  /* ============================================
+     SEMANTIC TOKENS
+     Meaning attached. Use these everywhere.
+     ============================================ */
+
+  /* Surfaces */
+  --color-surface-default:  var(--color-blue-romance);
+  --color-surface-card:     var(--color-mint-cream);
+  --color-surface-emphasis: var(--color-greenish-teal);
+
+  /* Foreground (text) */
+  --color-fg-default: var(--color-jungle-green);
+  --color-fg-muted:   var(--color-platinum);
+  --color-fg-danger:  var(--color-bright-red);
+  --color-fg-inverse: var(--color-mint-cream);
+
+  /* Icons */
+  --color-icon-default: var(--color-pale-sky);
+  --color-icon-hovered: var(--color-greenish-teal);
+  --color-icon-active:  var(--color-greenish-teal);
+  --color-icon-as-fg:   var(--color-fg-default);
+
+  /* Borders */
+  --color-line-default: var(--color-jungle-green);
+  --color-divider:      var(--color-platinum);
+  --color-line-muted:   var(--color-platinum);
+
+  /* Buttons */
+  --color-button-danger:       var(--color-bright-red);
+  --color-button-default:      var(--color-greenish-teal);
+  --color-button-disabled:     var(--color-platinum);
+  --color-button-hovered:      var(--color-eucalyptus);
+  --color-button-active:       var(--color-eucalyptus);
+  --color-button-active-nav:   var(--color-greenish-teal);
+  --color-button-hovered-nav:  var(--color-mint-cream);
+
+  /* Misc — component-specific, may be consolidated later */
+  --color-misc-green-default:        var(--color-greenish-teal);
+  --color-misc-green-hovered-light:  var(--color-mint-cream);
+  --color-misc-green-hovered-dark:   var(--color-eucalyptus);
+  --color-misc-gray-default:         var(--color-platinum);
+  --color-misc-gray-hovered-light:   var(--color-nobel);
+  --color-misc-gray-hovered-dark:    var(--color-pale-sky);
+
+  /* ============================================
+     LEGACY ALIASES (temporary)
+     Keep old token names working during the migration.
+     Will be removed once all views are migrated.
+     ============================================ */
+  --color-primary:         var(--color-fg-default);
+  --color-accent:          var(--color-button-default);
+  --color-accent-hovered:  var(--color-button-hovered);
+  --color-surface:         var(--color-surface-default);
+  --color-muted:           var(--color-divider);
+  --color-muted-hovered:   var(--color-misc-gray-hovered-light);
+  --color-danger:          var(--color-fg-danger);
+
+  /* Fonts */
   --font-heading: "Amarante", serif;
   --font-sans: "Nunito", serif;
 }
@@ -26,22 +90,22 @@
 }
 @layer components {
   a {
-    @apply flex content-center gap-2 p-[1rem_2rem] transition-all duration-300 hover:scale-105 hover:bg-linear-to-r hover:from-white hover:to-surface active:scale-100;
+    @apply flex content-center gap-2 p-[1rem_2rem] transition-all duration-300 hover:scale-105 hover:bg-linear-to-r hover:from-surface-card hover:to-surface-default active:scale-100;
   }
   a.selected {
-    @apply bg-linear-to-r from-accent to-surface;
+    @apply bg-linear-to-r from-surface-emphasis to-surface-default;
   }
 
   .post-action {
-    @apply flex origin-top cursor-pointer items-center gap-1 rounded-sm border-none bg-none p-[0.25rem_0.5rem] text-[0.85rem] text-gray-500 transition-all duration-300 hover:scale-105 hover:text-accent active:scale-100;
+    @apply flex origin-top cursor-pointer items-center gap-1 rounded-sm border-none bg-none p-[0.25rem_0.5rem] text-[0.85rem] text-icon-default transition-all duration-300 hover:scale-110 hover:text-icon-hovered active:scale-100;
   }
 
   .simple-button {
-    @apply transition-all duration-300 hover:scale-105 hover:text-accent active:scale-100;
+    @apply transition-all duration-300 hover:scale-110 hover:text-icon-hovered active:scale-100;
   }
 
   .modal-close {
-    @apply p-1 -mr-1 rounded-full text-gray-500 transition-all duration-300 hover:bg-muted hover:text-accent active:scale-95;
+    @apply p-1 -mr-1 rounded-full text-icon-default transition-all duration-300 hover:bg-misc-gray-default hover:text-icon-hovered active:scale-95;
   }
 
   /* modal */
@@ -53,7 +117,7 @@
   }
 
   .modal-card {
-    @apply relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-primary bg-white p-[1.5rem_2rem_0_2rem];
+    @apply relative z-30 max-h-[85dvh] w-full max-w-175 overflow-y-auto rounded-2xl border-2 border-solid border-line-default bg-surface-card p-[1.5rem_2rem_0_2rem];
   }
 
   @media (max-width: 767px) {
@@ -70,10 +134,10 @@
     @apply flex flex-col;
   }
   .hover-dropdown-content {
-    @apply absolute z-30 hidden w-max max-w-56 min-w-10 overflow-hidden rounded-xl border border-solid border-primary bg-white py-2 text-primary;
+    @apply absolute z-30 hidden w-max max-w-56 min-w-10 overflow-hidden rounded-xl border border-solid border-line-default bg-surface-card py-2 text-fg-default;
   }
   .hover-dropdown-item {
-    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-105 hover:bg-surface active:scale-100 active:bg-accent;
+    @apply flex cursor-pointer items-center gap-2 px-4 py-2 text-sm whitespace-nowrap transition-all duration-300 select-none hover:scale-110 hover:bg-surface-default active:scale-100 active:bg-surface-emphasis;
   }
 
   /* card swap */
