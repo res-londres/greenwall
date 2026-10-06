@@ -9,7 +9,7 @@
     />
     <title>Greenwall</title>
   </head>
-  <body class="text-primary">
+  <body class="text-fg-default">
     <div id="loading-screen-mount"></div>
     <div id="auth-screen-mount"></div>
     <div id="main-screen-mount"></div>
@@ -21,17 +21,17 @@
       <template id="tpl-post-card">
         <div
           id=""
-          class="bg-white text-primary border-2 border-solid border-primary rounded-2xl max-md:rounded-none my-2 max-md:my-0 max-md:border-x-0 max-md:border-t-0 px-6 py-[1rem_0.5rem] max-md:border-muted"
+          class="bg-surface-card text-fg-default border-2 border-solid border-line-default rounded-2xl max-md:rounded-none my-2 max-md:my-0 max-md:border-x-0 max-md:border-t-0 px-6 py-[1rem_0.5rem] max-md:border-divider"
           data-action="openPostModal"
           data-postid=""
         >
           <div class="items-center flex justify-between mb-2">
             <span class="text-[0.95rem] font-bold" data-slot="attribution"></span>
-            <span class="text-gray-500 text-[0.75rem]" data-slot="time"></span>
+            <span class="text-fg-muted text-[0.75rem]" data-slot="time"></span>
           </div>
           <div class="font-bold leading-6 mb-3 wrap-break-word" data-slot="subject"></div>
           <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word" data-slot="content-preview"></div>
-          <div class="items-center border-t border-solid border-muted flex gap-6 pt-2">
+          <div class="items-center border-t border-solid border-divider flex gap-6 pt-2">
             <button class="post-action" data-action="likePost" data-postid="">
               <span data-slot="like-icon"></span>
               <span data-slot="like-count"></span>
@@ -47,19 +47,19 @@
       </template>
       <template id="tpl-comment">
         <div
-          class="text-primary border-t border-solid border-muted flex flex-row gap-2 py-2 items-start"
+          class="text-fg-default border-t border-solid border-divider flex flex-row gap-2 py-2 items-start"
           data-postid=""
           data-commentid=""
         >
           <div class="flex flex-1 flex-col min-w-0">
             <div class="flex gap-2 items-center">
               <span class="font-bold whitespace-nowrap" data-slot="attribution"></span>
-              <span class="text-gray-500 text-[0.9rem]" data-slot="time"></span>
+              <span class="text-fg-muted text-[0.9rem]" data-slot="time"></span>
             </div>
             <div class="wrap-anywhere" data-slot="content"></div>
           </div>
           <button
-            class="mt-2 shrink-0 self-start flex flex-col items-center gap-0.5 bg-none border-none rounded-sm text-gray-500 cursor-pointer text-[0.85rem] transition-all duration-300 origin-top hover:text-accent hover:scale-105 active:scale-100"
+            class="mt-2 shrink-0 self-start flex flex-col items-center gap-0.5 bg-none border-none rounded-sm text-icon-default cursor-pointer text-[0.85rem] transition-all duration-300 origin-top hover:text-icon-hovered hover:scale-105 active:scale-100"
             data-action="likeComment"
             data-postid=""
             data-commentid=""
