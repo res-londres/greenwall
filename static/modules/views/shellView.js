@@ -28,7 +28,7 @@ export function createMainScreenHTML() {
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
                     <div id="profile-card" class="max-md:border-divider mx-auto mb-2 max-md:mb-0 rounded-2xl max-md:rounded-none border-2 border-solid border-line-default max-md:border-x-0 max-md:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <div class="flex items-start gap-4">
-                            <div class="bg-surface-emphasis/10 flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full">
+                            <div class="flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full">
                                 <span class="icon-[boxicons--user-circle] text-8xl text-icon-as-fg"></span>
                             </div>
                             <div class="flex min-h-24 flex-col justify-center gap-1">
