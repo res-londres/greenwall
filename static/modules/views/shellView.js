@@ -27,11 +27,11 @@ export function createMainScreenHTML() {
             <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-lg:h-[calc(100dvh - 3rem - 3.5rem)] pt-8 max-lg:pt-0 overflow-y-auto">
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
                     <div id="profile-card" class="max-lg:border-divider mx-auto mb-2 max-lg:mb-0 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
-                        <div class="flex items-start gap-4">
+                        <div class="flex max-lg:items-center max-lg:flex-col lg:items-start lg:gap-4">
                             <div class="flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full">
                                 <span class="icon-[boxicons--user-circle] text-8xl text-icon-as-fg"></span>
                             </div>
-                            <div class="flex min-h-24 flex-col justify-center gap-1">
+                            <div class="flex min-h-24 flex-col max-lg:items-center justify-center gap-1">
                                 <h2 class="current-profile-name text-2xl font-bold"></h2>
                                 <div class="flex items-center gap-1 text-sm text-fg-muted">
                                     <button class="simple-button" data-action="copyProfileID">
