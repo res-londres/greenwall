@@ -47,7 +47,7 @@ export function createAccountSettingsModalHTML() {
                     id="create-profile-input"
                     class="w-full rounded-xl border-2 border-solid border-divider bg-surface-card px-4 py-2 text-fg-default placeholder-fg-muted focus:outline-none focus:border-line-default disabled:opacity-60 disabled:cursor-not-allowed"
                     placeholder="New profile name"
-                    maxlength="19"
+                    maxlength="20"
                 >
                 <p id="create-profile-error" class="text-fg-danger text-sm hidden"></p>
                 <div class="flex gap-2">
