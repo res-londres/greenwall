@@ -1,6 +1,5 @@
 import * as bus from '../eventBus.js';
 import * as events from '../events.js';
-import { getCurrentProfileID } from './userManager.js';
 
 const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
 const postsByProfile = {};     // {profile_id: {post_id: {post}}, profile_id: {..}}
@@ -14,14 +13,14 @@ export function setCurrentPostID(newPostID) {
 
 // GETTER //
 export function getGlobalPostsList() {
-    return Object.values(globalPosts);
+    return Object.values(globalPosts).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 }
 
 export function getPostsByProfileList(profileID) {
     if (!(profileID in postsByProfile)) {
         postsByProfile[profileID] = {};
     }
-    return Object.values(postsByProfile[profileID]);
+    return Object.values(postsByProfile[profileID]).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 }
 
 export function getCurrentPostID() {
@@ -81,9 +80,9 @@ export function isPostModalActive() {
 }
 
 // ETC //
-export function addPost(post, profileID = null) {
+export function addPost(post) {
     const postID = post.post_id;
-    profileID = profileID === null ? getCurrentProfileID() : profileID;
+    const profileID = post.profile_id;
     globalPosts[postID] = post;
     if (!(profileID in postsByProfile)) {
         postsByProfile[profileID] = {};

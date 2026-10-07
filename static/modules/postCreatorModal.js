@@ -1,6 +1,7 @@
 import { setPostButtonState } from './postCreator.js';
-import { getCurrentProfileName, getCurrentProfileID } from './managers/userManager.js';
 import * as postManager from './managers/postManager.js';
+import * as bus from './eventBus.js';
+import * as events from './events.js';
 
 export function init() {
     handlePostCreatorModalEvents();
@@ -13,16 +14,14 @@ function handlePostCreatorModalEvents() {
     const postButton = document.getElementById('post-button');
 
     // POST CREATOR MODAL : click events //
-    postCreatorModal.addEventListener('click', function(event) {
+    postCreatorModal.addEventListener('click', async function(event) {
         const actionElement = event.target.closest('[data-action]');
         if (actionElement) {
             const action = actionElement.dataset.action;
             if (action === 'closePostCreatorModal') {
                 closePostCreatorModal(postCreatorModal);
             } else if (action === 'createPost') {
-                createPost(textareaSubject.value, textareaContent.value);
-                closePostCreatorModal(postCreatorModal);
-                clearTextareas(textareaSubject, textareaContent);
+                await submitPost(postCreatorModal, textareaSubject, textareaContent);
             }
         }
     });
@@ -57,19 +56,37 @@ function closePostCreatorModal(postCreatorModal) {
     postCreatorModal.style.display = 'none';
 }
 
-function createPost(subject, content) {
+async function submitPost(postCreatorModal, textareaSubject, textareaContent) {
+    const subject = textareaSubject.value.trim();
+    const content = textareaContent.value;
+
     if (!subject) return;
-    const tempID = crypto.randomUUID();
-    // how about post id? temp id?
-    const post = {
-        post_id: tempID,
-        profile_id: getCurrentProfileID(),
-        attribution: getCurrentProfileName(),
-        subject: subject,
-        content: content,
-        likes: 0
+
+    bus.emit(events.POST_CREATE_PENDING);
+
+    let body;
+    try {
+        const response = await fetch('/api/post/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subject, content })
+        });
+        body = await response.json();
+    } catch {
+        bus.emit(events.POST_CREATE_ERROR, 'Network error. Please try again.');
+        return;
     }
+
+    if (!body.ok) {
+        bus.emit(events.POST_CREATE_ERROR, body.error);
+        return;
+    }
+
+    const post = body.data.post;
     postManager.addPost(post);
+
+    closePostCreatorModal(postCreatorModal);
+    clearTextareas(textareaSubject, textareaContent);
 }
 
 // HELPERS //

@@ -41,3 +41,7 @@ export const PROFILE_DELETE_ERROR     = 'profile:deleteError';
 export const ACCOUNT_DELETE_REQUESTED = 'account:deleteRequested';
 export const ACCOUNT_DELETE_PENDING   = 'account:deletePending';
 export const ACCOUNT_DELETE_ERROR     = 'account:deleteError';
+
+// Post creation
+export const POST_CREATE_PENDING = 'post:createPending';
+export const POST_CREATE_ERROR   = 'post:createError';

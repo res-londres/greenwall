@@ -1,16 +1,16 @@
 // TODO: decouple from managers (view-model pattern)
 import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from '../managers/likeManager.js';
-import { createLikeIcon, escapeHTML } from './shared.js';
+import { createLikeIcon, escapeHTML, formatAttribution, formatRelativeTime } from './shared.js';
 
 // Returns an HTML string. Uses innerHTML at the call site.
 // TODO: convert to a <template> clone like createCommentHTML.
 export function createPostModalHTML(post) {
     const postID = post.post_id;
-    const postAttribution = escapeHTML(post.attribution);
+    const postAttribution = formatAttribution(post.profile_id, post.profile_name);
     const postSubject = escapeHTML(post.subject);
     const postContent = escapeHTML(post.content);
-    const postTime = 'just now';
+    const postTime = formatRelativeTime(post.created_at);
     const postLikeCount = post.likes;
     const commentCount = getPostCommentsCount(postID);
     const isLiked = isPostLiked(postID);
@@ -19,7 +19,7 @@ export function createPostModalHTML(post) {
     return `
         <div class="bg-surface-card text-fg-default border-b-2 border-solid border-divider mb-4 pb-2">
             <div class="items-center flex justify-between">
-                <span class="font-bold">${postAttribution}</span>
+                <span>${postAttribution}</span>
                 <button class="simple-button" data-action="closePostModal">
                     <span class="icon-[material-symbols--close] text-xl"></span>
                 </button>

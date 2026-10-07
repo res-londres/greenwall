@@ -1,6 +1,6 @@
 import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isPostLiked } from '../managers/likeManager.js';
-import { createLikeIcon } from './shared.js';
+import { createLikeIcon, formatAttribution, formatRelativeTime } from './shared.js';
 
 export function createEmptyWallHTML() {
     return `
@@ -41,8 +41,8 @@ export function createPostHTML(post, view = {}) {
         commentCount: root.querySelector('[data-slot="comment-count"]'),
     };
 
-    slots.attribution.textContent = post.attribution;
-    slots.time.textContent = 'just now';
+    slots.attribution.innerHTML = formatAttribution(post.profile_id, post.profile_name);
+    slots.time.textContent = formatRelativeTime(post.created_at);
     slots.subject.textContent = post.subject;
     slots.contentPreview.textContent = post.content.length > 500 ? post.content.slice(0, 497) + '...' : post.content;
     slots.likeIcon.innerHTML = createLikeIcon(resolvedView.isLiked);
