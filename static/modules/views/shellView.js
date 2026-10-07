@@ -8,11 +8,11 @@ export function createLoadingScreenHTML() {
 
 export function createMainScreenHTML() {
     return `
-        <main id="main-screen" class="hidden h-dvh grid-cols-1 grid-rows-[3rem_1fr] md:grid-cols-[20%_1fr_20%] max-md:grid-rows-[3rem_1fr_3.5rem] overflow-hidden bg-surface-default">
+        <main id="main-screen" class="hidden h-dvh grid-cols-1 grid-rows-[3rem_1fr] lg:grid-cols-[20%_1fr_20%] max-lg:grid-rows-[3rem_1fr_3.5rem] overflow-hidden bg-surface-default">
             <section class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-line-default bg-surface-emphasis">
                 <h1 class="ml-6 font-heading text-fg-inverse">greenwall</h1>
             </section>
-            <section class="max-md:hidden h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto">
+            <section class="max-lg:hidden h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto">
                 <nav class="page-navigator mt-8 flex flex-col select-none">
                     <a href="#" data-pagename="user-profile" data-action="navigate">
                         <span class="icon-[boxicons--user-circle] text-4xl text-icon-as-fg"></span>
@@ -24,9 +24,9 @@ export function createMainScreenHTML() {
                     </a>
                 </nav>
             </section>
-            <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-md:h-[calc(100dvh - 3rem - 3.5rem)] pt-8 max-md:pt-0 overflow-y-auto">
+            <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-lg:h-[calc(100dvh - 3rem - 3.5rem)] pt-8 max-lg:pt-0 overflow-y-auto">
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
-                    <div id="profile-card" class="max-md:border-divider mx-auto mb-2 max-md:mb-0 rounded-2xl max-md:rounded-none border-2 border-solid border-line-default max-md:border-x-0 max-md:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
+                    <div id="profile-card" class="max-lg:border-divider mx-auto mb-2 max-lg:mb-0 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <div class="flex items-start gap-4">
                             <div class="flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-full">
                                 <span class="icon-[boxicons--user-circle] text-8xl text-icon-as-fg"></span>
@@ -81,14 +81,14 @@ export function createMainScreenHTML() {
                             <span>0 posts</span>
                         </div>
                     </div>
-                    <div class="post-creator max-md:border-divider flex flex-row items-center gap-2 rounded-2xl max-md:rounded-none border-2 border-solid border-line-default max-md:border-x-0 max-md:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
+                    <div class="post-creator max-lg:border-divider flex flex-row items-center gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
                     <div id="profile-wall" data-profileid="user"></div>
                 </div>
                 <div class="page" data-pagename="home-wall" data-wallid="home-wall">
-                    <div class="post-creator max-md:border-divider align-center flex flex-row gap-2 rounded-2xl max-md:rounded-none border-2 border-solid border-line-default max-md:border-x-0 max-md:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
+                    <div class="post-creator max-lg:border-divider align-center flex flex-row gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
@@ -96,9 +96,9 @@ export function createMainScreenHTML() {
                 </div>
                 <div class="page hidden" data-pagename="search">search</div>
             </section>
-            <section class="max-md:hidden"></section>
+            <section class="max-lg:hidden"></section>
             <!-- Mobile bottom nav (mobile only). Duplicates the desktop sidebar links above. Keep both in sync when adding new links. -->
-            <nav class="page-navigator md:hidden sticky bottom-0 col-span-full flex h-14 border-t-2 border-solid border-t-line-default bg-surface-card select-none">
+            <nav class="page-navigator lg:hidden sticky bottom-0 col-span-full flex h-14 border-t-2 border-solid border-t-line-default bg-surface-card select-none">
                 <a href="#" data-pagename="user-profile" data-action="navigate"
                    class="text-icon-as-fg p-0 flex-1 flex-col items-center justify-center gap-0.5">
                     <span class="icon-[boxicons--user-circle] text-3xl"></span>
