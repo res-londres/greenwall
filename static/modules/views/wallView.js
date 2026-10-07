@@ -13,6 +13,17 @@ export function createEmptyWallHTML() {
     `;
 }
 
+export function createFetchingWallHTML() {
+    return `
+        <div class="text-[0.95rem] py-8 text-center">
+            <div>
+                <span class="text-2xl icon-[svg-spinners--12-dots-scale-rotate]"></span>
+            </div>
+            <p>Fetching posts..</p>
+        </div>
+    `;
+}
+
 // Returns a DocumentFragment cloned from #tpl-post-card.
 export function createPostHTML(post, view = {}) {
     const template = document.getElementById('tpl-post-card');

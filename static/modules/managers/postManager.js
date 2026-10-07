@@ -5,6 +5,7 @@ const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
 const postsByProfile = {};     // {profile_id: {post_id: {post}}, profile_id: {..}}
 let postModalActive = false;
 let currentPostID = null;
+let isPostLoaded = false;
 
 // SETTER //
 export function setCurrentPostID(newPostID) {
@@ -91,4 +92,53 @@ export function addPost(post) {
     }
     postsByProfile[profileID][postID] = post;
     bus.emit(events.POST_CREATED);
+}
+
+export function loadPosts(posts) {
+    posts.forEach((post) => {
+        if (!post || !post.post_id || !post.profile_id) return;
+        globalPosts[post.post_id] = post;
+        if (!(post.profile_id in postsByProfile)) {
+            postsByProfile[post.profile_id] = {};
+        }
+        postsByProfile[post.profile_id][post.post_id] = post;
+    });
+
+    isPostLoaded = true;
+    bus.emit(events.POSTS_LOADED);
+}
+
+export function addPosts(posts) {
+    posts.forEach((post) => {
+        if (!post || !post.post_id || !post.profile_id) return;
+        globalPosts[post.post_id] = post;
+        if (!(post.profile_id in postsByProfile)) {
+            postsByProfile[post.profile_id] = {};
+        }
+        postsByProfile[post.profile_id][post.post_id] = post;
+    });
+
+    bus.emit(events.POSTS_APPENDED);
+}
+
+export function clearPosts() {
+    Object.keys(globalPosts).forEach((key) => delete globalPosts[key]);
+    Object.keys(postsByProfile).forEach((key) => delete postsByProfile[key]);
+    isPostLoaded = false;
+}
+
+export function getHighestPostID() {
+    const ids = Object.keys(globalPosts).map(Number);
+    if (ids.length === 0) return null;
+    return Math.max(...ids);
+}
+
+export function getLowestPostID() {
+    const ids = Object.keys(globalPosts).map(Number);
+    if (ids.length === 0) return null;
+    return Math.min(...ids);
+}
+
+export function isLoaded() {
+    return isPostLoaded;
 }

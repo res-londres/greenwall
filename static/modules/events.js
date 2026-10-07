@@ -45,3 +45,7 @@ export const ACCOUNT_DELETE_ERROR     = 'account:deleteError';
 // Post creation
 export const POST_CREATE_PENDING = 'post:createPending';
 export const POST_CREATE_ERROR   = 'post:createError';
+
+// Post fetching
+export const POSTS_LOADED   = 'posts:loaded';
+export const POSTS_APPENDED = 'posts:appended';
