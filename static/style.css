@@ -74,7 +74,11 @@
     @apply flex content-center gap-2 p-[1rem_2rem] transition-all duration-300 hover:scale-105 hover:bg-linear-to-r hover:from-surface-card hover:to-surface-default active:scale-100;
   }
   a.selected {
-    @apply bg-linear-to-r from-surface-emphasis to-surface-default;
+    @apply md:bg-linear-to-r md:from-surface-emphasis md:to-surface-default;
+  }
+
+  a.selected span {
+    @apply max-md:scale-105 max-md:text-icon-active;
   }
 
   .post-action {

@@ -100,13 +100,11 @@ export function createMainScreenHTML() {
             <!-- Mobile bottom nav (mobile only). Duplicates the desktop sidebar links above. Keep both in sync when adding new links. -->
             <nav class="page-navigator md:hidden sticky bottom-0 col-span-full flex h-14 border-t-2 border-solid border-t-line-default bg-surface-card select-none">
                 <a href="#" data-pagename="user-profile" data-action="navigate"
-                   class="p-0 flex-1 flex-col items-center justify-center gap-0.5">
-                    <span class="icon-[boxicons--user-circle] text-3xl text-icon-as-fg"></span>
-                    <span class="text-xs mt-0.5">Your Profile</span>
+                   class="text-icon-as-fg p-0 flex-1 flex-col items-center justify-center gap-0.5">
+                    <span class="icon-[boxicons--user-circle] text-3xl"></span>
                 </a>
-                <a class="selected p-0 flex-1 flex-col items-center justify-center gap-0.5" href="#" data-pagename="home-wall" data-action="navigate">
-                    <span class="icon-[akar-icons--home] text-3xl text-icon-as-fg"></span>
-                    <span class="text-xs mt-0.5">Home Wall</span>
+                <a class="selected text-icon-as-fg p-0 flex-1 flex-col items-center justify-center gap-0.5" href="#" data-pagename="home-wall" data-action="navigate">
+                    <span class="icon-[akar-icons--home] text-3xl"></span>
                 </a>
             </nav>
         </main>
