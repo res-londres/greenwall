@@ -3,6 +3,8 @@ import * as postManager from './managers/postManager.js';
 import * as bus from './eventBus.js';
 import * as events from './events.js';
 
+let isSubmitting = false;
+
 export function init() {
     handlePostCreatorModalEvents();
 }
@@ -19,9 +21,13 @@ function handlePostCreatorModalEvents() {
         if (actionElement) {
             const action = actionElement.dataset.action;
             if (action === 'closePostCreatorModal') {
+                if (isSubmitting) return;
                 closePostCreatorModal(postCreatorModal);
             } else if (action === 'createPost') {
+                if (isSubmitting) return;
+                isSubmitting = true;
                 await submitPost(postCreatorModal, textareaSubject, textareaContent);
+                isSubmitting = false;
             }
         }
     });
@@ -33,7 +39,7 @@ function handlePostCreatorModalEvents() {
             this.style.height = this.scrollHeight + 'px';
 
             if (this.id === 'post-creator-modal-textarea-subject') {
-                setPostButtonState(this.value.length, postButton);
+                setPostButtonState(this.value.trim().length, postButton);
             }
         });
     });
@@ -53,6 +59,14 @@ function handlePostCreatorModalEvents() {
 }
 
 function closePostCreatorModal(postCreatorModal) {
+    const postButton = document.getElementById('post-button');
+    const error = document.getElementById('post-creator-error');
+
+    postButton.textContent = 'Post';
+    postButton.disabled = true;
+    error.classList.add('hidden');
+    error.textContent = '';
+
     postCreatorModal.style.display = 'none';
 }
 

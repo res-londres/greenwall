@@ -26,7 +26,7 @@ export function createPostModalHTML(post) {
             </div>
             <div class="text-fg-muted text-[0.8rem] mb-3">${postTime}</div>
             <div class="font-bold leading-6 mb-3 wrap-break-word">${postSubject}</div>
-            <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word">${postContent}</div>
+            <div class="text-[0.95rem] leading-6 mb-3 wrap-break-word whitespace-pre-line">${postContent}</div>
             <div class="border-t border-solid border-divider flex gap-6 mt-3 pt-3">
                 <button class="post-action" data-action="likePost" data-postid="${postID}">
                     <span>

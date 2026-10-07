@@ -81,6 +81,8 @@ export function isPostModalActive() {
 
 // ETC //
 export function addPost(post) {
+    if (!post || !post.post_id || !post.profile_id) return;
+
     const postID = post.post_id;
     const profileID = post.profile_id;
     globalPosts[postID] = post;

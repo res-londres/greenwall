@@ -19,7 +19,7 @@ function handlePostCreatorEvents() {
             if (actionElement) {
                 const action = actionElement.dataset.action;
                 if (action === 'openPostCreatorModal') {
-                    setPostButtonState(textareaSubject.value.length, postButton);
+                    setPostButtonState(textareaSubject.value.trim().length, postButton);
                     openPostCreatorModal();
                     textareaSubject.focus();
                 }
