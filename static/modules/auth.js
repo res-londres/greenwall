@@ -88,9 +88,11 @@ function handleAuthEvents() {
     });
 }
 
+// --------- REQUESTS -------- //
+
 async function signup(accountName, password, profileName) {
     bus.emit(events.AUTH_PENDING);
-    const response = await fetch('/api/signup', {
+    const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -114,7 +116,7 @@ async function signup(accountName, password, profileName) {
 
 async function login(accountName, password) {
     bus.emit(events.AUTH_PENDING);
-    const response = await fetch('/api/login', {
+    const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -134,6 +136,25 @@ async function login(accountName, password) {
     bus.emit(events.AUTH_LOGGED_IN);
     return true;
 }
+
+async function checkSession() {
+    const response = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const body = await response.json();
+    if (body.ok) {
+        const data = body.data;
+        userManager.login(data.account_id, data.account_name, data.profiles, data.profile_id);
+        bus.emit(events.AUTH_LOGGED_IN);
+    } else {
+        bus.emit(events.AUTH_SHOW_SIGNUP);
+    }
+}
+
+// -------------- ETC --------------- //
 
 let isSwapping = false;
 function swapAuthScreen(renderFn) {
@@ -185,21 +206,4 @@ function setAuthButtonState(inputLengths, authActive, authButton) {
 
 function clearAuthInputs(authInputs) {
     authInputs.forEach(input => input.value = '');
-}
-
-async function checkSession() {
-    const response = await fetch('/api/check_session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const body = await response.json();
-    if (body.ok) {
-        const data = body.data;
-        userManager.login(data.account_id, data.account_name, data.profiles, data.profile_id);
-        bus.emit(events.AUTH_LOGGED_IN);
-    } else {
-        bus.emit(events.AUTH_SHOW_SIGNUP);
-    }
 }

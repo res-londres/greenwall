@@ -119,7 +119,7 @@ async function changeProfile(changeProfileID) {
     userManager.setViewingProfileID(changeProfileID);
     bus.emit(events.PROFILE_SWITCHED);
 
-    const response = await fetch('/api/set_active_profile', {
+    const response = await fetch('/api/profile/set_active', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile_id: changeProfileID })
@@ -164,7 +164,7 @@ async function submitCreateProfile() {
 
     let body;
     try {
-        const response = await fetch('/api/create_profile', {
+        const response = await fetch('/api/profile/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ profile_name: profileName })
@@ -197,7 +197,7 @@ async function submitDeleteProfile() {
 
     let body;
     try {
-        const response = await fetch('/api/delete_profile', {
+        const response = await fetch('/api/profile/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ profile_id: profileID })
@@ -231,7 +231,7 @@ async function submitDeleteAccount() {
 
     let body;
     try {
-        const response = await fetch('/api/delete_account', {
+        const response = await fetch('/api/account/delete', {
             method: 'POST'
         });
         body = await response.json();
@@ -277,7 +277,7 @@ function closeSettingsModal() {
 
 
 async function logout() {
-    const response = await fetch('/api/logout', {
+    const response = await fetch('/api/auth/logout', {
         method: 'POST'
     });
     const body = await response.json();

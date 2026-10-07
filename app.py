@@ -8,7 +8,7 @@ import database.db_user as db_user
 def index():
     return render_template('index.html')
 
-@app.post('/api/check_session')
+@app.post('/api/auth/session')
 def check_session():
     if 'account_id' in session:
         account = db_user.get_account_by_name(session.get('account_name'))
@@ -23,7 +23,7 @@ def check_session():
         })
     return fail('Not logged in', status=401)
 
-@app.post('/api/signup')
+@app.post('/api/auth/signup')
 def signup():
     data = request.get_json()
     account_name = (data.get('account_name') or '').strip()
@@ -59,7 +59,7 @@ def signup():
         'profiles': [profile],
     }, 201)
 
-@app.post('/api/login')
+@app.post('/api/auth/login')
 def login():
     data = request.get_json()
     account_name = (data.get('account_name') or '').strip()
@@ -89,12 +89,12 @@ def login():
         'profiles': account['profiles'],
     })
 
-@app.post('/api/logout')
+@app.post('/api/auth/logout')
 def logout():
     session.clear()
     return success()
 
-@app.post('/api/set_active_profile')
+@app.post('/api/profile/set_active')
 def set_active_profile():
     if 'account_id' not in session:
         return fail('Not logged in', status=401)
@@ -116,7 +116,7 @@ def set_active_profile():
     session['profile_id'] = profile_id
     return success()
 
-@app.post('/api/create_profile')
+@app.post('/api/profile/create')
 def create_profile():
     if 'account_id' not in session:
         return fail('Not logged in', status=401)
@@ -143,7 +143,7 @@ def create_profile():
 
     return success({'profile': new_profile}, 201)
 
-@app.post('/api/delete_profile')
+@app.post('/api/profile/delete')
 def delete_profile():
     if 'account_id' not in session:
         return fail('Not logged in', status=401)
@@ -172,7 +172,7 @@ def delete_profile():
 
     return success({'profiles': remaining_profiles})
 
-@app.post('/api/delete_account')
+@app.post('/api/account/delete')
 def delete_account():
     if 'account_id' not in session:
         return fail('Not logged in', status=401)
