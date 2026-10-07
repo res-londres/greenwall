@@ -7,4 +7,44 @@ def create_post(profile_id, subject, content):
             VALUES (%s, %s, %s)
             RETURNING post_id, profile_id, subject, content, created_at
         ''', (profile_id, subject, content))
-        return cur.fetchone()
+        post = cur.fetchone()
+        post['created_at'] = post['created_at'].isoformat()
+        return post
+
+def list_posts(after_id=None, before_id=None, limit=30):
+    with db_cursor() as cur:
+        conditions = ['p.deleted_at IS NULL']
+        params = []
+
+        if after_id is not None:
+            conditions.append('p.post_id > %s')
+            params.append(after_id)
+        if before_id is not None:
+            conditions.append('p.post_id < %s')
+            params.append(before_id)
+
+        params.append(limit)
+
+        query = f'''
+            SELECT
+                p.post_id,
+                p.profile_id,
+                p.subject,
+                p.content,
+                p.created_at,
+                CASE WHEN pr.deleted_at IS NULL THEN pr.profile_name ELSE NULL END AS profile_name,
+                (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.post_id) AS likes
+            FROM posts p
+            LEFT JOIN profiles pr ON p.profile_id = pr.profile_id
+            WHERE {' AND '.join(conditions)}
+            ORDER BY p.post_id DESC
+            LIMIT %s
+        '''
+
+        cur.execute(query, params)
+        posts = cur.fetchall()
+
+        for post in posts:
+            post['created_at'] = post['created_at'].isoformat()
+
+        return posts

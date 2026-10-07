@@ -33,6 +33,42 @@ def create_post():
     post = db_post.create_post(profile['profile_id'], subject, content)
     post['profile_name'] = profile['profile_name']
     post['likes'] = 0
-    post['created_at'] = post['created_at'].isoformat()
 
     return success({'post': post}, 201)
+
+@post_bp.post('/list')
+def list_posts():
+    if 'account_id' not in session:
+        return fail('Not logged in', status=401)
+
+    data = request.get_json() or {}
+
+    after_id = data.get('after_id')
+    before_id = data.get('before_id')
+
+    if after_id is not None and before_id is not None:
+        return fail('Cannot provide both after_id and before_id')
+
+    if after_id is not None:
+        try:
+            after_id = int(after_id)
+        except (ValueError, TypeError):
+            return fail('after_id must be an integer')
+
+    if before_id is not None:
+        try:
+            before_id = int(before_id)
+        except (ValueError, TypeError):
+            return fail('before_id must be an integer')
+
+    limit = data.get('limit', 30)
+    try:
+        limit = int(limit)
+    except (ValueError, TypeError):
+        return fail('limit must be an integer')
+
+    limit = max(1, min(limit, 100))
+
+    posts = db_post.list_posts(after_id=after_id, before_id=before_id, limit=limit)
+
+    return success({'posts': posts})
