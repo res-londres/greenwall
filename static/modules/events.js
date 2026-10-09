@@ -47,5 +47,6 @@ export const POST_CREATE_PENDING = 'post:createPending';
 export const POST_CREATE_ERROR   = 'post:createError';
 
 // Post fetching
-export const POSTS_LOADED   = 'posts:loaded';
-export const POSTS_APPENDED = 'posts:appended';
+export const POSTS_LOADED    = 'posts:loaded';       // initial batch (re-renders the wall)
+export const POSTS_PREPENDED = 'posts:prepended';    // polled new posts (top of wall, silent)
+export const POSTS_APPENDED  = 'posts:appended';     // older posts (bottom of wall, appends in place)

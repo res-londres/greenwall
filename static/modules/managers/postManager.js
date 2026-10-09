@@ -118,7 +118,20 @@ export function addPosts(posts) {
         postsByProfile[post.profile_id][post.post_id] = post;
     });
 
-    bus.emit(events.POSTS_APPENDED);
+    bus.emit(events.POSTS_PREPENDED);
+}
+
+export function addOlderPosts(posts, wallID) {
+    posts.forEach((post) => {
+        if (!post || !post.post_id || !post.profile_id) return;
+        globalPosts[post.post_id] = post;
+        if (!(post.profile_id in postsByProfile)) {
+            postsByProfile[post.profile_id] = {};
+        }
+        postsByProfile[post.profile_id][post.post_id] = post;
+    });
+
+    bus.emit(events.POSTS_APPENDED, { posts, wallID });
 }
 
 export function clearPosts() {

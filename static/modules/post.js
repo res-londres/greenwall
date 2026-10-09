@@ -2,6 +2,7 @@ import * as bus from './eventBus.js';
 import * as events from './events.js';
 import * as postManager from './managers/postManager.js';
 import { setCurrentPostID, setPostModalActive } from './managers/postManager.js';
+import { getCurrentWall } from './managers/wallManager.js';
 
 const POLL_INTERVAL_MS = 30000;
 let pollIntervalId = null;
@@ -10,11 +11,119 @@ let sessionGeneration = 0;
 let activeFetchGeneration = null;
 let queuedFetchGeneration = null;
 let isAuthenticated = false;
+let isFetchingOlder = false;
+let sentinelObserver = null;
+let sentinelVisible = false;
 
 export function init() {
     handlePostEvents();
     bus.on(events.AUTH_LOGGED_IN, onAuthLoggedIn);
     bus.on(events.AUTH_LOGGED_OUT, onAuthLoggedOut);
+    bus.on(events.PROFILE_SWITCHED, resetProfileWallPagination);
+    setupSentinelObserver();
+}
+
+function setupSentinelObserver() {
+    const sentinels = document.querySelectorAll('[data-role="scroll-sentinel"]');
+    if (sentinels.length === 0) return;
+
+    sentinelObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                sentinelVisible = true;
+                maybeFetchOlder();
+            } else {
+                sentinelVisible = false;
+            }
+        });
+    }, { threshold: 0 });
+
+    sentinels.forEach((sentinel) => sentinelObserver.observe(sentinel));
+}
+
+function maybeFetchOlder() {
+    if (!isAuthenticated) return;
+    if (!sentinelVisible) return;
+    if (isFetchingOlder) return;
+
+    const wall = getCurrentWall();
+    if (!wall) return;
+    if (wall.dataset.hasMoreOlder === 'false') return;
+
+    void fetchOlderPosts(wall);
+}
+
+async function fetchOlderPosts(wall) {
+    const beforeID = postManager.getLowestPostID();
+    if (beforeID === null) return;
+
+    const wallID = wall.id;
+    const isProfileWall = wall.dataset.profileid !== 'null';
+    const profileID = isProfileWall ? wall.dataset.profileid : null;
+
+    isFetchingOlder = true;
+    setSentinelLoading(wall, true);
+
+    try {
+        const payload = { before_id: beforeID, limit: 30 };
+        if (profileID !== null) {
+            payload.profile_id = profileID;
+        }
+
+        let body;
+        try {
+            const response = await fetch('/api/post/list', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            body = await response.json();
+        } catch {
+            console.error('[post] Failed to fetch older posts');
+            return;
+        }
+
+        if (!body.ok) {
+            console.error('[post] Failed to fetch older posts:', body.error);
+            return;
+        }
+
+        const posts = body.data.posts;
+
+        if (posts.length < 30) {
+            wall.dataset.hasMoreOlder = 'false';
+        }
+
+        if (posts.length > 0) {
+            postManager.addOlderPosts(posts, wallID);
+        }
+    } finally {
+        isFetchingOlder = false;
+        setSentinelLoading(wall, false);
+
+        if (sentinelVisible && wall.dataset.hasMoreOlder !== 'false') {
+            maybeFetchOlder();
+        }
+    }
+}
+
+function setSentinelLoading(wall, isLoading) {
+    const spinner = wall.querySelector('[data-role="scroll-spinner"]');
+    if (!spinner) return;
+    if (isLoading) {
+        spinner.classList.remove('opacity-0');
+        spinner.classList.add('opacity-100');
+    } else {
+        spinner.classList.remove('opacity-100');
+        spinner.classList.add('opacity-0');
+    }
+}
+
+function resetProfileWallPagination() {
+    const profileWall = document.getElementById('profile-wall');
+    if (profileWall) {
+        profileWall.dataset.hasMoreOlder = 'true';
+    }
 }
 
 function handlePostEvents() {
@@ -65,6 +174,11 @@ function onAuthLoggedOut() {
     queuedFetchGeneration = null;
     stopPolling();
     postManager.clearPosts();
+
+    const homeWall = document.getElementById('home-wall');
+    const profileWall = document.getElementById('profile-wall');
+    if (homeWall) homeWall.dataset.hasMoreOlder = 'true';
+    if (profileWall) profileWall.dataset.hasMoreOlder = 'true';
 }
 
 async function fetchPosts() {
