@@ -152,6 +152,13 @@ export function getLowestPostID() {
     return Math.min(...ids);
 }
 
+export function getLowestPostIDByProfile(profileID) {
+    if (!(profileID in postsByProfile)) return null;
+    const ids = Object.keys(postsByProfile[profileID]).map(Number);
+    if (ids.length === 0) return null;
+    return Math.min(...ids);
+}
+
 export function isLoaded() {
     return isPostLoaded;
 }

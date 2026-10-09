@@ -54,18 +54,24 @@ function maybeFetchOlder() {
 }
 
 async function fetchOlderPosts(wall) {
-    const beforeID = postManager.getLowestPostID();
-    if (beforeID === null) return;
-
     const wallID = wall.id;
     const isProfileWall = wall.dataset.profileid !== 'null';
     const profileID = isProfileWall ? wall.dataset.profileid : null;
+
+    const beforeID = profileID !== null
+        ? postManager.getLowestPostIDByProfile(profileID)
+        : postManager.getLowestPostID();
+
+    if (beforeID === null && profileID === null) return;
 
     isFetchingOlder = true;
     setSentinelLoading(wall, true);
 
     try {
-        const payload = { before_id: beforeID, limit: 30 };
+        const payload = { limit: 30 };
+        if (beforeID !== null) {
+            payload.before_id = beforeID;
+        }
         if (profileID !== null) {
             payload.profile_id = profileID;
         }
