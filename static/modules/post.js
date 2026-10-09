@@ -13,13 +13,14 @@ let queuedFetchGeneration = null;
 let isAuthenticated = false;
 let isFetchingOlder = false;
 let sentinelObserver = null;
-let sentinelVisible = false;
 
 export function init() {
     handlePostEvents();
     bus.on(events.AUTH_LOGGED_IN, onAuthLoggedIn);
     bus.on(events.AUTH_LOGGED_OUT, onAuthLoggedOut);
     bus.on(events.PROFILE_SWITCHED, resetProfileWallPagination);
+    bus.on(events.POSTS_LOADED, scheduleSentinelCheck);
+    bus.on(events.POST_CREATED, scheduleSentinelCheck);
     setupSentinelObserver();
 }
 
@@ -30,10 +31,7 @@ function setupSentinelObserver() {
     sentinelObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                sentinelVisible = true;
                 maybeFetchOlder();
-            } else {
-                sentinelVisible = false;
             }
         });
     }, { threshold: 0 });
@@ -43,14 +41,29 @@ function setupSentinelObserver() {
 
 function maybeFetchOlder() {
     if (!isAuthenticated) return;
-    if (!sentinelVisible) return;
     if (isFetchingOlder) return;
 
     const wall = getCurrentWall();
     if (!wall) return;
     if (wall.dataset.hasMoreOlder === 'false') return;
 
+    const sentinel = wall.querySelector('[data-role="scroll-sentinel"]');
+    if (!sentinel) return;
+    if (!isSentinelInViewport(sentinel)) return;
+
     void fetchOlderPosts(wall);
+}
+
+function isSentinelInViewport(sentinel) {
+    const container = document.getElementById('scrollable-section');
+    if (!container) return false;
+    const containerRect = container.getBoundingClientRect();
+    const sentinelRect = sentinel.getBoundingClientRect();
+    return sentinelRect.top < containerRect.bottom && sentinelRect.bottom > containerRect.top;
+}
+
+function scheduleSentinelCheck() {
+    requestAnimationFrame(maybeFetchOlder);
 }
 
 async function fetchOlderPosts(wall) {
@@ -106,10 +119,7 @@ async function fetchOlderPosts(wall) {
     } finally {
         isFetchingOlder = false;
         setSentinelLoading(wall, false);
-
-        if (sentinelVisible && wall.dataset.hasMoreOlder !== 'false') {
-            maybeFetchOlder();
-        }
+        requestAnimationFrame(maybeFetchOlder);
     }
 }
 

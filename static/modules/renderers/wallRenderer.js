@@ -98,6 +98,10 @@ function renderOlderPosts({ posts, wallID }) {
     const wall = document.getElementById(wallID);
     if (!wall) return;
 
+    wall.querySelectorAll('[data-role="wall-placeholder"]').forEach(function(el) {
+        el.remove();
+    });
+
     posts.forEach(function(post) {
         const fragment = createPostHTML(post, {
             isLiked: isPostLiked(post.post_id),
