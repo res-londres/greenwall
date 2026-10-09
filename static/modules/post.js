@@ -47,7 +47,9 @@ function maybeFetchOlder() {
 
     const wall = getCurrentWall();
     if (!wall) return;
-    if (!wallDom.getHasMoreOlder(wall)) return;
+    const wallID = wall.id;
+    const meta = postManager.getWallMeta(wallID);
+    if (!meta.hasMoreOlder) return;
 
     const sentinel = wallDom.getSentinel(wall);
     if (!sentinel) return;
@@ -112,7 +114,7 @@ async function fetchOlderPosts(wall) {
         const posts = body.data.posts;
 
         if (posts.length < 30) {
-            wallDom.setHasMoreOlder(wall, false);
+            postManager.setWallMeta(wallID, { hasMoreOlder: false });
         }
 
         postManager.addOlderPosts(posts, wallID);
@@ -124,10 +126,7 @@ async function fetchOlderPosts(wall) {
 }
 
 function resetProfileWallPagination() {
-    const profileWall = document.getElementById('profile-wall');
-    if (profileWall) {
-        wallDom.setHasMoreOlder(profileWall, true);
-    }
+    postManager.resetWallMeta('profile-wall');
 }
 
 function handlePostEvents() {
@@ -179,10 +178,6 @@ function onAuthLoggedOut() {
     stopPolling();
     postManager.clearPosts();
 
-    const homeWall = document.getElementById('home-wall');
-    const profileWall = document.getElementById('profile-wall');
-    if (homeWall) wallDom.setHasMoreOlder(homeWall, true);
-    if (profileWall) wallDom.setHasMoreOlder(profileWall, true);
 }
 
 async function fetchPosts() {

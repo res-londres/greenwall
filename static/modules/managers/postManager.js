@@ -5,7 +5,13 @@ const globalPosts = {};     // {post_id: {post}, post_id: {another_post}}
 const postsByProfile = {};     // {profile_id: {post_id: {post}}, profile_id: {..}}
 let postModalActive = false;
 let currentPostID = null;
-let isPostLoaded = false;
+const postsMeta = {
+    loaded: false,
+    walls: {
+        'home-wall':    { hasMoreOlder: true },
+        'profile-wall': { hasMoreOlder: true }
+    }
+};
 
 // SETTER //
 export function setCurrentPostID(newPostID) {
@@ -40,6 +46,30 @@ export function getPostByID(postID) {
         return null;
     }
     return structuredClone(globalPosts[postID]);
+}
+
+export function getWallMeta(wallID) {
+    if (!(wallID in postsMeta.walls)) {
+        postsMeta.walls[wallID] = { hasMoreOlder: true };
+    }
+    return { ...postsMeta.walls[wallID] };
+}
+
+export function setWallMeta(wallID, patch) {
+    if (!(wallID in postsMeta.walls)) {
+        postsMeta.walls[wallID] = { hasMoreOlder: true };
+    }
+    Object.assign(postsMeta.walls[wallID], patch);
+}
+
+export function resetWallMeta(wallID) {
+    postsMeta.walls[wallID] = { hasMoreOlder: true };
+}
+
+export function resetAllWallMeta() {
+    Object.keys(postsMeta.walls).forEach(function(wallID) {
+        postsMeta.walls[wallID] = { hasMoreOlder: true };
+    });
 }
 
 // POST LIKES //
@@ -104,7 +134,7 @@ export function loadPosts(posts) {
         postsByProfile[post.profile_id][post.post_id] = post;
     });
 
-    isPostLoaded = true;
+    postsMeta.loaded = true;
     bus.emit(events.POSTS_LOADED);
 }
 
@@ -137,7 +167,8 @@ export function addOlderPosts(posts, wallID) {
 export function clearPosts() {
     Object.keys(globalPosts).forEach((key) => delete globalPosts[key]);
     Object.keys(postsByProfile).forEach((key) => delete postsByProfile[key]);
-    isPostLoaded = false;
+    postsMeta.loaded = false;
+    resetAllWallMeta();
 }
 
 export function getHighestPostID() {
@@ -160,5 +191,5 @@ export function getLowestPostIDByProfile(profileID) {
 }
 
 export function isLoaded() {
-    return isPostLoaded;
+    return postsMeta.loaded;
 }

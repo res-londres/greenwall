@@ -39,7 +39,7 @@ function renderGlobalPosts(wall) {
         wallDom.setPosts(wall, posts.map(buildPostFragment));
     }
 
-    wallDom.refreshWallState(wall);
+    refreshWall(wall);
 }
 
 function renderPostsByProfile(profileID, wall) {
@@ -53,7 +53,7 @@ function renderPostsByProfile(profileID, wall) {
         wallDom.setPosts(wall, posts.map(buildPostFragment));
     }
 
-    wallDom.refreshWallState(wall);
+    refreshWall(wall);
 }
 
 function renderOlderPosts({ posts, wallID }) {
@@ -63,7 +63,7 @@ function renderOlderPosts({ posts, wallID }) {
 
     wallDom.clearPlaceholder(wall);
     wallDom.appendPosts(wall, posts.map(buildPostFragment));
-    wallDom.refreshWallState(wall);
+    refreshWall(wall);
 }
 
 function renderUpdateTargetPost(post) {
@@ -72,7 +72,13 @@ function renderUpdateTargetPost(post) {
     if (!wall) return;
 
     wallDom.replacePost(wall, post.post_id, buildPostFragment(post));
-    wallDom.refreshWallState(wall);
+    refreshWall(wall);
+}
+
+function refreshWall(wall) {
+    const wallID = wall.id;
+    const meta = postManager.getWallMeta(wallID);
+    wallDom.refreshWallState(wall, meta.hasMoreOlder);
 }
 
 function buildPostFragment(post) {

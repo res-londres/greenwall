@@ -18,8 +18,8 @@
  *   false AND the wall has at least one post card.
  * - The spinner is visible only while setSentinelLoading(wall, true) is
  *   in effect.
- * - hasMoreOlder is read and written only through getHasMoreOlder and
- *   setHasMoreOlder.
+ * - The hasMoreOlder flag is passed in by the caller. This module does
+ *   not read or write it.
  *
  * No module outside this one should directly manipulate the wall's
  * children or read/write its data-* attributes. Use these functions.
@@ -40,10 +40,6 @@ export function getSentinel(wall) {
 
 export function getAllSentinels() {
     return document.querySelectorAll(SENTINEL_SELECTOR);
-}
-
-export function getHasMoreOlder(wall) {
-    return wall.dataset.hasMoreOlder !== 'false';
 }
 
 export function hasPosts(wall) {
@@ -104,14 +100,10 @@ export function setSentinelLoading(wall, isLoading) {
     }
 }
 
-export function setHasMoreOlder(wall, hasMore) {
-    wall.dataset.hasMoreOlder = hasMore ? 'true' : 'false';
-}
-
 // ---------- DERIVED STATE ---------- //
 
-export function refreshWallState(wall) {
-    refreshEndOfFeed(wall);
+export function refreshWallState(wall, hasMoreOlder) {
+    refreshEndOfFeed(wall, hasMoreOlder);
 }
 
 // ---------- INTERNAL ---------- //
@@ -128,14 +120,13 @@ function insertBeforeSentinel(wall, node) {
     wall.insertBefore(node, sentinel);
 }
 
-function refreshEndOfFeed(wall) {
+function refreshEndOfFeed(wall, hasMoreOlder) {
     const endMessage = wall.querySelector(END_SELECTOR);
     if (!endMessage) return;
 
-    const hasMore = getHasMoreOlder(wall);
     const wallHasPosts = hasPosts(wall);
 
-    if (!hasMore && wallHasPosts) {
+    if (!hasMoreOlder && wallHasPosts) {
         endMessage.classList.remove('hidden');
     } else {
         endMessage.classList.add('hidden');

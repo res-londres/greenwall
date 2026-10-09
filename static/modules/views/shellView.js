@@ -85,7 +85,7 @@ export function createMainScreenHTML() {
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
-                    <div id="profile-wall" data-profileid="user" data-has-more-older="true">
+                    <div id="profile-wall" data-profileid="user">
                         <div data-role="scroll-sentinel" class="py-4 flex items-center justify-center">
                             <span data-role="scroll-spinner" class="text-2xl icon-[svg-spinners--12-dots-scale-rotate] opacity-0 transition-opacity duration-300"></span>
                             <div data-role="scroll-end" class="hidden text-[0.95rem] text-center">
@@ -102,7 +102,7 @@ export function createMainScreenHTML() {
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
-                    <div id="home-wall" data-profileid="null" data-has-more-older="true">
+                    <div id="home-wall" data-profileid="null">
                         <div data-role="scroll-sentinel" class="py-4 flex items-center justify-center">
                             <span data-role="scroll-spinner" class="text-2xl icon-[svg-spinners--12-dots-scale-rotate] opacity-0 transition-opacity duration-300"></span>
                             <div data-role="scroll-end" class="hidden text-[0.95rem] text-center">
