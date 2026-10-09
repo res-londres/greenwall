@@ -58,6 +58,7 @@ function renderGlobalPosts(currentWall = null) {
     if (globalPosts.length === 0) {
         const placeholder = postManager.isLoaded() ? createEmptyWallHTML() : createFetchingWallHTML();
         insertHTMLBeforeSentinel(currentWall, placeholder);
+        updateEndOfFeedMessage(currentWall);
         return;
     }
 
@@ -69,6 +70,8 @@ function renderGlobalPosts(currentWall = null) {
         });
         insertBeforeSentinel(currentWall, fragment);
     });
+
+    updateEndOfFeedMessage(currentWall);
 }
 
 function renderPostsByProfile(profileID, currentWall) {
@@ -79,6 +82,7 @@ function renderPostsByProfile(profileID, currentWall) {
     if (postsByUser.length === 0) {
         const placeholder = postManager.isLoaded() ? createEmptyWallHTML() : createFetchingWallHTML();
         insertHTMLBeforeSentinel(currentWall, placeholder);
+        updateEndOfFeedMessage(currentWall);
         return;
     }
 
@@ -90,6 +94,8 @@ function renderPostsByProfile(profileID, currentWall) {
         });
         insertBeforeSentinel(currentWall, fragment);
     });
+
+    updateEndOfFeedMessage(currentWall);
 }
 
 function renderOlderPosts({ posts, wallID }) {
@@ -110,6 +116,25 @@ function renderOlderPosts({ posts, wallID }) {
         });
         insertBeforeSentinel(wall, fragment);
     });
+
+    updateEndOfFeedMessage(wall);
+}
+
+function updateEndOfFeedMessage(wall) {
+    const endMessage = wall.querySelector('[data-role="scroll-end"]');
+    if (!endMessage) return;
+
+    const hasMore = wall.dataset.hasMoreOlder !== 'false';
+    const sentinel = wall.querySelector('[data-role="scroll-sentinel"]');
+    const hasPosts = Array.from(wall.children).some(function(child) {
+        return child !== sentinel && child.matches('[data-postid]');
+    });
+
+    if (!hasMore && hasPosts) {
+        endMessage.classList.remove('hidden');
+    } else {
+        endMessage.classList.add('hidden');
+    }
 }
 
 function clearWallExceptSentinel(wall) {

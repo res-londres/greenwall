@@ -88,6 +88,12 @@ export function createMainScreenHTML() {
                     <div id="profile-wall" data-profileid="user" data-has-more-older="true">
                         <div data-role="scroll-sentinel" class="py-4 flex items-center justify-center">
                             <span data-role="scroll-spinner" class="text-2xl icon-[svg-spinners--12-dots-scale-rotate] opacity-0 transition-opacity duration-300"></span>
+                            <div data-role="scroll-end" class="hidden text-[0.95rem] text-center">
+                                <div>
+                                    <span class="text-2xl icon-[ph--leaf-fill]"></span>
+                                </div>
+                                <p>You have reached the end.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,6 +105,12 @@ export function createMainScreenHTML() {
                     <div id="home-wall" data-profileid="null" data-has-more-older="true">
                         <div data-role="scroll-sentinel" class="py-4 flex items-center justify-center">
                             <span data-role="scroll-spinner" class="text-2xl icon-[svg-spinners--12-dots-scale-rotate] opacity-0 transition-opacity duration-300"></span>
+                            <div data-role="scroll-end" class="hidden text-[0.95rem] text-center">
+                                <div>
+                                    <span class="icon-[game-icons--tree-roots] text-2xl"></span>
+                                </div>
+                                <p>The End</p>
+                            </div>
                         </div>
                     </div>
                 </div>
