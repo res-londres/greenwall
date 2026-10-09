@@ -42,6 +42,7 @@ function setupSentinelObserver() {
 function maybeFetchOlder() {
     if (!isAuthenticated) return;
     if (isFetchingOlder) return;
+    if (!postManager.isLoaded()) return;
 
     const wall = getCurrentWall();
     if (!wall) return;
@@ -113,9 +114,7 @@ async function fetchOlderPosts(wall) {
             wall.dataset.hasMoreOlder = 'false';
         }
 
-        if (posts.length > 0) {
-            postManager.addOlderPosts(posts, wallID);
-        }
+        postManager.addOlderPosts(posts, wallID);
     } finally {
         isFetchingOlder = false;
         setSentinelLoading(wall, false);

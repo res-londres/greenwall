@@ -90,9 +90,9 @@ export function createMainScreenHTML() {
                             <span data-role="scroll-spinner" class="text-2xl icon-[svg-spinners--12-dots-scale-rotate] opacity-0 transition-opacity duration-300"></span>
                             <div data-role="scroll-end" class="hidden text-[0.95rem] text-center">
                                 <div>
-                                    <span class="text-2xl icon-[ph--leaf-fill]"></span>
+                                    <span class="icon-[game-icons--tree-roots] text-2xl"></span>
                                 </div>
-                                <p>You have reached the end.</p>
+                                <p>The End</p>
                             </div>
                         </div>
                     </div>
