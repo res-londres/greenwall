@@ -24,12 +24,4 @@ function handlePageNavigatorEvents() {
             }
         });
     });
-
-    // TODO: why here? cuz idk where else to place it and i dont want to make a whole new file just for it
-    document.querySelector('[data-action="scrollToTop"').addEventListener('click', function() {
-        document.getElementById('scrollable-section').scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 }

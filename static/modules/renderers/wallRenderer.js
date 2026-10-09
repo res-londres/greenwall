@@ -14,10 +14,14 @@ export function init() {
     bus.on(events.POSTS_APPENDED, renderOlderPosts);
     bus.on(events.POST_LIKED, renderUpdateTargetPost);
     bus.on(events.COMMENT_CREATED, renderUpdateTargetPost);
+    bus.on(events.WALL_REFRESH_REQUESTED, renderPosts);
 }
 
 export function renderPosts() {
-    document.getElementById('scrollable-section').scrollTop = 0;
+    document.getElementById('scrollable-section').scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 
     const currentWall = getCurrentWall();
     const currentWallProfileID = currentWall.dataset.profileid;

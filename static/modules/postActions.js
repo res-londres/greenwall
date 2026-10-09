@@ -20,6 +20,8 @@ function handlePostEvents() {
                 openPostModal(document.getElementById('post-modal'), postID);
             } else if (action === 'likePost') {
                 bus.emit(events.POST_LIKE_REQUESTED, postID);
+            } else if (action === 'scrollToTop') {
+                bus.emit(events.WALL_REFRESH_REQUESTED);
             }
         }
     });
