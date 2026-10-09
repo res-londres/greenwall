@@ -81,7 +81,7 @@ export function createMainScreenHTML() {
                             <span>0 posts</span>
                         </div>
                     </div>
-                    <div class="post-creator max-lg:border-divider flex flex-row items-center gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
+                    <div class="post-creator cursor-pointer max-lg:border-divider flex flex-row items-center gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
@@ -92,7 +92,7 @@ export function createMainScreenHTML() {
                     </div>
                 </div>
                 <div class="page" data-pagename="home-wall" data-wallid="home-wall">
-                    <div class="post-creator max-lg:border-divider align-center flex flex-row gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
+                    <div class="post-creator cursor-pointer max-lg:border-divider align-center flex flex-row gap-2 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <span class="mt-1.5 icon-[hugeicons--quill-write-02] text-4xl text-icon-as-fg"></span>
                         <span class="w-full rounded-4xl bg-misc-gray-default p-[0.75rem_1rem] transition-all duration-300 select-none hover:bg-misc-gray-hovered-light" data-action="openPostCreatorModal">Create post</span>
                     </div>
