@@ -3,6 +3,7 @@ import * as events from './events.js';
 import * as postManager from './managers/postManager.js';
 import { setCurrentPostID, setPostModalActive } from './managers/postManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
+import * as wallDom from './views/wallDom.js';
 
 const POLL_INTERVAL_MS = 30000;
 let pollIntervalId = null;
@@ -25,7 +26,7 @@ export function init() {
 }
 
 function setupSentinelObserver() {
-    const sentinels = document.querySelectorAll('[data-role="scroll-sentinel"]');
+    const sentinels = wallDom.getAllSentinels();
     if (sentinels.length === 0) return;
 
     sentinelObserver = new IntersectionObserver((entries) => {
@@ -46,9 +47,9 @@ function maybeFetchOlder() {
 
     const wall = getCurrentWall();
     if (!wall) return;
-    if (wall.dataset.hasMoreOlder === 'false') return;
+    if (!wallDom.getHasMoreOlder(wall)) return;
 
-    const sentinel = wall.querySelector('[data-role="scroll-sentinel"]');
+    const sentinel = wallDom.getSentinel(wall);
     if (!sentinel) return;
     if (!isSentinelInViewport(sentinel)) return;
 
@@ -79,7 +80,7 @@ async function fetchOlderPosts(wall) {
     if (beforeID === null && profileID === null) return;
 
     isFetchingOlder = true;
-    setSentinelLoading(wall, true);
+    wallDom.setSentinelLoading(wall, true);
 
     try {
         const payload = { limit: 30 };
@@ -111,33 +112,21 @@ async function fetchOlderPosts(wall) {
         const posts = body.data.posts;
 
         if (posts.length < 30) {
-            wall.dataset.hasMoreOlder = 'false';
+            wallDom.setHasMoreOlder(wall, false);
         }
 
         postManager.addOlderPosts(posts, wallID);
     } finally {
         isFetchingOlder = false;
-        setSentinelLoading(wall, false);
+        wallDom.setSentinelLoading(wall, false);
         requestAnimationFrame(maybeFetchOlder);
-    }
-}
-
-function setSentinelLoading(wall, isLoading) {
-    const spinner = wall.querySelector('[data-role="scroll-spinner"]');
-    if (!spinner) return;
-    if (isLoading) {
-        spinner.classList.remove('opacity-0');
-        spinner.classList.add('opacity-100');
-    } else {
-        spinner.classList.remove('opacity-100');
-        spinner.classList.add('opacity-0');
     }
 }
 
 function resetProfileWallPagination() {
     const profileWall = document.getElementById('profile-wall');
     if (profileWall) {
-        profileWall.dataset.hasMoreOlder = 'true';
+        wallDom.setHasMoreOlder(profileWall, true);
     }
 }
 
@@ -192,8 +181,8 @@ function onAuthLoggedOut() {
 
     const homeWall = document.getElementById('home-wall');
     const profileWall = document.getElementById('profile-wall');
-    if (homeWall) homeWall.dataset.hasMoreOlder = 'true';
-    if (profileWall) profileWall.dataset.hasMoreOlder = 'true';
+    if (homeWall) wallDom.setHasMoreOlder(homeWall, true);
+    if (profileWall) wallDom.setHasMoreOlder(profileWall, true);
 }
 
 async function fetchPosts() {
