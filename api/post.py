@@ -45,6 +45,7 @@ def list_posts():
 
     after_id = data.get('after_id')
     before_id = data.get('before_id')
+    profile_id = data.get('profile_id')
 
     if after_id is not None and before_id is not None:
         return fail('Cannot provide both after_id and before_id')
@@ -61,6 +62,9 @@ def list_posts():
         except (ValueError, TypeError):
             return fail('before_id must be an integer')
 
+    if profile_id is not None and not isinstance(profile_id, str):
+        return fail('profile_id must be a string')
+
     limit = data.get('limit', 30)
     try:
         limit = int(limit)
@@ -69,6 +73,6 @@ def list_posts():
 
     limit = max(1, min(limit, 100))
 
-    posts = db_post.list_posts(after_id=after_id, before_id=before_id, limit=limit)
+    posts = db_post.list_posts(after_id=after_id, before_id=before_id, profile_id=profile_id, limit=limit)
 
     return success({'posts': posts})

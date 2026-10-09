@@ -11,7 +11,7 @@ def create_post(profile_id, subject, content):
         post['created_at'] = post['created_at'].isoformat()
         return post
 
-def list_posts(after_id=None, before_id=None, limit=30):
+def list_posts(after_id=None, before_id=None, profile_id=None, limit=30):
     with db_cursor() as cur:
         conditions = ['p.deleted_at IS NULL']
         params = []
@@ -22,6 +22,9 @@ def list_posts(after_id=None, before_id=None, limit=30):
         if before_id is not None:
             conditions.append('p.post_id < %s')
             params.append(before_id)
+        if profile_id is not None:
+            conditions.append('p.profile_id = %s')
+            params.append(profile_id)
 
         params.append(limit)
 
