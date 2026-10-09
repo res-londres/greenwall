@@ -10,7 +10,7 @@ export function createMainScreenHTML() {
     return `
         <main id="main-screen" class="hidden h-dvh grid-cols-1 grid-rows-[3rem_1fr] lg:grid-cols-[20%_1fr_20%] max-lg:grid-rows-[3rem_1fr_3.5rem] overflow-hidden bg-surface-default">
             <section class="sticky top-0 col-span-full h-12 border-b-2 border-solid border-b-line-default bg-surface-emphasis">
-                <h1 class="ml-6 font-heading text-fg-inverse">greenwall</h1>
+                <h1 class="ml-6 font-heading text-fg-inverse cursor-pointer" data-action="scrollToTop">greenwall</h1>
             </section>
             <section class="max-lg:hidden h-[calc(100dvh - 3rem)] sticky top-12 overflow-x-hidden overflow-y-auto">
                 <nav class="page-navigator mt-8 flex flex-col select-none">
