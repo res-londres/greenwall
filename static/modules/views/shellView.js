@@ -24,7 +24,7 @@ export function createMainScreenHTML() {
                     </a>
                 </nav>
             </section>
-            <section class="scrollbar-custom h-[calc(100dvh - 3rem)] max-lg:h-[calc(100dvh - 3rem - 3.5rem)] pt-8 max-lg:pt-0 overflow-y-auto">
+            <section id="scrollable-section" class="scrollbar-custom h-[calc(100dvh - 3rem)] max-lg:h-[calc(100dvh - 3rem - 3.5rem)] pt-8 max-lg:pt-0 overflow-y-auto">
                 <div class="page hidden" data-pagename="user-profile" data-wallid="profile-wall">
                     <div id="profile-card" class="max-lg:border-divider mx-auto mb-2 max-lg:mb-0 rounded-2xl max-lg:rounded-none border-2 border-solid border-line-default max-lg:border-x-0 max-lg:border-t-0 bg-surface-card px-[1.25rem_2rem] py-4">
                         <div class="flex max-lg:items-center max-lg:flex-col lg:items-start lg:gap-4">

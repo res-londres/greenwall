@@ -36,6 +36,8 @@ function renderUpdateTargetPost(post) {
 }
 
 export function renderPosts() {
+    // TODO: should this be here?
+    document.getElementById('scrollable-section').scrollTop = 0;
     const currentWall = getCurrentWall();
     const currentWallProfileID = currentWall.dataset.profileid;
     if (currentWallProfileID === 'null') {
