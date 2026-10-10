@@ -11,6 +11,19 @@ def create_post(profile_id, subject, content):
         post['created_at'] = post['created_at'].isoformat()
         return post
 
+def get_post_by_id(post_id):
+    with db_cursor() as cur:
+        cur.execute('''
+            SELECT post_id, profile_id, subject, content, created_at
+            FROM posts
+            WHERE post_id = %s AND deleted_at IS NULL
+        ''', (post_id,))
+        post = cur.fetchone()
+        if post:
+            post['created_at'] = post['created_at'].isoformat()
+        return post
+
+
 def list_posts(after_id=None, before_id=None, profile_id=None, limit=30):
     with db_cursor() as cur:
         conditions = ['p.deleted_at IS NULL']
