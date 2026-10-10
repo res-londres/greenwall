@@ -52,3 +52,7 @@ export const POSTS_PREPENDED = 'posts:prepended';    // polled new posts (top of
 export const POSTS_APPENDED  = 'posts:appended';     // older posts (bottom of wall, appends in place)
 
 export const WALL_REFRESH_REQUESTED = 'wall:refreshRequested';
+
+// Comment fetching
+export const COMMENTS_LOADED   = 'comments:loaded';    // initial batch (re-renders the comment list)
+export const COMMENTS_APPENDED = 'comments:appended';  // older comments (appends in place)

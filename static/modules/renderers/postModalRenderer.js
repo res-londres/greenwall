@@ -2,12 +2,14 @@ import * as bus from '../eventBus.js';
 import * as events from '../events.js';
 import * as postManager from '../managers/postManager.js';
 import * as commentManager from '../managers/commentManager.js';
-import { isCommentLiked } from '../managers/likeManager.js';
+import * as listDom from '../views/listDom.js';
 import { createCommentHTML, createPostModalHTML } from '../views/postModalView.js';
 
 export function init() {
     bus.on(events.POST_MODAL_OPENED, renderPostModal);
     bus.on(events.POST_LIKED, renderPostModal);
+    bus.on(events.COMMENTS_LOADED, renderPostModal);
+    bus.on(events.COMMENTS_APPENDED, renderPostComments);
     bus.on(events.COMMENT_LIKED, renderPostComments);
     bus.on(events.COMMENT_CREATED, renderPostModal);
 }
@@ -15,15 +17,20 @@ export function init() {
 function renderPostComments() {
     if (!postManager.isPostModalActive()) return;
     const postModalCommentsList = document.getElementById('post-modal-comment-list');
-    const postComments = commentManager.getPostCommentsList();
-    postModalCommentsList.replaceChildren();
-    postComments.forEach(function(comment) {
-        const fragment = createCommentHTML(comment, postManager.getCurrentPostID(), {
-            isLiked: isCommentLiked(comment.comment_id),
-            likeCount: comment.likes,
+    if (!postModalCommentsList) return;
+
+    const postID = postManager.getCurrentPostID();
+    const postComments = commentManager.getCommentsList(postID);
+    const fragments = postComments.map(function(comment) {
+        return createCommentHTML(comment, postID, {
+            isLiked: false,
+            likeCount: 0,
         });
-        postModalCommentsList.appendChild(fragment);
     });
+
+    listDom.setItems(postModalCommentsList, fragments);
+    const meta = commentManager.getCommentsPagination(postID);
+    listDom.refreshState(postModalCommentsList, meta.hasMoreMine || meta.hasMoreOther);
 }
 
 function renderPostModal() {
