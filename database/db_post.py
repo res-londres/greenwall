@@ -5,7 +5,7 @@ def create_post(profile_id, subject, content):
         cur.execute('''
             INSERT INTO posts (profile_id, subject, content)
             VALUES (%s, %s, %s)
-            RETURNING post_id, profile_id, subject, content, created_at
+            RETURNING post_id, profile_id, subject, content, created_at, 0 AS comment_count
         ''', (profile_id, subject, content))
         post = cur.fetchone()
         post['created_at'] = post['created_at'].isoformat()
@@ -14,7 +14,7 @@ def create_post(profile_id, subject, content):
 def get_post_by_id(post_id):
     with db_cursor() as cur:
         cur.execute('''
-            SELECT post_id, profile_id, subject, content, created_at
+            SELECT post_id, profile_id, subject, content, created_at, 0 AS comment_count
             FROM posts
             WHERE post_id = %s AND deleted_at IS NULL
         ''', (post_id,))
@@ -49,7 +49,9 @@ def list_posts(after_id=None, before_id=None, profile_id=None, limit=30):
                 p.content,
                 p.created_at,
                 CASE WHEN pr.deleted_at IS NULL THEN pr.profile_name ELSE NULL END AS profile_name,
-                (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.post_id) AS likes
+                (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.post_id) AS likes,
+                (SELECT COUNT(*) FROM comments c
+                 WHERE c.post_id = p.post_id AND c.deleted_at IS NULL) AS comment_count
             FROM posts p
             LEFT JOIN profiles pr ON p.profile_id = pr.profile_id
             WHERE {' AND '.join(conditions)}

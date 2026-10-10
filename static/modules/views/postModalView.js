@@ -31,7 +31,7 @@ export function createPostModalHTML(post) {
     const postContent = escapeHTML(post.content);
     const postTime = formatRelativeTime(post.created_at);
     const postLikeCount = post.likes;
-    const commentCount = getPostCommentsCount(postID);
+    const commentCount = post.comment_count ?? getPostCommentsCount(postID);
     const isLiked = isPostLiked(postID);
     const likeIcon = createLikeIcon(isLiked);
 
@@ -91,7 +91,7 @@ export function createCommentHTML(comment, postID, view = {}) {
 
     const resolvedView = {
         isLiked: view.isLiked ?? isCommentLiked(comment.comment_id),
-        likeCount: view.likeCount ?? comment.likes,
+        likeCount: view.likeCount ?? comment.likes ?? 0,
     };
 
     root.dataset.postid = String(postID);
@@ -107,8 +107,8 @@ export function createCommentHTML(comment, postID, view = {}) {
         likeCount: root.querySelector('[data-slot="like-count"]'),
     };
 
-    slots.attribution.textContent = comment.attribution;
-    slots.time.textContent = 'just now';
+    slots.attribution.innerHTML = formatAttribution(comment.profile_id, comment.profile_name);
+    slots.time.textContent = formatRelativeTime(comment.created_at);
     slots.content.textContent = comment.content;
     slots.likeIcon.innerHTML = createLikeIcon(resolvedView.isLiked, '');
     slots.likeCount.textContent = String(resolvedView.likeCount);

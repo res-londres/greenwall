@@ -8,7 +8,7 @@ const comments = {
 };
 
 const commentsPagination = {
-    // { post_id: { oldestMineID, oldestOtherID, hasMoreMine, hasMoreOther, isInitialFetching } }
+    // { post_id: { oldestMineID, oldestOtherID, hasMoreMine, hasMoreOther, isInitialFetching, fetched } }
 };
 
 // ---------- INITIALIZATION ---------- //
@@ -20,7 +20,8 @@ export function initPagination(postID) {
             oldestOtherID: null,
             hasMoreMine: true,
             hasMoreOther: true,
-            isInitialFetching: false
+            isInitialFetching: false,
+            fetched: false
         };
     }
 }
@@ -31,7 +32,8 @@ export function getCommentsPagination(postID) {
         oldestOtherID: null,
         hasMoreMine: true,
         hasMoreOther: true,
-        isInitialFetching: false
+        isInitialFetching: false,
+        fetched: false
     }) };
 }
 
@@ -44,8 +46,7 @@ export function setInitialFetching(postID, isFetching) {
 
 export function hasCachedComments(postID) {
     if (!(postID in commentsPagination)) return false;
-    return commentsPagination[postID].oldestMineID !== null
-        || commentsPagination[postID].oldestOtherID !== null;
+    return commentsPagination[postID].fetched === true;
 }
 
 export function getCommentsList(postID) {
@@ -104,6 +105,7 @@ export function addInitialComments(postID, newComments, meta) {
     p.hasMoreMine = meta.hasMoreMine;
     p.hasMoreOther = meta.hasMoreOther;
     p.isInitialFetching = false;
+    p.fetched = true;
 
     bus.emit(events.COMMENTS_LOADED, { postID });
 }
@@ -135,6 +137,7 @@ export function addPaginatedComments(postID, newComments, meta) {
     const p = commentsPagination[postID];
     p.hasMoreMine = meta.hasMoreMine;
     p.hasMoreOther = meta.hasMoreOther;
+    p.fetched = true;
 
     bus.emit(events.COMMENTS_APPENDED, { postID, comments: newComments });
 }

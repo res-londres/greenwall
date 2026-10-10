@@ -8,24 +8,34 @@ let isFetchingOlder = false;
 let sentinelObserver = null;
 
 export function init() {
+    bus.on(events.POST_MODAL_OPENED, setupSentinelObserver);
     bus.on(events.COMMENTS_LOADED, scheduleSentinelCheck);
     bus.on(events.COMMENTS_APPENDED, scheduleSentinelCheck);
-    setupSentinelObserver();
 }
 
 function setupSentinelObserver() {
-    const sentinel = listDom.getSentinel(document.getElementById('post-modal-comment-list'));
-    if (!sentinel) return;
+    if (sentinelObserver) {
+        sentinelObserver.disconnect();
+        sentinelObserver = null;
+    }
 
-    sentinelObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                maybeFetchOlder();
-            }
-        });
-    }, { threshold: 0 });
+    requestAnimationFrame(function() {
+        const container = document.getElementById('post-modal-comment-list');
+        if (!container) return;
 
-    sentinelObserver.observe(sentinel);
+        const sentinel = listDom.getSentinel(container);
+        if (!sentinel) return;
+
+        sentinelObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    maybeFetchOlder();
+                }
+            });
+        }, { threshold: 0 });
+
+        sentinelObserver.observe(sentinel);
+    });
 }
 
 function scheduleSentinelCheck() {
@@ -103,3 +113,4 @@ async function fetchOlderComments(postID) {
         requestAnimationFrame(maybeFetchOlder);
     }
 }
+

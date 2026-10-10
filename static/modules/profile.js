@@ -69,7 +69,7 @@ function handleProfileEvents() {
                     break;
             }
         }
-        else {
+        else if (!textareaBio.contains(event.target)) {
             stopEditBio(textareaBio);
         }
     })

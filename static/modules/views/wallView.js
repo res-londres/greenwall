@@ -1,4 +1,3 @@
-import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isPostLiked } from '../managers/likeManager.js';
 import { createLikeIcon, formatAttribution, formatRelativeTime } from './shared.js';
 
@@ -33,7 +32,7 @@ export function createPostHTML(post, view = {}) {
     const resolvedView = {
         isLiked: view.isLiked ?? isPostLiked(post.post_id),
         likeCount: view.likeCount ?? post.likes,
-        commentCount: view.commentCount ?? getPostCommentsCount(post.post_id),
+        commentCount: view.commentCount ?? post.comment_count ?? 0,
     };
 
     root.id = post.post_id;

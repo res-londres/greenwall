@@ -9,6 +9,7 @@ def create_comment(post_id, profile_id, content):
             RETURNING comment_id, post_id, profile_id, content, created_at
         ''', (post_id, profile_id, content))
         comment = cur.fetchone()
+        comment['likes'] = 0
         comment['created_at'] = comment['created_at'].isoformat()
         return comment
 
@@ -22,6 +23,7 @@ def list_comments_mine(post_id, profile_id, before_id, limit):
                 c.profile_id,
                 c.content,
                 c.created_at,
+                (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.comment_id) AS likes,
                 CASE WHEN pr.deleted_at IS NULL THEN pr.profile_name ELSE NULL END AS profile_name
             FROM comments c
             LEFT JOIN profiles pr ON c.profile_id = pr.profile_id
@@ -47,6 +49,7 @@ def list_comments_other(post_id, profile_id, before_id, limit):
                 c.profile_id,
                 c.content,
                 c.created_at,
+                (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.comment_id) AS likes,
                 CASE WHEN pr.deleted_at IS NULL THEN pr.profile_name ELSE NULL END AS profile_name
             FROM comments c
             LEFT JOIN profiles pr ON c.profile_id = pr.profile_id

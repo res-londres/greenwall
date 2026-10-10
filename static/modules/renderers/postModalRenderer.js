@@ -3,6 +3,8 @@ import * as events from '../events.js';
 import * as postManager from '../managers/postManager.js';
 import * as commentManager from '../managers/commentManager.js';
 import * as listDom from '../views/listDom.js';
+import { isPostLiked } from '../managers/likeManager.js';
+import { createLikeIcon } from '../views/shared.js';
 import {
     createCommentHTML,
     createPostModalHTML,
@@ -11,12 +13,12 @@ import {
 } from '../views/postModalView.js';
 
 export function init() {
-    bus.on(events.POST_MODAL_OPENED, renderPostModal);
-    bus.on(events.POST_LIKED, renderPostModal);
-    bus.on(events.COMMENTS_LOADED, renderPostModal);
+    bus.on(events.POST_MODAL_OPENED, renderFullPostModal);
+    bus.on(events.POST_LIKED, renderPostModalLikeState);
+    bus.on(events.COMMENTS_LOADED, renderFullPostModal);
     bus.on(events.COMMENTS_APPENDED, renderPostComments);
     bus.on(events.COMMENT_LIKED, renderPostComments);
-    bus.on(events.COMMENT_CREATED, renderPostModal);
+    bus.on(events.COMMENT_CREATED, renderFullPostModal);
 }
 
 function renderPostComments() {
@@ -46,7 +48,7 @@ function renderPostComments() {
     listDom.refreshState(postModalCommentsList, meta.hasMoreMine || meta.hasMoreOther);
 }
 
-function renderPostModal() {
+function renderFullPostModal() {
     if (!postManager.isPostModalActive()) return;
     const postModalContent = document.getElementById('post-modal-content');
     const post = postManager.getCurrentPost();
@@ -57,4 +59,19 @@ function renderPostModal() {
 
     postModalContent.innerHTML = createPostModalHTML(post);
     renderPostComments();
+}
+
+function renderPostModalLikeState() {
+    if (!postManager.isPostModalActive()) return;
+    const post = postManager.getCurrentPost();
+    if (!post) return;
+
+    const likeButton = document.querySelector('#post-modal-content [data-action="likePost"]');
+    if (!likeButton) return;
+
+    const [iconContainer, likeCount] = likeButton.children;
+    if (!iconContainer || !likeCount) return;
+
+    iconContainer.innerHTML = createLikeIcon(isPostLiked(post.post_id));
+    likeCount.textContent = String(post.likes);
 }
