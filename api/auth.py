@@ -26,6 +26,10 @@ def signup():
     account_name = (data.get('account_name') or '').strip()
     profile_name = (data.get('profile_name') or '').strip()
     password = data.get('password') or ''
+    password_retype = data.get('password_retype') or ''
+
+    if password != password_retype:
+        return fail('Password mismatch')
 
     account_validation = validate_account_credentials(account_name, password)
     if account_validation is not None:

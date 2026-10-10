@@ -34,6 +34,7 @@ function handleAuthEvents() {
                     const signupSuccess = await signup(
                         inputAccountName.value,
                         inputPassword.value,
+                        inputPasswordRetype.value,
                         inputProfileName.value
                     );
                     if (signupSuccess) {
@@ -90,7 +91,7 @@ function handleAuthEvents() {
 
 // --------- REQUESTS -------- //
 
-async function signup(accountName, password, profileName) {
+async function signup(accountName, password, passwordRetype, profileName) {
     bus.emit(events.AUTH_PENDING);
     const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -100,6 +101,7 @@ async function signup(accountName, password, profileName) {
         body: JSON.stringify({
             account_name: accountName,
             password: password,
+            password_retype: passwordRetype,
             profile_name: profileName
         })
     });
