@@ -4,7 +4,7 @@ import { createLikeIcon, formatAttribution, formatRelativeTime } from './shared.
 
 export function createEmptyWallHTML() {
     return `
-        <div class="text-[0.95rem] py-8 text-center" data-role="wall-placeholder">
+        <div class="text-[0.95rem] py-8 text-center" data-role="list-placeholder">
             <div class>
                 <span class="text-2xl icon-[meteor-icons--leaf]"></span>
             </div>
@@ -15,7 +15,7 @@ export function createEmptyWallHTML() {
 
 export function createFetchingWallHTML() {
     return `
-        <div class="text-[0.95rem] py-8 text-center" data-role="wall-placeholder">
+        <div class="text-[0.95rem] py-8 text-center" data-role="list-placeholder">
             <div>
                 <span class="text-2xl icon-[svg-spinners--12-dots-scale-rotate]"></span>
             </div>

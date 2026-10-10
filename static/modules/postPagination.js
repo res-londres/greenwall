@@ -2,7 +2,7 @@ import * as bus from './eventBus.js';
 import * as events from './events.js';
 import * as postManager from './managers/postManager.js';
 import { getCurrentWall } from './managers/wallManager.js';
-import * as wallDom from './views/wallDom.js';
+import * as listDom from './views/listDom.js';
 
 let isFetchingOlder = false;
 let sentinelObserver = null;
@@ -30,7 +30,7 @@ function resetProfileWallPagination() {
 }
 
 function setupSentinelObserver() {
-    const sentinels = wallDom.getAllSentinels();
+    const sentinels = listDom.getAllSentinels();
     if (sentinels.length === 0) return;
 
     sentinelObserver = new IntersectionObserver((entries) => {
@@ -60,7 +60,7 @@ function maybeFetchOlder() {
     const meta = postManager.getWallMeta(wallID);
     if (!meta.hasMoreOlder) return;
 
-    const sentinel = wallDom.getSentinel(wall);
+    const sentinel = listDom.getSentinel(wall);
     if (!sentinel) return;
     if (!isSentinelInViewport(sentinel)) return;
 
@@ -87,7 +87,7 @@ async function fetchOlderPosts(wall) {
     if (beforeID === null && profileID === null) return;
 
     isFetchingOlder = true;
-    wallDom.setSentinelLoading(wall, true);
+    listDom.setSentinelLoading(wall, true);
 
     try {
         const payload = { limit: 30 };
@@ -125,7 +125,7 @@ async function fetchOlderPosts(wall) {
         postManager.addOlderPosts(posts, wallID);
     } finally {
         isFetchingOlder = false;
-        wallDom.setSentinelLoading(wall, false);
+        listDom.setSentinelLoading(wall, false);
         requestAnimationFrame(maybeFetchOlder);
     }
 }

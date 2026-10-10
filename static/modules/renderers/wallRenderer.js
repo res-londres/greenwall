@@ -4,8 +4,8 @@ import * as postManager from '../managers/postManager.js';
 import * as commentManager from '../managers/commentManager.js';
 import { isPostLiked } from '../managers/likeManager.js';
 import { getCurrentWall, getCurrentWallID } from '../managers/wallManager.js';
-import * as wallDom from '../views/wallDom.js';
-import { createPostHTML } from '../views/wallView.js';
+import * as listDom from '../views/listDom.js';
+import { createEmptyWallHTML, createFetchingWallHTML, createPostHTML } from '../views/wallView.js';
 
 export function init() {
     bus.on(events.NAV_CHANGED, renderPosts);
@@ -36,11 +36,11 @@ function renderGlobalPosts(wall) {
     const posts = postManager.getGlobalPostsList();
 
     if (posts.length === 0) {
-        wallDom.setPosts(wall, []);
-        wallDom.showPlaceholder(wall, postManager.isLoaded() ? 'empty' : 'fetching');
+        listDom.setItems(wall, []);
+        listDom.showPlaceholder(wall, postManager.isLoaded() ? createEmptyWallHTML() : createFetchingWallHTML());
     } else {
-        wallDom.clearPlaceholder(wall);
-        wallDom.setPosts(wall, posts.map(buildPostFragment));
+        listDom.clearPlaceholder(wall);
+        listDom.setItems(wall, posts.map(buildPostFragment));
     }
 
     refreshWall(wall);
@@ -50,11 +50,11 @@ function renderPostsByProfile(profileID, wall) {
     const posts = postManager.getPostsByProfileList(profileID);
 
     if (posts.length === 0) {
-        wallDom.setPosts(wall, []);
-        wallDom.showPlaceholder(wall, postManager.isLoaded() ? 'empty' : 'fetching');
+        listDom.setItems(wall, []);
+        listDom.showPlaceholder(wall, postManager.isLoaded() ? createEmptyWallHTML() : createFetchingWallHTML());
     } else {
-        wallDom.clearPlaceholder(wall);
-        wallDom.setPosts(wall, posts.map(buildPostFragment));
+        listDom.clearPlaceholder(wall);
+        listDom.setItems(wall, posts.map(buildPostFragment));
     }
 
     refreshWall(wall);
@@ -65,8 +65,8 @@ function renderOlderPosts({ posts, wallID }) {
     const wall = document.getElementById(wallID);
     if (!wall) return;
 
-    wallDom.clearPlaceholder(wall);
-    wallDom.appendPosts(wall, posts.map(buildPostFragment));
+    listDom.clearPlaceholder(wall);
+    listDom.appendItems(wall, posts.map(buildPostFragment));
     refreshWall(wall);
 }
 
@@ -75,14 +75,14 @@ function renderUpdateTargetPost(post) {
     const wall = getCurrentWall();
     if (!wall) return;
 
-    wallDom.replacePost(wall, post.post_id, buildPostFragment(post));
+    listDom.replaceItem(wall, post.post_id, buildPostFragment(post));
     refreshWall(wall);
 }
 
 function refreshWall(wall) {
     const wallID = wall.id;
     const meta = postManager.getWallMeta(wallID);
-    wallDom.refreshWallState(wall, meta.hasMoreOlder);
+    listDom.refreshState(wall, meta.hasMoreOlder);
 }
 
 function buildPostFragment(post) {
