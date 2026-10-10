@@ -3,6 +3,25 @@ import { getPostCommentsCount } from '../managers/commentManager.js';
 import { isCommentLiked, isPostLiked } from '../managers/likeManager.js';
 import { createLikeIcon, escapeHTML, formatAttribution, formatRelativeTime } from './shared.js';
 
+export function createEmptyCommentsHTML() {
+    return `
+        <div class="text-[0.9rem] py-4 text-center text-fg-muted" data-role="list-placeholder">
+            <p>No comments yet..</p>
+        </div>
+    `;
+}
+
+export function createFetchingCommentsHTML() {
+    return `
+        <div class="text-[0.9rem] py-4 text-center text-fg-muted" data-role="list-placeholder">
+            <div>
+                <span class="text-2xl icon-[svg-spinners--12-dots-scale-rotate]"></span>
+            </div>
+            <p>Fetching comments..</p>
+        </div>
+    `;
+}
+
 // Returns an HTML string. Uses innerHTML at the call site.
 // TODO: convert to a <template> clone like createCommentHTML.
 export function createPostModalHTML(post) {

@@ -3,7 +3,12 @@ import * as events from '../events.js';
 import * as postManager from '../managers/postManager.js';
 import * as commentManager from '../managers/commentManager.js';
 import * as listDom from '../views/listDom.js';
-import { createCommentHTML, createPostModalHTML } from '../views/postModalView.js';
+import {
+    createCommentHTML,
+    createPostModalHTML,
+    createEmptyCommentsHTML,
+    createFetchingCommentsHTML,
+} from '../views/postModalView.js';
 
 export function init() {
     bus.on(events.POST_MODAL_OPENED, renderPostModal);
@@ -21,15 +26,23 @@ function renderPostComments() {
 
     const postID = postManager.getCurrentPostID();
     const postComments = commentManager.getCommentsList(postID);
-    const fragments = postComments.map(function(comment) {
+    const meta = commentManager.getCommentsPagination(postID);
+
+    if (postComments.length === 0) {
+        listDom.setItems(postModalCommentsList, []);
+        listDom.showPlaceholder(postModalCommentsList, meta.isInitialFetching
+            ? createFetchingCommentsHTML()
+            : createEmptyCommentsHTML());
+        listDom.refreshState(postModalCommentsList, false);
+        return;
+    }
+
+    listDom.setItems(postModalCommentsList, postComments.map(function(comment) {
         return createCommentHTML(comment, postID, {
             isLiked: false,
             likeCount: 0,
         });
-    });
-
-    listDom.setItems(postModalCommentsList, fragments);
-    const meta = commentManager.getCommentsPagination(postID);
+    }));
     listDom.refreshState(postModalCommentsList, meta.hasMoreMine || meta.hasMoreOther);
 }
 
